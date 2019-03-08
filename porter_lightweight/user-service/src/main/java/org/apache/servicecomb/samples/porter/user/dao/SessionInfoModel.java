@@ -17,7 +17,7 @@
 
 package org.apache.servicecomb.samples.porter.user.dao;
 
-import samples.porter.user.api.SessionInfo;
+import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
 
 public class SessionInfoModel {
   private int id;

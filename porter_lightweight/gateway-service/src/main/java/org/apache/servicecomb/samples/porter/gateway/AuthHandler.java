@@ -23,6 +23,7 @@ import org.apache.servicecomb.core.Handler;
 import org.apache.servicecomb.core.Invocation;
 import org.apache.servicecomb.foundation.common.utils.JsonUtils;
 import org.apache.servicecomb.provider.springmvc.reference.async.CseAsyncRestTemplate;
+import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
 import org.apache.servicecomb.swagger.invocation.AsyncResponse;
 import org.apache.servicecomb.swagger.invocation.Response;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
@@ -33,13 +34,11 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-import samples.porter.user.api.SessionInfo;
-
 
 public class AuthHandler implements Handler {
   private CseAsyncRestTemplate restTemplate = new CseAsyncRestTemplate();
 
-  //服务端会话过期是10分钟，客户端缓存1分钟会话。
+  // session expires in 10 minutes, cache for 1 seconds to get rid of concurrent scenarios.
   private Cache<String, String> sessionCache = CacheBuilder.newBuilder()
       .expireAfterAccess(30, TimeUnit.SECONDS)
       .build();
@@ -49,7 +48,7 @@ public class AuthHandler implements Handler {
     if (invocation.getMicroserviceName().equals("user-service")
         && (invocation.getOperationName().equals("login")
             || (invocation.getOperationName().equals("getSession")))) {
-      // login： 直接返回认证结果。  开发者需要在JS里面设置cookie。 
+      // login：return session id, set cookie by javascript
       invocation.next(asyncResponse);
     } else {
       // check session
@@ -61,7 +60,7 @@ public class AuthHandler implements Handler {
       String sessionInfo = sessionCache.getIfPresent(sessionId);
       if (sessionInfo != null) {
         try {
-          // 将会话信息传递给后面的微服务。后面的微服务可以从context获取到会话信息，从而可以进行鉴权等。 
+          // session info stored in InvocationContext. Microservices can get it. 
           invocation.addContext("session-id", sessionId);
           invocation.addContext("session-info", sessionInfo);
           invocation.next(asyncResponse);
@@ -71,7 +70,7 @@ public class AuthHandler implements Handler {
         return;
       }
 
-      // 在网关执行的Hanlder逻辑，是reactive模式的，不能使用阻塞调用。
+      // In edge, handler is executed in reactively. Must have no blocking logic.
       ListenableFuture<ResponseEntity<SessionInfo>> sessionInfoFuture =
           restTemplate.getForEntity("cse://user-service/v1/user/session?sessionId=" + sessionId, SessionInfo.class);
       sessionInfoFuture.addCallback(
@@ -89,7 +88,7 @@ public class AuthHandler implements Handler {
                 return;
               }
               try {
-                // 将会话信息传递给后面的微服务。后面的微服务可以从context获取到会话信息，从而可以进行鉴权等。 
+                // session info stored in InvocationContext. Microservices can get it. 
                 invocation.addContext("session-id", sessionId);
                 String sessionInfoStr = JsonUtils.writeValueAsString(sessionInfo);
                 invocation.addContext("session-info", sessionInfoStr);

@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class FileServiceImpl implements samples.porter.file.api.FileService {
+public class FileServiceImpl implements org.apache.servicecomb.samples.porter.file.api.FileService {
     @Autowired
     private FileStoreService fileService;
 
