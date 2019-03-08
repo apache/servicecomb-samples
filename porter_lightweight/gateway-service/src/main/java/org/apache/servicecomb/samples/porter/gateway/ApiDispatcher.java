@@ -47,10 +47,10 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
     String path = "/" + pathParams.get("param1");
 
     EdgeInvocation invoker = new EdgeInvocation() {
-      // 认证鉴权：构造Invocation的时候，设置会话信息。如果是认证请求，则添加Cookie。
+      // Authentication
       protected void createInvocation() {
         super.createInvocation();
-        // 既从cookie里面读取会话ID，也从header里面读取，方便各种独立的测试工具联调
+        // get session id from header and cookie for debug reasons
         String sessionId = context.request().getHeader("session-id");
         if (sessionId != null) {
           this.invocation.addContext("session-id", sessionId);
