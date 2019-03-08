@@ -1,4 +1,4 @@
-This project shows how to using java-chassis and service-center to create a simple microservice application. It shows basic authentication and authorization, uploading files and delte files operations.
+This project shows how to using java-chassis and service-center to create a simple microservice application. It shows basic authentication and authorization, uploading files and delete files operations.
 
 ## build and run
 
@@ -24,9 +24,9 @@ java $JAVA_OPT -Ddb.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Dd
 java $JAVA_OPT -jar porter-file-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
 
-* run gateway-serivce:
+* run gateway-service:
 
-gateway-service contains static webpages in resources/ui. First copy to web root folder，e.g webapp, which is relative to working directory. 
+gateway-service contains static web pages in resources/ui. First copy to web root folder，e.g webapp, which is relative to working directory. 
 
 ```
 java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
@@ -35,7 +35,7 @@ java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSH
 ## Try it
 
 1. Using browser: http://localhost:9090/ui/login.html with user admin or guest to login, password is test.
-2. Choose a file to upload. Uploaded file is stored in file-service workding directory. And name is random number generated. 
+2. Choose a file to upload. Uploaded file is stored in file-service working directory. And name is random number generated. 
 3. Delete file. Input the random number generated in step 2. 
 
 
