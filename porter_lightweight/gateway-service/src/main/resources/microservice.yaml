@@ -42,12 +42,6 @@ servicecomb:
   uploads:
     directory: tmp_for_upload_gateway
 
-  accesslog:
-    enabled: true
-  metrics:
-    window_time: 30000
-    publisher.defaultLog.enabled: true
-
 servicecomb.http.dispatcher.edge.default.enabled: false
 servicecomb.http.dispatcher.rest.enabled: false
 gateway.webroot: /code/servicecomb-samples/porter_lightweight/gateway-service/src/main/resources

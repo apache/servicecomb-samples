@@ -27,7 +27,7 @@ service_description:
 servicecomb:
   service:
     registry:
-      address: http://localhost:30120
+      address: http://localhost:30100
       instance:
         watch: false
 
