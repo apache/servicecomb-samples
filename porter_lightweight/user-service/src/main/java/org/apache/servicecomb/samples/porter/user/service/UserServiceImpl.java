@@ -24,6 +24,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
+import org.apache.servicecomb.samples.porter.user.api.UserService;
 import org.apache.servicecomb.samples.porter.user.dao.SessionInfoModel;
 import org.apache.servicecomb.samples.porter.user.dao.SessionMapper;
 import org.apache.servicecomb.samples.porter.user.dao.UserInfo;
@@ -35,9 +37,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.netflix.config.DynamicPropertyFactory;
-
-import samples.porter.user.api.SessionInfo;
-import samples.porter.user.api.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

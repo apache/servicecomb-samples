@@ -36,7 +36,7 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb.samples.porter</groupId>
-      <artifactId>porter-common</artifactId>
+      <artifactId>user-service-api-endpoint</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <dependency>

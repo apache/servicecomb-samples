@@ -15,14 +15,36 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.user.dao;
+package org.apache.servicecomb.samples.porter.user.api;
 
-import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
+public class SessionInfo {
+  private String sessiondId;
 
-public interface SessionMapper {
-    void createSession(SessionInfo sessionInfo);
+  private String userName;
 
-    SessionInfoModel getSessioinInfo(String sessionId);
-    
-    void updateSessionInfo(String sessionId);
+  private String roleName;
+
+  public String getSessiondId() {
+    return sessiondId;
+  }
+
+  public void setSessiondId(String sessiondId) {
+    this.sessiondId = sessiondId;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getRoleName() {
+    return roleName;
+  }
+
+  public void setRoleName(String roleName) {
+    this.roleName = roleName;
+  }
 }

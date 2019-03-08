@@ -15,14 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.user.dao;
+package org.apache.servicecomb.samples.porter.user.api;
 
-import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
+public interface UserService {
+  public SessionInfo login(String userName,
+      String password);
 
-public interface SessionMapper {
-    void createSession(SessionInfo sessionInfo);
+  public SessionInfo getSession(String sessionId);
 
-    SessionInfoModel getSessioinInfo(String sessionId);
-    
-    void updateSessionInfo(String sessionId);
+  public String ping(String message);
 }

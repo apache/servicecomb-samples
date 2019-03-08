@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
@@ -14,36 +15,17 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.apache.servicecomb.samples.porter</groupId>
-    <artifactId>porter-application</artifactId>
+    <artifactId>file-service-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>porter-file-service</artifactId>
+  <artifactId>file-service-api-service</artifactId>
   <packaging>jar</packaging>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.servicecomb.samples.porter</groupId>
-      <artifactId>file-service-api-endpoint</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-  </dependencies>
-  <properties>
-    <main.class>org.apache.servicecomb.samples.porter.file.FileMain</main.class>
-  </properties>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 </project>

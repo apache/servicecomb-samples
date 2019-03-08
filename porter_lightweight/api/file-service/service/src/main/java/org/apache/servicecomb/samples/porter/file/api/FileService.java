@@ -15,14 +15,12 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.user.dao;
+package org.apache.servicecomb.samples.porter.file.api;
 
-import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
+import org.springframework.web.multipart.MultipartFile;
 
-public interface SessionMapper {
-    void createSession(SessionInfo sessionInfo);
+public interface FileService {
+  public String uploadFile(MultipartFile file);
 
-    SessionInfoModel getSessioinInfo(String sessionId);
-    
-    void updateSessionInfo(String sessionId);
+  public boolean deleteFile(String id);
 }

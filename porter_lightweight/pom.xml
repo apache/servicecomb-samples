@@ -65,7 +65,7 @@
   </dependencies>
 
   <modules>
-    <module>common</module>
+    <module>api</module>
     <module>file-service</module>
     <module>user-service</module>
     <module>gateway-service</module>
