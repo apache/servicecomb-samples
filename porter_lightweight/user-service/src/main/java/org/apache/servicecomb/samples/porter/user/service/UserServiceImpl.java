@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
   }
 
   private boolean validatePassword(String plain, String encrypt) {
-    // 简单加密校验，开发者可以结合业务场景自行修改
+    // simple password encryption, please change it in product environment if necessary. e.g. add salts for each encryption.
     try {
       MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
       messageDigest.update(plain.getBytes("UTF-8"));
