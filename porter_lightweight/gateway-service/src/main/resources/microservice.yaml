@@ -37,7 +37,7 @@ servicecomb:
   handler:
     chain:
       Consumer:
-        default: auth,qps-flowcontrol-consumer,loadbalance
+        default: internalAccess,auth,qps-flowcontrol-consumer,loadbalance
 
   uploads:
     directory: tmp_for_upload_gateway
