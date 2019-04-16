@@ -80,7 +80,7 @@ java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSH
 3. 删除文件：输入上一步的文件ID，点击删除。 如果是admin用户，上传成功；如果是guest用户，上传失败。
 
 # 接口使用说明
-ServiceComb推荐先定义接口，再定义实现的开发模式。将接口定义为一个独立项目，可以由设计者统一管控，对于接口的修改，需要设计者进行审核。先定义接口还可以让开发者培养良好的开发习惯，避免将对外接口采用内部实现数据结构（比如JsonObject）、运行平台有关的数据结构（比如HttpServletResponse）来定义，使得以后将项目改在为其他技术框架变得复杂。采用这种方式组织的项目，用户很容易在不同的开发框架上进行迁移，比如gRPC、Spring Cloud等。这里的接口定义代码，对于这些运行框架都是通用的，并且具备跨平台特性。
+ServiceComb推荐先定义接口，再定义实现的开发模式。将接口定义为一个独立项目，可以由设计者统一管控，对于接口的修改，需要设计者进行审核。先定义接口还可以让开发者培养良好的开发习惯，避免将对外接口采用内部实现数据结构（比如JsonObject）、运行平台有关的数据结构（比如HttpServletResponse、HttpServletRequest）来定义，使得以后将项目改造为其他技术框架变得复杂。采用这种方式组织的项目，用户很容易在不同的开发框架上进行迁移，比如gRPC、Spring Cloud等。这里的接口定义代码，对于这些运行框架都是通用的，并且具备跨平台特性。
 
 ## 对于接口实现者(provider)
   * 依赖api对应的jar包
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService
   </dependencies>
 ```
 
-  * 采用RCP方式调用
+  * 采用RPC方式调用
 ```
   @RpcReference(microserviceName = "user-service", schemaId = "user")
   private static UserService sserService
