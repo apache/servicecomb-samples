@@ -47,9 +47,9 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
     String path = "/" + pathParams.get("param1");
 
     EdgeInvocation invoker = new EdgeInvocation() {
-      // Authentication
-      protected void createInvocation() {
-        super.createInvocation();
+      // Authentication. Notice: adding context must after setContext or will override by network
+      protected void setContext() throws Exception {
+        super.setContext();
         // get session id from header and cookie for debug reasons
         String sessionId = context.request().getHeader("session-id");
         if (sessionId != null) {
