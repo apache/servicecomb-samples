@@ -30,6 +30,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>common</module>
     <module>file-service</module>
     <module>user-service</module>
   </modules>

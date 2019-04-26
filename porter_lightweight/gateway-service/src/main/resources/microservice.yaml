@@ -42,6 +42,19 @@ servicecomb:
   uploads:
     directory: tmp_for_upload_gateway
 
+  samples:
+    logdir: D:\code\servicecomb-samples\porter_lightweight\gateway-service
+    
+  inspector:
+    enabled: false
+
+  executors:
+   Provider:
+     log: servicecomb.samples.executor.groupThreadPool
+     inspector: servicecomb.samples.executor.groupThreadPool
+
 servicecomb.http.dispatcher.edge.default.enabled: false
+# StaticWebpageDispatcher checking file exists is async, and will mark request status to ended, and VertxRestDispatcher read 
+# body will print exception. 
 servicecomb.http.dispatcher.rest.enabled: false
 gateway.webroot: /code/servicecomb-samples/porter_lightweight/gateway-service/src/main/resources

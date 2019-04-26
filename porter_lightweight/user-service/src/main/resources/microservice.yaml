@@ -33,3 +33,14 @@ servicecomb:
 
   rest:
     address: 0.0.0.0:9093
+
+  samples:
+    logdir: D:\code\servicecomb-samples\porter_lightweight\user-service
+    
+  inspector:
+    enabled: false
+
+  executors:
+   Provider:
+     log: servicecomb.samples.executor.groupThreadPool
+     inspector: servicecomb.samples.executor.groupThreadPool

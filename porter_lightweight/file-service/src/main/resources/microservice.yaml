@@ -37,3 +37,14 @@ servicecomb:
 
   uploads:
     directory: tmp_for_upload_file
+
+  samples:
+    logdir: D:\code\servicecomb-samples\porter_lightweight\file-service
+    
+  inspector:
+    enabled: false
+
+  executors:
+   Provider:
+     log: servicecomb.samples.executor.groupThreadPool
+     inspector: servicecomb.samples.executor.groupThreadPool
