@@ -47,6 +47,11 @@
         <version>0.0.1-SNAPSHOT</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.servicecomb.authentication</groupId>
+        <artifactId>authentication-common-api-endpoint</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>
         <version>1.2.0</version>
@@ -74,6 +79,10 @@
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-jwt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb.authentication</groupId>
+      <artifactId>authentication-common-api-endpoint</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.servicecomb.authentication</groupId>

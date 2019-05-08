@@ -17,24 +17,80 @@
 
 package org.apache.servicecomb.authentication.api;
 
+import java.util.Map;
+import java.util.Set;
+
 public class Token {
-  private String accessToken;
+  // Naming conventions https://tools.ietf.org/html/draft-ietf-oauth-v2-http-mac-00#section-3.1
+  private String token_type;
 
-  private String refreshToken;
+  private String access_token;
 
-  public String getAccessToken() {
-    return accessToken;
+  private String refresh_token;
+
+  private int expires_in;
+
+  private Set<String> scope;
+
+  // JWT id
+  private String jti;
+
+  private Map<String, Object> additionalInformation;
+
+  public String getToken_type() {
+    return token_type;
   }
 
-  public void setAccessToken(String accessToken) {
-    this.accessToken = accessToken;
+  public void setToken_type(String token_type) {
+    this.token_type = token_type;
   }
 
-  public String getRefreshToken() {
-    return refreshToken;
+  public String getAccess_token() {
+    return access_token;
   }
 
-  public void setRefreshToken(String refreshToken) {
-    this.refreshToken = refreshToken;
+  public void setAccess_token(String access_token) {
+    this.access_token = access_token;
   }
+
+  public String getRefresh_token() {
+    return refresh_token;
+  }
+
+  public void setRefresh_token(String refresh_token) {
+    this.refresh_token = refresh_token;
+  }
+
+  public int getExpires_in() {
+    return expires_in;
+  }
+
+  public void setExpires_in(int expires_in) {
+    this.expires_in = expires_in;
+  }
+
+  public Set<String> getScope() {
+    return scope;
+  }
+
+  public void setScope(Set<String> scope) {
+    this.scope = scope;
+  }
+
+  public String getJti() {
+    return jti;
+  }
+
+  public void setJti(String jti) {
+    this.jti = jti;
+  }
+
+  public Map<String, Object> getAdditionalInformation() {
+    return additionalInformation;
+  }
+
+  public void setAdditionalInformation(Map<String, Object> additionalInformation) {
+    this.additionalInformation = additionalInformation;
+  }
+
 }
