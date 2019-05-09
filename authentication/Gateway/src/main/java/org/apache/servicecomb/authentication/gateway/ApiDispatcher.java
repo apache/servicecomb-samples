@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.gateway;
+package org.apache.servicecomb.authentication.gateway;
 
 import java.util.Map;
 

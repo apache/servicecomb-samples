@@ -15,10 +15,12 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.authentication.api;
+package org.apache.servicecomb.authentication.gateway;
 
+import org.apache.servicecomb.authentication.api.AuthenticationService;
+import org.apache.servicecomb.authentication.api.Token;
+import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestSchema(schemaId = "AuthenticationEndpoint")
 @RequestMapping(path = "/v1/auth")
 public class AuthenticationEndpoint {
-  @Autowired
+  @RpcReference(microserviceName = "authentication-server", schemaId = "AuthenticationEndpoint")
   private AuthenticationService authenticationService;
 
   @PostMapping(path = "login")

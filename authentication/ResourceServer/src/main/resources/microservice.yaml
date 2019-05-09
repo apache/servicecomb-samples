@@ -23,7 +23,8 @@ APPLICATION_ID: authentication-application
 service_description:
   version: 0.0.1
   name: resource-server
-
+  environment: development
+  
 servicecomb:
   service:
     registry:
@@ -33,3 +34,18 @@ servicecomb:
 
   rest:
     address: 0.0.0.0:9092
+
+  authencation:
+    access:
+      needAuth: true
+      roles:
+        HandlerAuthEndpoint:
+          adminSayHello: ADMIN
+          guestSayHello: GUEST
+          guestOrAdminSayHello: ADMIN,GUEST
+          # everyoneSayHello: all can
+
+  handler:
+    chain:
+      Provider:
+        default: qps-flowcontrol-provider,resource-auth-provider

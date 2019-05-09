@@ -17,7 +17,7 @@
 
 <config>
   <handler id="auth"
-    class="org.apache.servicecomb.samples.porter.gateway.AuthHandler" />
+    class="org.apache.servicecomb.authentication.gateway.AuthHandler" />
   <handler id="internalAccess"
-    class="org.apache.servicecomb.samples.porter.gateway.InternalAccessHandler" />
+    class="org.apache.servicecomb.authentication.gateway.InternalAccessHandler" />
 </config>

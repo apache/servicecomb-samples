@@ -15,23 +15,24 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.gateway;
+package org.apache.servicecomb.authentication.gateway;
 
-import org.apache.servicecomb.core.Handler;
-import org.apache.servicecomb.core.Invocation;
-import org.apache.servicecomb.swagger.invocation.AsyncResponse;
-import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import java.io.File;
 
-public class InternalAccessHandler implements Handler {
+import org.apache.servicecomb.foundation.ssl.SSLCustom;
 
-  @Override
-  public void handle(Invocation invocation, AsyncResponse asyncReponse) throws Exception {
-    if (invocation.getOperationMeta().getSwaggerOperation().getTags() != null
-        && invocation.getOperationMeta().getSwaggerOperation().getTags().contains("INTERNAL")) {
-      asyncReponse.consumerFail(new InvocationException(403, "", "not allowed"));
-      return;
+public class EdgeSSLCustom extends SSLCustom {
+
+    @Override
+    public char[] decode(char[] plain) {
+        return plain;
     }
-    invocation.next(asyncReponse);
-  }
+
+    @Override
+    public String getFullPath(String name) {
+        String fullName = System.getProperty("user.dir") + File.separator + name;
+        System.out.println(fullName);
+        return (new File(fullName)).getAbsolutePath();
+    }
 
 }

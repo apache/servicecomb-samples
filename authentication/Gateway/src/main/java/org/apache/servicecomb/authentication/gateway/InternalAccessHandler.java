@@ -15,12 +15,23 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.gateway;
+package org.apache.servicecomb.authentication.gateway;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.core.Handler;
+import org.apache.servicecomb.core.Invocation;
+import org.apache.servicecomb.swagger.invocation.AsyncResponse;
+import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 
-public class GatewayMain {
-    public static void main(String[] args) throws Exception {
-        BeanUtils.init();
+public class InternalAccessHandler implements Handler {
+
+  @Override
+  public void handle(Invocation invocation, AsyncResponse asyncReponse) throws Exception {
+    if (invocation.getOperationMeta().getSwaggerOperation().getTags() != null
+        && invocation.getOperationMeta().getSwaggerOperation().getTags().contains("INTERNAL")) {
+      asyncReponse.consumerFail(new InvocationException(403, "", "not allowed"));
+      return;
     }
+    invocation.next(asyncReponse);
+  }
+
 }

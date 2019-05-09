@@ -27,6 +27,16 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.apache.servicecomb.authentication</groupId>
+        <artifactId>authentication-common-api-endpoint</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb.authentication</groupId>
+        <artifactId>authentication-server-api-service</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
         <version>3.4.5</version>
@@ -52,6 +62,14 @@
   </dependencyManagement>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.servicecomb.authentication</groupId>
+      <artifactId>authentication-common-api-endpoint</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb.authentication</groupId>
+      <artifactId>authentication-server-api-service</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>solution-basic</artifactId>
