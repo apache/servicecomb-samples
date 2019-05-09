@@ -23,6 +23,7 @@ APPLICATION_ID: authentication-application
 service_description:
   version: 0.0.1
   name: gateway
+  environment: development
 
 servicecomb:
   service:
@@ -38,6 +39,8 @@ servicecomb:
     chain:
       Consumer:
         default: internalAccess,auth,qps-flowcontrol-consumer,loadbalance
+        service:
+          authentication-server: internalAccess,qps-flowcontrol-consumer,loadbalance
 
   uploads:
     directory: tmp_for_upload_gateway

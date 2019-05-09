@@ -23,6 +23,7 @@ APPLICATION_ID: authentication-application
 service_description:
   version: 0.0.1
   name: authentication-server
+  environment: development
 
 servicecomb:
   service:

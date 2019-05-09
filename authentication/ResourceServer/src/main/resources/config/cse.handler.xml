@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
@@ -16,12 +15,7 @@
   ~ limitations under the License.
   -->
 
-<!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
-    <mappers>
-        <mapper resource="config/UserMapper.xml"/>
-        <mapper resource="config/SessionMapper.xml"/>
-    </mappers>
-</configuration>
+<config>
+  <handler id="resource-auth-provider"
+    class="org.apache.servicecomb.authentication.resource.ResourceAuthHandler" />
+</config>

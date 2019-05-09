@@ -21,10 +21,10 @@ import org.apache.servicecomb.authentication.api.AuthenticationService;
 import org.apache.servicecomb.authentication.api.Token;
 import org.apache.servicecomb.authentication.jwt.JWTClaims;
 import org.apache.servicecomb.authentication.jwt.JsonParser;
-import org.apache.servicecomb.authentication.user.User;
-import org.apache.servicecomb.authentication.user.UserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
@@ -34,8 +34,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
   @Autowired
-  @Qualifier("authUserStore")
-  private UserStore userStore;
+  @Qualifier("authUserDetailsService")
+  private UserDetailsService userDetailsService;
 
   @Autowired
   @Qualifier("authPasswordEncoder")
@@ -47,17 +47,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
   @Override
   public Token login(String userName, String password) {
-    User user = userStore.loadUserByUsername(userName);
-    if (passwordEncoder.matches(password, user.getPassword())) {
+    UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+    if (passwordEncoder.matches(password, userDetails.getPassword())) {
       JWTClaims claims = new JWTClaims();
-      if (user.getRoles() != null) {
-        user.getRoles().forEach(role -> claims.addRole(role.getRoleName()));
+      if (userDetails.getAuthorities() != null) {
+        userDetails.getAuthorities().forEach(authority -> claims.addAuthority(authority.getAuthority()));
       }
-      claims.setScope("read");
       String content = JsonParser.unparse(claims);
       Jwt accessToken = JwtHelper.encode(content, signer);
 
       Token token = new Token();
+      token.setScope(claims.getScope());
       token.setExpires_in(10 * 60);
       token.setToken_type("bearer");
       token.setAccess_token(accessToken.getEncoded());

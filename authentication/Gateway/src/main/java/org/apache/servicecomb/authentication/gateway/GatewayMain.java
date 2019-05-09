@@ -15,24 +15,12 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.gateway;
+package org.apache.servicecomb.authentication.gateway;
 
-import java.io.File;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 
-import org.apache.servicecomb.foundation.ssl.SSLCustom;
-
-public class EdgeSSLCustom extends SSLCustom {
-
-    @Override
-    public char[] decode(char[] plain) {
-        return plain;
+public class GatewayMain {
+    public static void main(String[] args) throws Exception {
+        BeanUtils.init();
     }
-
-    @Override
-    public String getFullPath(String name) {
-        String fullName = System.getProperty("user.dir") + File.separator + name;
-        System.out.println(fullName);
-        return (new File(fullName)).getAbsolutePath();
-    }
-
 }

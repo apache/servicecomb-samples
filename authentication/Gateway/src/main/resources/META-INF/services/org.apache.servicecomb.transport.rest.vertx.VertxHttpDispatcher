@@ -15,6 +15,6 @@
 # limitations under the License.
 #
 
-org.apache.servicecomb.samples.porter.gateway.ApiDispatcher
-org.apache.servicecomb.samples.porter.gateway.StaticWebpageDispatcher
-org.apache.servicecomb.samples.porter.gateway.CustomVertxRestDispatcher
+org.apache.servicecomb.authentication.gateway.ApiDispatcher
+org.apache.servicecomb.authentication.gateway.StaticWebpageDispatcher
+org.apache.servicecomb.authentication.gateway.CustomVertxRestDispatcher

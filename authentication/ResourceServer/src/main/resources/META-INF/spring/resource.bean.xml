@@ -27,30 +27,4 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
   <bean id="servicecomb.samples.executor.groupThreadPool" class="org.apache.servicecomb.core.executor.GroupExecutor"
     init-method="init"/>
-    
-    <bean id="dataSource"
-        class="org.apache.commons.dbcp2.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName" value="${db.driverClassName:com.mysql.jdbc.Driver}" />
-        <property name="url"
-            value="${db.url:jdbc:mysql://localhost/porter_user_db}" />
-        <property name="username" value="${db.username:root}" />
-        <property name="password" value="${db.password:}" />
-    </bean>
-
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="configLocation" value="classpath:/config/mybatis-config.xml"></property>
-    </bean>
-
-    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface"
-            value="org.apache.servicecomb.samples.porter.user.dao.UserMapper" />
-        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
-    </bean>
-    <bean id="sessionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface"
-            value="org.apache.servicecomb.samples.porter.user.dao.SessionMapper" />
-        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
-    </bean>
 </beans>

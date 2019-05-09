@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.gateway;
+package org.apache.servicecomb.authentication.gateway;
 
 import org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher;
 import org.slf4j.Logger;

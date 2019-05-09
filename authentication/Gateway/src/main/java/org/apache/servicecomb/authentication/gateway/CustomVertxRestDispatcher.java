@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.gateway;
+package org.apache.servicecomb.authentication.gateway;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -44,7 +44,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CookieHandler;
 
-// copied from org.apache.servicecomb.transport.rest.vertx.VertxRestDispatcher
+// copied from org.apache.servicecomb.transport.rest.vertx.VertxRestDispatcher 1.2.0
 public class CustomVertxRestDispatcher extends AbstractVertxHttpDispatcher {
   private static final Logger LOGGER = LoggerFactory.getLogger(VertxRestDispatcher.class);
 
@@ -62,7 +62,7 @@ public class CustomVertxRestDispatcher extends AbstractVertxHttpDispatcher {
 
   @Override
   public void init(Router router) {
-    String regex = "[/v1/log/|/inspector|/v1/auth](.*)";
+    String regex = "(/v1/log|/inspector|/v1/auth)/(.*)";
     router.routeWithRegex(regex).handler(CookieHandler.create());
     router.routeWithRegex(regex).handler(createBodyHandler());
     router.routeWithRegex(regex).failureHandler(this::failureHandler).handler(this::onRequest);

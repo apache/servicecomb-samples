@@ -15,17 +15,34 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.porter.gateway;
+package org.apache.servicecomb.authentication.gateway;
 
+import org.apache.servicecomb.authentication.util.Constants;
 import org.apache.servicecomb.core.Handler;
 import org.apache.servicecomb.core.Invocation;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.swagger.invocation.AsyncResponse;
+import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import org.springframework.security.jwt.Jwt;
+import org.springframework.security.jwt.JwtHelper;
+import org.springframework.security.jwt.crypto.sign.InvalidSignatureException;
 
 
 public class AuthHandler implements Handler {
   @Override
   public void handle(Invocation invocation, AsyncResponse asyncResponse) throws Exception {
-    // TODO check session
+    String token = invocation.getContext(Constants.CONTEXT_HEADER_AUTHORIZATION);
+    if (token == null) {
+      asyncResponse.consumerFail(new InvocationException(403, "forbidden", "not authenticated"));
+      return;
+    }
+    Jwt jwt = JwtHelper.decode(token);
+    try {
+      jwt.verifySignature(BeanUtils.getBean("authSigner"));
+    } catch (InvalidSignatureException e) {
+      asyncResponse.consumerFail(new InvocationException(403, "forbidden", "not authenticated"));
+      return;
+    }
     invocation.next(asyncResponse);
   }
 }
