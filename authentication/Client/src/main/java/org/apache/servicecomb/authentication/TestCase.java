@@ -15,34 +15,8 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.authentication.api;
+package org.apache.servicecomb.authentication;
 
-/**
- * 
- * After successfully login, tokens are created. </br>
- * <B>Access Token:</B> used to access resources.</br>
- * <B>Refresh Token:</B> used to acquire new tokens.</br>
- *
- */
-public class Tokens {
-  private String accessToken;
-
-  private String refreshToken;
-
-  public String getAccessToken() {
-    return accessToken;
-  }
-
-  public void setAccessToken(String accessToken) {
-    this.accessToken = accessToken;
-  }
-
-  public String getRefreshToken() {
-    return refreshToken;
-  }
-
-  public void setRefreshToken(String refreshToken) {
-    this.refreshToken = refreshToken;
-  }
-
+public interface TestCase {
+  void run();
 }

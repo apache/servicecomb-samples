@@ -14,18 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.servicecomb.authentication;
 
-package org.apache.servicecomb.authentication.resource;
+import java.net.URI;
+import java.util.Map;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.jwt.crypto.sign.MacSigner;
-import org.springframework.security.jwt.crypto.sign.Signer;
+import org.springframework.web.util.DefaultUriTemplateHandler;
 
-@Configuration
-public class AuthenticationConfiguration {
-  @Bean(name = "authSigner")
-  public Signer authSigner() {
-    return new MacSigner("Please change this key.");
+public class ITUriTemplateHandler extends DefaultUriTemplateHandler {
+  private String urlPrefix;
+
+  public ITUriTemplateHandler(String urlPrefix) {
+    this.urlPrefix = urlPrefix;
+  }
+
+  @Override
+  protected URI expandInternal(String uriTemplate, Object... uriVariables) {
+    return super.expandInternal(changeUrl(uriTemplate), uriVariables);
+  }
+
+  @Override
+  protected URI expandInternal(String uriTemplate, Map<String, ?> uriVariables) {
+    return super.expandInternal(changeUrl(uriTemplate), uriVariables);
+  }
+
+  private String changeUrl(String uriTemplate) {
+    return urlPrefix + uriTemplate;
   }
 }

@@ -41,6 +41,7 @@ servicecomb:
         default: internalAccess,auth,qps-flowcontrol-consumer,loadbalance
         service:
           authentication-server: internalAccess,qps-flowcontrol-consumer,loadbalance
+          authentication-client: internalAccess,qps-flowcontrol-consumer,loadbalance
 
   uploads:
     directory: tmp_for_upload_gateway
