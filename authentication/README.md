@@ -1,3 +1,46 @@
+This project demonstrates authentications and authorizations based on JWT/OAuth2. Projct names follow OAuth2 architecture. 
+
+## Implementations
+
+This project uses spring security API and mainly designed for ServiceComb architecture.
+
+* User Management
+
+  1. UserDetailsService: load users information
+  2. UserDetails: User information
+  3. GrantedAuthority: authorities
+  4. PasswordEncoder: encode or verify user password
+
+## Project
+
+* AuthenticationServer
+
+Authentication server implementation. Provides APIs to login, and query roles, etc. 
+
+
+* Gateway
+
+Check if users are authenticated and dispatch HTTP request.
+
+* Client
+
+Demonstrates how client uses this project. Integration tests are provided. 
+
+
+* Api
+Reusable part. 
+
+* For testing
+
+Run AuthenticationServer、Gateway、Client、ResourceServer and call
+
+```
+http://localhost:9093/v1/test/start
+```
+
+see AuthenticationTestCase for details.
+
+
 本项目提供认证鉴权服务的实现，主要提供了基于角色的权限管理，和基于JWT的微服务授权模式。微服务的命名参考了OAuth2协议里面的命名方式。可以参考[OAuth2.0原理和验证流程分析](https://www.jianshu.com/p/d74ce6ca0c33)对于OAuth2认证过程的介绍，本项目的认证过程非常类似OAuth2的密码模式。
 
 项目的目标是提供一个商业可用的鉴权实现，对于项目代码实现的问题可以提交issue，本项目也接纳PR，共同完善。
