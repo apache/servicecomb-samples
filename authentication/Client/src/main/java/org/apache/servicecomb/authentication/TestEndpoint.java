@@ -15,32 +15,34 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.authentication.resource;
+package org.apache.servicecomb.authentication;
+
+import java.util.List;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestSchema(schemaId = "HandlerAuthEndpoint")
-@RequestMapping(path = "/v1/auth/handler")
-public class HandlerAuthEndpoint {
-  @PostMapping(path = "/adminSayHello")
-  public String adminSayHello(String name) {
-    return name;
-  }
-
-  @PostMapping(path = "/guestSayHello")
-  public String guestSayHello(String name) {
-    return name;
-  }
-
-  @PostMapping(path = "/guestOrAdminSayHello")
-  public String guestOrAdminSayHello(String name) {
-    return name;
-  }
-
-  @PostMapping(path = "/everyoneSayHello")
-  public String everyoneSayHello(String name) {
-    return name;
+@RestSchema(schemaId = "TestEndpoint")
+@RequestMapping(path = "/v1/test")
+public class TestEndpoint {
+  @Autowired
+  private List<TestCase> tests;
+  
+  @GetMapping(path = "/start")
+  public String start() {
+    tests.forEach(test -> test.run());
+    
+    List<Throwable> errors = TestMgr.errors();
+    if (errors.isEmpty()) {
+      return "success";
+    } else {
+      StringBuilder sb = new StringBuilder();
+      sb.append("Failed count : " + errors.size());
+      sb.append("\n");
+      errors.forEach(t -> sb.append(t.getMessage() + "\n"));
+      return sb.toString();
+    }
   }
 }

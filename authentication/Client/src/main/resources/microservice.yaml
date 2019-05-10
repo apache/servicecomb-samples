@@ -22,8 +22,9 @@ servicecomb-config-order: 100
 APPLICATION_ID: authentication-application
 service_description:
   version: 0.0.1
-  name: authentication-server
-
+  name: authentication-client
+  environment: development
+  
 servicecomb:
   service:
     registry:
@@ -32,4 +33,4 @@ servicecomb:
         watch: false
 
   rest:
-    address: 0.0.0.0:9092
+    address: 0.0.0.0:9093
