@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.authentication.resource;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,12 @@ import org.apache.servicecomb.core.Invocation;
 import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.swagger.invocation.AsyncResponse;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 
@@ -80,7 +87,14 @@ public class ResourceAuthHandler implements Handler {
     }
 
     // pre method authentiation
-    invocation.addLocalContext(Constants.CONTEXT_HEADER_CLAIMS, jwt.getClaims());
+    Set<GrantedAuthority> grantedAuthorities = new HashSet<>(claims.getAuthorities().size());
+    claims.getAuthorities().forEach(v -> grantedAuthorities.add(new SimpleGrantedAuthority(v)));
+    SecurityContext sc = new SecurityContextImpl();
+    Authentication authentication = new SimpleAuthentication(true, grantedAuthorities);
+    sc.setAuthentication(authentication);
+    SecurityContextHolder.setContext(sc);
+
+    // next
     invocation.next(asyncResponse);
   }
 

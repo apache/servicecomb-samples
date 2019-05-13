@@ -25,6 +25,8 @@ public class BootEventListener implements BootListener {
   public static GateRestTemplate authenticationServerAuthenticationEndpoint;
   public static GateRestTemplate gateEndpoint;
   public static GateRestTemplate resouceServerHandlerAuthEndpoint;
+  public static GateRestTemplate resouceServerMethodAuthEndpoint;
+  
   @Override
   public void onBootEvent(BootEvent event) {
     if (EventType.AFTER_REGISTRY.equals(event.getEventType())) {
@@ -34,6 +36,8 @@ public class BootEventListener implements BootListener {
           GateRestTemplate.createEdgeRestTemplate("gateway", null, null).init();
       resouceServerHandlerAuthEndpoint =
           GateRestTemplate.createEdgeRestTemplate("gateway", "resource-server", "HandlerAuthEndpoint").init();
+      resouceServerMethodAuthEndpoint =
+          GateRestTemplate.createEdgeRestTemplate("gateway", "resource-server", "PreMethodAuthEndpoint").init();
     }
 
   }

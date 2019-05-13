@@ -38,7 +38,7 @@ public class PreMethodAuthEndpoint {
   }
 
   @PostMapping(path = "/guestOrAdminSayHello")
-  @PreAuthorize("hasRole('USER,ADMIN')")
+  @PreAuthorize("hasAnyRole('USER','ADMIN')")
   public String guestOrAdminSayHello(String name) {
     return name;
   }

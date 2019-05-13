@@ -19,7 +19,7 @@ package org.apache.servicecomb.authentication;
 
 import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 
-public class Client {
+public class AuthenticationServerMain {
   public static void main(String[] args) {
     try {
       BeanUtils.init();
