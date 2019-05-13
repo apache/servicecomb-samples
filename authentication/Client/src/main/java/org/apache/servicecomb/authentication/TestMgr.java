@@ -19,6 +19,7 @@ package org.apache.servicecomb.authentication;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,8 @@ public class TestMgr {
   private static final List<Throwable> errorList = new ArrayList<>();
 
   private static String msg = "";
+
+  private static AtomicLong checksCount = new AtomicLong();
 
   public static void setMsg(String msg) {
     TestMgr.msg = msg;
@@ -44,6 +47,7 @@ public class TestMgr {
   }
 
   public static void check(Object expect, Object real, Throwable error) {
+    checksCount.incrementAndGet();
     if (expect == real) {
       return;
     }
@@ -88,6 +92,15 @@ public class TestMgr {
     for (Throwable e : errorList) {
       LOGGER.info("", e);
     }
+  }
+
+  public static void reset() {
+    errorList.clear();
+    checksCount.set(0);
+  }
+
+  public static String successMessage() {
+    return "Success. Checkes = " + checksCount.get();
   }
 
   public static List<Throwable> errors() {

@@ -15,16 +15,12 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.authentication;
+package org.apache.servicecomb.authentication.gateway;
 
 import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 
-public class ResourceServer {
-  public static void main(String[] args) {
-    try {
-      BeanUtils.init();
-    } catch (Exception e) {
-      e.printStackTrace();
+public class AuthenticationGatewayMain {
+    public static void main(String[] args) throws Exception {
+        BeanUtils.init();
     }
-  }
 }

@@ -30,6 +30,12 @@ import org.springframework.web.client.HttpClientErrorException;
 public class AuthenticationTestCase implements TestCase {
   @Override
   public void run() {
+    testHanlderAuth();
+    testMethodAuth();
+  }
+
+
+  private void testHanlderAuth() {
     // get token
     MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
     map.add("userName", "admin");
@@ -75,4 +81,50 @@ public class AuthenticationTestCase implements TestCase {
     TestMgr.check(null, name);
   }
 
+
+  private void testMethodAuth() {
+    // get token
+    MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+    map.add("userName", "admin");
+    map.add("password", "changeMyPassword");
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+    Token token =
+        BootEventListener.gateEndpoint.postForObject("/v1/auth/login",
+            new HttpEntity<>(map, headers),
+            Token.class);
+    TestMgr.check("bearer", token.getToken_type());
+    TestMgr.check(true, token.getAccess_token().length() > 10);
+
+    // get resources
+    headers = new HttpHeaders();
+    headers.add("Authorization", "Bearer " + token.getAccess_token());
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    String name;
+    name = BootEventListener.resouceServerMethodAuthEndpoint.postForObject("/everyoneSayHello?name=Hi",
+        new HttpEntity<>(headers),
+        String.class);
+    TestMgr.check("Hi", name);
+
+    name = BootEventListener.resouceServerMethodAuthEndpoint.postForObject("/adminSayHello?name=Hi",
+        new HttpEntity<>(headers),
+        String.class);
+    TestMgr.check("Hi", name);
+
+    name = BootEventListener.resouceServerMethodAuthEndpoint.postForObject("/guestOrAdminSayHello?name=Hi",
+        new HttpEntity<>(headers),
+        String.class);
+    TestMgr.check("Hi", name);
+
+    name = null;
+    try {
+      name = BootEventListener.resouceServerMethodAuthEndpoint.postForObject("/guestSayHello?name=Hi",
+          new HttpEntity<>(headers),
+          String.class);
+    } catch (HttpClientErrorException e) {
+      TestMgr.check(403, e.getStatusCode().value());
+    }
+    TestMgr.check(null, name);
+  }
 }

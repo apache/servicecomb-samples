@@ -29,19 +29,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TestEndpoint {
   @Autowired
   private List<TestCase> tests;
-  
+
   @GetMapping(path = "/start")
   public String start() {
     tests.forEach(test -> test.run());
-    
+
     List<Throwable> errors = TestMgr.errors();
-    if (errors.isEmpty()) {
-      return "success";
+    if (TestMgr.isSuccess()) {
+      return TestMgr.successMessage();
     } else {
+      TestMgr.summary();
+
       StringBuilder sb = new StringBuilder();
       sb.append("Failed count : " + errors.size());
       sb.append("\n");
       errors.forEach(t -> sb.append(t.getMessage() + "\n"));
+      
+      TestMgr.reset();
       return sb.toString();
     }
   }
