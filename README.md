@@ -1,5 +1,8 @@
 # ServiceComb samples
 
+## authentication
+A sample shows how to integrate with spring security. This project provides handler authorization and method authorization.
+
 ## porter_lightweight
 A sample shows an application with basic login, download file, delete file functions. 
 
@@ -8,6 +11,9 @@ A sample shows how to use dependency management to create spring 4, spring 5, sp
 
 
 # 使用ServiceComb开发微服务的示例项目
+
+## authentication
+该项目演示了基于spring security框架实现认证鉴权。项目演示了如何通过配置的方式定义每个接口的权限，也演示了如何通过@PreAuthorize的方式实现权限控制。
 
 ## porter_lightweight
 该项目演示了一个包括网关、文件下载、认证鉴权等功能的简单应用系统，同时演示了ServiceComb推荐的先写接口声明，再写业务代码的软件工程实践。
