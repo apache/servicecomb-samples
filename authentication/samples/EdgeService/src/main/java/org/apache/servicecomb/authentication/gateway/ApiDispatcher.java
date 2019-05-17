@@ -27,6 +27,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CookieHandler;
 
+//TODO: using 1.2.2+ to make it simpler
 public class ApiDispatcher extends AbstractEdgeDispatcher {
   @Override
   public int getOrder() {

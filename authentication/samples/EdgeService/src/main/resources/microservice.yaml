@@ -22,7 +22,7 @@ servicecomb-config-order: 100
 APPLICATION_ID: authentication-application
 service_description:
   version: 0.0.1
-  name: gateway
+  name: edge-service
   environment: development
 
 servicecomb:

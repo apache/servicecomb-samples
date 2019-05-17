@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BootEventListener implements BootListener {
-  public static GateRestTemplate authenticationServerAuthenticationEndpoint;
+  public static GateRestTemplate authenticationServerTokenEndpoint;
   public static GateRestTemplate gateEndpoint;
   public static GateRestTemplate resouceServerHandlerAuthEndpoint;
   public static GateRestTemplate resouceServerMethodAuthEndpoint;
@@ -30,14 +30,14 @@ public class BootEventListener implements BootListener {
   @Override
   public void onBootEvent(BootEvent event) {
     if (EventType.AFTER_REGISTRY.equals(event.getEventType())) {
-      authenticationServerAuthenticationEndpoint =
-          GateRestTemplate.createEdgeRestTemplate("gateway", "authentication-server", "AuthenticationEndpoint").init();
+      authenticationServerTokenEndpoint =
+          GateRestTemplate.createEdgeRestTemplate("edge-service", "authentication-server", "TokenEndpoint").init();
       gateEndpoint =
-          GateRestTemplate.createEdgeRestTemplate("gateway", null, null).init();
+          GateRestTemplate.createEdgeRestTemplate("edge-service", null, null).init();
       resouceServerHandlerAuthEndpoint =
-          GateRestTemplate.createEdgeRestTemplate("gateway", "resource-server", "HandlerAuthEndpoint").init();
+          GateRestTemplate.createEdgeRestTemplate("edge-service", "resource-server", "HandlerAuthEndpoint").init();
       resouceServerMethodAuthEndpoint =
-          GateRestTemplate.createEdgeRestTemplate("gateway", "resource-server", "PreMethodAuthEndpoint").init();
+          GateRestTemplate.createEdgeRestTemplate("edge-service", "resource-server", "PreMethodAuthEndpoint").init();
     }
 
   }
