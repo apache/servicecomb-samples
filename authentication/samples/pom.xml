@@ -21,7 +21,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.apache.servicecomb.authentication</groupId>
-  <artifactId>authentication-api</artifactId>
+  <artifactId>authentication-samples</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -30,10 +30,10 @@
   </properties>
 
   <modules>
-    <module>common</module>
-    <module>authentication-server</module>
-    <module>resource-server</module>
-    <module>edge-service</module>
+    <module>AuthenticationServer</module>
+    <module>ResourceServer</module>
+    <module>EdgeService</module>
+    <module>Client</module>
   </modules>
 
   <dependencyManagement>
