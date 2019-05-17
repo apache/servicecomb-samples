@@ -17,7 +17,7 @@
 
 package org.apache.servicecomb.authentication;
 
-import org.apache.servicecomb.authentication.api.Token;
+import org.apache.servicecomb.authentication.server.Token;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -38,13 +38,14 @@ public class AuthenticationTestCase implements TestCase {
   private void testHanlderAuth() {
     // get token
     MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-    map.add("userName", "admin");
+    map.add("grant_type", "password");
+    map.add("username", "admin");
     map.add("password", "changeMyPassword");
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
     Token token =
-        BootEventListener.gateEndpoint.postForObject("/v1/auth/login",
+        BootEventListener.authenticationServerTokenEndpoint.postForObject("/",
             new HttpEntity<>(map, headers),
             Token.class);
     TestMgr.check("bearer", token.getToken_type());
@@ -85,13 +86,14 @@ public class AuthenticationTestCase implements TestCase {
   private void testMethodAuth() {
     // get token
     MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-    map.add("userName", "admin");
+    map.add("grant_type", "password");
+    map.add("username", "admin");
     map.add("password", "changeMyPassword");
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
     Token token =
-        BootEventListener.gateEndpoint.postForObject("/v1/auth/login",
+        BootEventListener.authenticationServerTokenEndpoint.postForObject("/",
             new HttpEntity<>(map, headers),
             Token.class);
     TestMgr.check("bearer", token.getToken_type());

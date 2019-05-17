@@ -45,6 +45,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CookieHandler;
 
 // copied from org.apache.servicecomb.transport.rest.vertx.VertxRestDispatcher 1.2.0
+// TODO: using 1.2.2+ to make it simpler
 public class CustomVertxRestDispatcher extends AbstractVertxHttpDispatcher {
   private static final Logger LOGGER = LoggerFactory.getLogger(VertxRestDispatcher.class);
 

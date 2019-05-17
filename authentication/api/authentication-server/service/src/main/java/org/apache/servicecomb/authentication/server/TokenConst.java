@@ -15,21 +15,14 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.authentication.api;
+package org.apache.servicecomb.authentication.server;
 
-public interface AuthenticationService {
-  /**
-   * login using user name and password.
-   * @param userName user name
-   * @param password password
-   * @return After successfully login, token is created. Or null is returned. 
-   */
-  Token login(String userName, String password);
+public class TokenConst {
+  public static final String PARAM_GRANT_TYPE = "grant_type";
 
-  /**
-   * acquired new token using refresh token.
-   * @param refreshToken refresh token
-   * @return After successfully authenticated, token is created. Or null is returned. 
-   */
-  Token refresh(String refreshToken);
+  public static final String PARAM_USERNAME = "username";
+
+  public static final String PARAM_PASSWORD = "password";
+  
+  public static final String GRANT_TYPE_PASSWORD = "password";
 }

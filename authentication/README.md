@@ -87,4 +87,6 @@ http://localhost:9093/v1/test/start
 
 测试项目同时展示了这个项目的功能，比如： AuthenticationTestCase 的测试逻辑展示了基本的认证功能，从登陆，到接口的权限检查。 
 
-
+# TODO LIST
+1. provide TLS for authentication server & edge service
+2. grant scope for INTERNAL access & EXTERNAL access 

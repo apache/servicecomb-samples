@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.authentication.api;
+package org.apache.servicecomb.authentication.server;
 
 import java.util.Map;
 import java.util.Set;
