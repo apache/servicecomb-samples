@@ -17,10 +17,13 @@
 
 package org.apache.servicecomb.authentication;
 
+import org.apache.servicecomb.authentication.jwt.JWTClaims;
+import org.apache.servicecomb.authentication.jwt.JsonParser;
 import org.apache.servicecomb.authentication.server.Token;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -80,6 +83,56 @@ public class AuthenticationTestCase implements TestCase {
       TestMgr.check(403, e.getStatusCode().value());
     }
     TestMgr.check(null, name);
+    
+    // refresh token
+    // get token
+    map = new LinkedMultiValueMap<>();
+    map.add("grant_type", "refresh_token");
+    map.add("refresh_token", token.getRefresh_token());
+    map.add("access_token", token.getAccess_token());
+    headers = new HttpHeaders();
+    headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+    Token tokenNew =
+        BootEventListener.authenticationServerTokenEndpoint.postForObject("/",
+            new HttpEntity<>(map, headers),
+            Token.class);
+    TestMgr.check(token.getToken_type(), tokenNew.getToken_type());
+   
+    JWTClaims claims = JsonParser.parse(JwtHelper.decode(token.getAccess_token()).getClaims(), JWTClaims.class);
+    JWTClaims newClaims = JsonParser.parse(JwtHelper.decode(tokenNew.getAccess_token()).getClaims(), JWTClaims.class);
+    TestMgr.check(claims.getJti(), newClaims.getJti());
+    TestMgr.check(claims.getIat() < newClaims.getIat(), true);
+
+    // get resources
+    headers = new HttpHeaders();
+    headers.add("Authorization", "Bearer " + tokenNew.getAccess_token());
+    headers.setContentType(MediaType.APPLICATION_JSON);
+
+    name = BootEventListener.resouceServerHandlerAuthEndpoint.postForObject("/everyoneSayHello?name=Hi",
+        new HttpEntity<>(headers),
+        String.class);
+    TestMgr.check("Hi", name);
+
+    name = BootEventListener.resouceServerHandlerAuthEndpoint.postForObject("/adminSayHello?name=Hi",
+        new HttpEntity<>(headers),
+        String.class);
+    TestMgr.check("Hi", name);
+
+    name = BootEventListener.resouceServerHandlerAuthEndpoint.postForObject("/guestOrAdminSayHello?name=Hi",
+        new HttpEntity<>(headers),
+        String.class);
+    TestMgr.check("Hi", name);
+
+    name = null;
+    try {
+      name = BootEventListener.resouceServerHandlerAuthEndpoint.postForObject("/guestSayHello?name=Hi",
+          new HttpEntity<>(headers),
+          String.class);
+    } catch (HttpClientErrorException e) {
+      TestMgr.check(403, e.getStatusCode().value());
+    }
+    TestMgr.check(null, name);
   }
 
 
@@ -98,6 +151,7 @@ public class AuthenticationTestCase implements TestCase {
             Token.class);
     TestMgr.check("bearer", token.getToken_type());
     TestMgr.check(true, token.getAccess_token().length() > 10);
+    TestMgr.check(true, token.getRefresh_token().length() > 10);
 
     // get resources
     headers = new HttpHeaders();

@@ -90,3 +90,21 @@ http://localhost:9093/v1/test/start
 # TODO LIST
 1. provide TLS for authentication server & edge service
 2. grant scope for INTERNAL access & EXTERNAL access 
+3. access token support: a. use access token to get optional scope or roles token. 这个可以解决角色过多的时候， token过大的一些问题
+4. 实现注销逻辑（会话管理）
+5. 支持分层的角色机制
+
+       ROLE_LEVEL1
+        /       \
+   ROLE_LEVEL2  ROLE_LEVEL2
+
+ TOKEN里面只返回ROLE_LEVEL1，设置为ROLE_LEVEL2访问的操作，也可以访问。
+
+6. REFRESH_TOKEN可以用来实现申请不同SCOPE的TOKEN。 
+7. 设计目标：无状态。认证服务器和资源服务器均可以多实例部署，每个实例之间不共享状态。在实现很多功能的时候，都遵循这个约束。包括通过refresh token获取新的access token的时候。遵循这个约束，意味着请求需要同时传递refresh token和access token。 
+8， 重新设计TOKEN（代码重构、支持会话管理），支持OpenID Connect。
+
+OAUTH的不好的地方：TOKEN在有效期内，容易被利用，无法注销；TOKEN过期后，必须重新认证，和用户是否在一直操作无关，体验不好，虽然可以通过refresh_token获取新的token提升体验，但是refresh_token有效期如果设置的太长，会降低安全性。Token在有效期内，如果修改了权限等信息，无法及时感知，需要重新登录。
+OAUTH的好的地方：TOKEN签发、认证都可以由微服务实例独自完成，不需要共用的数据存储，比如数据库、Redis等，效率更高，弹性扩容。
+
+
