@@ -31,6 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.jwt.crypto.sign.MacSigner;
 import org.springframework.security.jwt.crypto.sign.Signer;
+import org.springframework.security.jwt.crypto.sign.SignerVerifier;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
@@ -46,6 +47,11 @@ public class AuthenticationConfiguration {
 
   @Bean(name = "authSigner")
   public Signer authSigner() {
+    return authSignerVerifier();
+  }
+  
+  @Bean(name = "authSignerVerifier")
+  public SignerVerifier authSignerVerifier() {
     return new MacSigner("Please change this key.");
   }
 

@@ -23,6 +23,12 @@ public class TokenConst {
   public static final String PARAM_USERNAME = "username";
 
   public static final String PARAM_PASSWORD = "password";
-  
+
+  public static final String PARAM_REFRESH_TOKEN = "refresh_token";
+
+  public static final String PARAM_ACCESS_TOKEN = "access_token";
+
   public static final String GRANT_TYPE_PASSWORD = "password";
+  
+  public static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 }

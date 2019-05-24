@@ -15,17 +15,26 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.authentication.gateway;
+package org.apache.servicecomb.authentication.server;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.jwt.crypto.sign.MacSigner;
-import org.springframework.security.jwt.crypto.sign.SignerVerifier;
+import java.util.Map;
 
-@Configuration
-public class AuthenticationConfiguration {
-  @Bean(name = "authSignerVerifier")
-  public SignerVerifier authSignerVerifier() {
-    return new MacSigner("Please change this key.");
+/**
+ * Token granter is used to grant access tokens. 
+ * @author Administrator
+ *
+ */
+public interface TokenGranter {
+  boolean enabled();
+
+  String grantType();
+
+  default Token grant(String grantType, Map<String, String> parameters) {
+    if (grantType().equals(grantType)) {
+      return grant(parameters);
+    }
+    return null;
   }
+
+  Token grant(Map<String, String> parameters);
 }
