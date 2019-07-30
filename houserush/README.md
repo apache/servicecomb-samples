@@ -9,7 +9,7 @@ Real estate developers use this system to make a deal with their customer online
 1. Setup the requirements
    - setup git, see [git install overview](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git)
    - setup JDK 1.8, see [JDK install overview](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
-   - setup Maven 3.x, 详情可参考[Maven install guide](https://maven.apache.org/install.html)
+   - setup Maven 3.x, see [Maven install guide](https://maven.apache.org/install.html)
 2. Setup and run the service center
    - setup Docker, see [Docker setup guide](https://www.docker.com/get-started)。
    - input in the terminal <code>$ docker run -d -p 30100:30100 servicecomb/service-center:latest</code>run service-center at port 30100
@@ -17,4 +17,4 @@ Real estate developers use this system to make a deal with their customer online
 
 4. check & change the src/main/resources/microservice.yaml and src/main/resources/application.yaml configuration file.
 
-5. run each microservice process by mvn spring-boot:run. 
+5. run each microservice process <code>by mvn spring-boot:run. </code>
