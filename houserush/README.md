@@ -17,4 +17,4 @@ Real estate developers use this system to make a deal with their customer online
 
 4. check & change the src/main/resources/microservice.yaml and src/main/resources/application.yaml configuration file.
 
-5. run each microservice process by mvn spring-boot:run. 
+5. run each microservice process <code>by mvn spring-boot:run. </code>
