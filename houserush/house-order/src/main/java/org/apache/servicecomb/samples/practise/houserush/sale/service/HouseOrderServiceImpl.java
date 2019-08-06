@@ -84,7 +84,6 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
     if (null != houseOrder) {
       if (null == houseOrder.getCustomerId()) {
-        Customer customer = customerManageApi.findCustomer(customerId);
         int qualificationsCount = customerManageApi.getQualificationsCount(customerId, sale.getId());
 
         int ordersCount = houseOrderDao.countByCustomerIdAndSaleId(customerId, sale.getId());
@@ -99,10 +98,10 @@ public class HouseOrderServiceImpl implements HouseOrderService {
         houseOrderDao.save(houseOrder);
         return houseOrder;
       } else {
-        throw new InvocationException(400, "", "该住宅已被其他人选购，请选择其他房产。");
+        throw new InvocationException(400, "", "this house have been occupied first by other customer, please choose another house or try it later.");
       }
     } else {
-      throw new InvocationException(400, "", "选择的房产不在此次抢购活动中");
+      throw new InvocationException(400, "", "this house which you chose does not belong to the current sale.");
     }
   }
 
