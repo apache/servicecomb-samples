@@ -17,27 +17,18 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.JWTVerifier;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.*;
-import java.util.Base64;
-import java.util.Calendar;
 import java.util.Date;
 
 @Data
 public class User {
-  private final static String USER_SECRET = "231sdfqwer21313123cafkhioerutieweirqwuqbjffbqwrwr3";
-  private final static String HASH_TYPE = "HmacSHA256";
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
@@ -64,41 +55,4 @@ public class User {
   @Transient
   private String token;
 
-  public String makeHashedPassword(String password) {
-    try {
-      String data = username + password;
-      SecretKey secretKey = new SecretKeySpec(USER_SECRET.getBytes(), HASH_TYPE);
-      Mac mac = Mac.getInstance(HASH_TYPE);
-      mac.init(secretKey);
-      byte[] bytes = mac.doFinal(data.getBytes());
-      return new String(Base64.getEncoder().encode(bytes));
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public String generateToken() {
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.MINUTE, 30);
-    Algorithm algorithm = Algorithm.HMAC256(USER_SECRET);
-    token = JWT.create().withSubject(String.valueOf(id)).withExpiresAt(calendar.getTime()).sign(algorithm);
-    return token;
-  }
-
-  private static Algorithm algorithm = null;
-  private static JWTVerifier verifier = null;
-
-  {
-    algorithm = Algorithm.HMAC256(USER_SECRET);
-    verifier = JWT.require(algorithm)
-        .build();
-  }
-
-  public static int verifyTokenGetUserId(String token) {
-    String sub = verifier.verify(token).getSubject();
-    if (StringUtils.isNotBlank(sub)) {
-      return Integer.parseInt(sub);
-    }
-    throw new RuntimeException("verify the token fails");
-  }
 }
