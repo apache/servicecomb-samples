@@ -29,14 +29,14 @@ import java.util.TimeZone;
 @EnableServiceComb
 public class UserCenterApplication {
 
-    public static void main(String[] args) {
-        configBeforeBoot();
-        SpringApplication.run(UserCenterApplication.class, args);
-    }
+  public static void main(String[] args) {
+    configBeforeBoot();
+    SpringApplication.run(UserCenterApplication.class, args);
+  }
 
-    private static void configBeforeBoot() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-        RestObjectMapperFactory.getRestObjectMapper().setDateFormat(simpleDateFormat);
-    }
+  private static void configBeforeBoot() {
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+    RestObjectMapperFactory.getRestObjectMapper().setDateFormat(simpleDateFormat);
+  }
 }
