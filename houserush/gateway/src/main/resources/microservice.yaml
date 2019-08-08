@@ -1,0 +1,66 @@
+#
+## ---------------------------------------------------------------------------
+## Licensed to the Apache Software Foundation (ASF) under one or more
+## contributor license agreements.  See the NOTICE file distributed with
+## this work for additional information regarding copyright ownership.
+## The ASF licenses this file to You under the Apache License, Version 2.0
+## (the "License"); you may not use this file except in compliance with
+## the License.  You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+## ---------------------------------------------------------------------------
+
+# all interconnected microservices must belong to an application wth the same ID
+APPLICATION_ID: houserush
+service_description:
+  # name of the declaring microservice
+  name: gateway
+  version: 0.0.4
+servicecomb:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+
+gateway:
+  loginUrls:
+    - POST /realestate/realestates
+    - GET /realestate/realestates/{id}
+    - PUT /realestate/realestates/{id}
+    - DELETE /realestate/realestates/{id}
+    - GET /realestate/realestates
+    - POST /realestate/{id}/buildings
+    - GET /realestate/buildings/{id}
+    - PUT /realestate/buildings/{id}
+    - DELETE /realestate/buildings/{id}
+    - GET /realestate/realestates/{id}/buildings
+    - POST /realestate/buildings/{buildingId}/houses
+    - GET /realestate/houses/{id}
+    - PUT /realestate/houses/{id}
+    - DELETE /realestate/houses/{id}
+    - GET /realestate/buildings/{id}/houses
+    - PUT /realestate/houses/lock_houses_for_sale
+    - POST /customer-manage/customers
+    - GET /customer-manage/customers/{id}
+    - PUT /customer-manage/customers/{id}
+    - DELETE /customer-manage/customers/{id}
+    - GET /customer-manage/customers
+    - PUT /customer-manage/customers/{id}/update_qualifications
+    - POST /house-order/sales/{id}/house_orders
+    - PUT /house-order/house_orders/{id}
+    - POST /house-order/sales
+    - GET /house-order/sales/{id}
+    - PUT /house-order/sales/{id}
+    - DELETE /house-order/sales/{id}
+    - GET /house-order/sales
+
+
+  noLoginUrls:
+    - POST /login/users
+    - PUT /login/signin
+
