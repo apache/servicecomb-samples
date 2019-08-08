@@ -1,18 +1,17 @@
 ## 微服务 gateway
 
-该为微服务为API网关，作为对外的唯一入口，主要负责路由转发和鉴权。
+HouseRush应用网关，作为前端与后端通信的统一入口，为房源管理、订单中心等微服务提供路由和认证鉴权的功能
 
 ### 主要功能
 
 - API入口
 - 动态路由
 - 鉴权
-- 。。。
 
 ### 设计原理
 - 使用[zuul](https://github.com/Netflix/zuul/wiki)来设计实现API网关功能
-
-![API gateway工作流程](https://raw.githubusercontent.com/linzb0123/images/master/servicecomb-samples-houserush/gateway1.png)
+- [使用zuul做边缘服务](https://docs.servicecomb.io/java-chassis/zh_CN/edge/zuul.html)
+![API gateway工作流程](../doc/images/ApiGateway.png)
 
 ### 实现
 
@@ -50,4 +49,3 @@
         
     }
     ```
-    [使用zuul做边缘服务](https://docs.servicecomb.io/java-chassis/zh_CN/edge/zuul.html)

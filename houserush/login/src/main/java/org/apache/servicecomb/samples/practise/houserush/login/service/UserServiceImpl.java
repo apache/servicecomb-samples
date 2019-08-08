@@ -17,6 +17,8 @@
 
 package org.apache.servicecomb.samples.practise.houserush.login.service;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import org.apache.http.HttpStatus;
 import org.apache.servicecomb.samples.practise.houserush.login.aggregate.User;
 import org.apache.servicecomb.samples.practise.houserush.login.dao.UserDao;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
   public User createUser(User user) {
     if (userDao.findByUsername(user.getUsername()) != null) {
-      throw new InvocationException(400, "", "用户名已存在");
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "user already exists");
     }
     String hashedPassword = user.makeHashedPassword(user.getPassword());
     user.setHashedPassword(hashedPassword);
@@ -71,7 +73,14 @@ public class UserServiceImpl implements UserService {
   }
 
   public User verifyToken(String token) {
-    int userId = User.verifyTokenGetUserId(token);
+    int userId;
+    try {
+      userId = User.verifyTokenGetUserId(token);
+    } catch (TokenExpiredException e) {
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "token has expired");
+    } catch (Exception e) {
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "decode token fail");
+    }
     User user = userDao.findOne(userId);
     user.generateToken();
     return user;
@@ -81,10 +90,10 @@ public class UserServiceImpl implements UserService {
   public boolean updatePassword(int id, String oldPassword, String newPassword) {
     User user = userDao.findOne(id);
     if (user == null) {
-      throw new InvocationException(400, "", "user not existed");
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "user not existed");
     }
     if (!user.getHashedPassword().equals(user.makeHashedPassword(oldPassword))) {
-      throw new InvocationException(400, "", "The password is incorrect");
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "The password is incorrect");
     }
     user.setHashedPassword(user.makeHashedPassword(newPassword));
     userDao.save(user);

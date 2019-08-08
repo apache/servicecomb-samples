@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpStatus;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.samples.practise.houserush.gateway.config.LoginUrlConfig;
 import org.apache.servicecomb.samples.practise.houserush.gateway.rpc.UserApi;
@@ -35,8 +36,6 @@ import java.io.IOException;
 
 @Component
 public class AuthorizeFilter extends ZuulFilter {
-
-  private static final String SECRET = "231sdfqwer21313123cafkhioerutieweirqwuqbjffbqwrwr3";
 
   private static LoginUrlConfig loginUrlConfig = new LoginUrlConfig();
   private static Logger log = LoggerFactory.getLogger(AuthorizeFilter.class);
@@ -81,28 +80,26 @@ public class AuthorizeFilter extends ZuulFilter {
           return null;
         }
       }
-      sendResponse(403, "need login!");
+      sendResponse(HttpStatus.SC_FORBIDDEN, "need login!");
     } else if (loginUrlConfig.nologinUrlsSet.contains(key)) {
       if ("/login/signin".equals(requestUri)) {
         try {
           ObjectMapper mapper = new ObjectMapper();
           User user = mapper.readValue(request.getInputStream(), User.class);
-          String username = user.getUsername();
-          String password = user.getPassword();
           User resultUser = userApi.signin(user);
           if (resultUser != null && resultUser.getToken() != null) {
-            sendResponse(200, "{\"token\": \"" + resultUser.getToken() + "\"}");
+            sendResponse(HttpStatus.SC_OK, "{\"token\": \"" + resultUser.getToken() + "\"}");
           } else {
-            sendResponse(401, "cannot sign in!");
+            sendResponse(HttpStatus.SC_UNAUTHORIZED, "cannot sign in!");
           }
         } catch (IOException e) {
           e.printStackTrace();
-          sendResponse(401, e.getMessage());
+          sendResponse(HttpStatus.SC_UNAUTHORIZED, e.getMessage());
         }
       }
       return null;
     } else {
-      sendResponse(401, "the request url is not validate");
+      sendResponse(HttpStatus.SC_UNAUTHORIZED, "the request url is not validate");
     }
     return null;
 

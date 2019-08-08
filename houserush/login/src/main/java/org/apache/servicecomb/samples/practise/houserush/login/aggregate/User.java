@@ -45,6 +45,7 @@ import java.util.Date;
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener.class)
 public class User {
+  // this is secret key,you can changed it to what you want
   private final static String USER_SECRET = "231sdfqwer21313123cafkhioerutieweirqwuqbjffbqwrwr3";
   private final static String HASH_TYPE = "HmacSHA256";
   @Id

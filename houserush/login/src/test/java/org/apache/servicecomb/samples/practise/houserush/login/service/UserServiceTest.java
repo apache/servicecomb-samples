@@ -68,9 +68,9 @@ public class UserServiceTest {
     newUser2.setPassword("123456");
     try {
       userService.createUser(newUser2);
-      assert false;
+      fail("expect to occur an InvocationException but not");
     } catch (InvocationException e) {
-      assert true;
+      assertEquals("InvocationException: code=400;msg=user already exists", e.getMessage());
     }
 
   }
@@ -86,16 +86,16 @@ public class UserServiceTest {
     //user not existed
     try {
       userService.updatePassword(10, "123456", "123456789");
-      assert true;
-    } catch (Exception e) {
-      assert true;
+      fail("expect to occur an InvocationException but not");
+    } catch (InvocationException e) {
+      assertEquals("InvocationException: code=400;msg=user not existed", e.getMessage());
     }
     //password is incorrect
     try {
       userService.updatePassword(10, "12345", "123456789");
-      assert true;
-    } catch (Exception e) {
-      assert true;
+      fail("expect to occur an InvocationException but not");
+    } catch (InvocationException e) {
+      assertEquals("InvocationException: code=400;msg=The password is incorrect", e.getMessage());
     }
     boolean success = userService.updatePassword(10, "123456", "123456789");
     assertTrue(success);
@@ -123,12 +123,19 @@ public class UserServiceTest {
     String token = user.getToken();
     user = userService.verifyToken(token);
     assertThat(user.getId(), is(10));
-    //verify fail
+    //token expired
     try {
-      user = userService.verifyToken("incorrect token");
-      assert false;
+      user = userService.verifyToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3NSIsImV4cCI6MTU2NTE2MzU4MH0.y1vz0mus91c9fje6GHzyzWQxlUA3h8eCg7za_kiATdg");
+      fail("expect to occur an InvocationException but not");
     } catch (Exception e) {
-      assert true;
+      assertEquals("InvocationException: code=400;msg=token has expired", e.getMessage());
+    }
+    //invalid token expired
+    try {
+      user = userService.verifyToken("invalid token");
+      fail("expect to occur an InvocationException but not");
+    } catch (Exception e) {
+      assertEquals("InvocationException: code=400;msg=decode token fail", e.getMessage());
     }
     //login fail password incorrect
     User user2 = new User();
