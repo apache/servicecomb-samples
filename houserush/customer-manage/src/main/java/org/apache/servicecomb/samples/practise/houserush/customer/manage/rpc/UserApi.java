@@ -17,7 +17,7 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc;
 
-import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.User;
+import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.po.User;
 
 public interface UserApi {
   User createUser(User user);
