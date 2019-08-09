@@ -42,6 +42,11 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
     return houseOrderService.placeHouseOrder(customerId, houseOrderId);
   }
 
+  @PutMapping("house_orders/{houseOrderId}/cancel")
+  public HouseOrder cancelHouseOrder(@RequestHeader int customerId, @PathVariable int houseOrderId) {
+    return houseOrderService.cancelHouseOrder(customerId, houseOrderId);
+  }
+
   @Override
   @PostMapping("sales")
   public Sale createSale(@RequestBody Sale sale) {

@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -82,7 +83,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     HouseOrder houseOrder = houseOrderDao.findOneForUpdate(houseOrderId);
     Sale sale = houseOrder.getSale();
 
-    if (null != houseOrder) {
+    if (null != sale && "opening".equals(sale.getState())) {
       if (null == houseOrder.getCustomerId()) {
         int qualificationsCount = customerManageApi.getQualificationsCount(customerId, sale.getId());
 
@@ -95,10 +96,32 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
         houseOrder.setCustomerId(customerId);
         houseOrder.setState("confirmed");
+        houseOrder.setOrderedAt(new Date());
         houseOrderDao.save(houseOrder);
         return houseOrder;
       } else {
         throw new InvocationException(400, "", "this house have been occupied first by other customer, please choose another house or try it later.");
+      }
+    } else {
+      throw new InvocationException(400, "", "this house which you chose does not belong to the current sale.");
+    }
+  }
+
+  @Override
+  @Transactional
+  public HouseOrder cancelHouseOrder(int customerId, int houseOrderId) {
+    HouseOrder houseOrder = houseOrderDao.findOneForUpdate(houseOrderId);
+    Sale sale = houseOrder.getSale();
+
+    if (null != sale && "opening".equals(sale.getState())) {
+      if (customerId == houseOrder.getCustomerId()) {
+        houseOrder.setCustomerId(null);
+        houseOrder.setState("new");
+        houseOrder.setOrderedAt(null);
+        houseOrderDao.save(houseOrder);
+        return houseOrder;
+      } else {
+        throw new InvocationException(400, "", "cannot unoccupied the house which have not been occupied first by current customer first!");
       }
     } else {
       throw new InvocationException(400, "", "this house which you chose does not belong to the current sale.");

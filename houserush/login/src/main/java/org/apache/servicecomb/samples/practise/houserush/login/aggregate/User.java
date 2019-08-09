@@ -93,7 +93,7 @@ public class User {
 
   public String generateToken() {
     Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.MINUTE, 30);
+    calendar.add(Calendar.MINUTE, 240);
     Algorithm algorithm = Algorithm.HMAC256(USER_SECRET);
     token = JWT.create().withSubject(String.valueOf(id)).withExpiresAt(calendar.getTime()).sign(algorithm);
     return token;

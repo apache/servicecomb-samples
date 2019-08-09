@@ -21,11 +21,11 @@ APPLICATION_ID: houserush
 service_description:
 # name of the declaring microservice
   name: customer-manage
-  version: 0.0.20
+  version: 0.0.21
 servicecomb:
   service:
     registry:
-      address: http://192.168.229.134:30100
+      address: http://127.0.0.1:30100
   rest:
     address: 0.0.0.0:7779
   handler:
@@ -34,10 +34,10 @@ servicecomb:
         default: bizkeeper-provider
 spring:
   datasource:
-    url: jdbc:mysql://172.17.0.128:3306/customer?characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/customer?characterEncoding=utf8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: 123456
+    password: root
   jpa:
     properties:
       hibernate:

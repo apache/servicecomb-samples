@@ -49,7 +49,6 @@ public class Sale {
   @Temporal(TemporalType.TIMESTAMP)
   private Date endAt;
 
-  @JsonIgnore
   @OneToMany(mappedBy = "sale")
   private List<HouseOrder> houseOrders = new ArrayList<>();
 
@@ -68,4 +67,18 @@ public class Sale {
   @LastModifiedDate
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
+
+  public String getState() {
+    if ("published".equals(state)) {
+      Date now = new Date();
+      if (now.getTime() < beginAt.getTime()) {
+        return "published";
+      } else if (now.getTime() >= beginAt.getTime() && now.getTime() <= endAt.getTime()) {
+        return "opening";
+      } else {
+        return "finished";
+      }
+    }
+    return state;
+  }
 }

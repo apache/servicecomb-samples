@@ -27,6 +27,9 @@ public interface HouseOrderService {
 
   HouseOrder placeHouseOrder(int customerId, int houseOrderId);
 
+  HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
+
+
   Sale createSale(Sale sale);
 
   Sale findSale(int saleId);
