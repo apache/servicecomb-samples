@@ -21,12 +21,14 @@ import org.apache.servicecomb.common.rest.codec.RestObjectMapperFactory;
 import org.apache.servicecomb.springboot.starter.provider.EnableServiceComb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 @SpringBootApplication
 @EnableServiceComb
+@EnableJpaAuditing
 public class RealestateApplication {
 
   public static void main(String[] args) {

@@ -23,6 +23,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -33,6 +34,7 @@ import java.util.Date;
 @Table(name = "houses")
 @SQLDelete(sql = "update houses set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
+@EntityListeners(AuditingEntityListener.class)
 public class House {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
