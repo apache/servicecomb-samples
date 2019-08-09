@@ -62,7 +62,7 @@ public class RealestateApiRestImpl implements RealestateApi {
   }
 
   @PostMapping("realestates/{realestateId}/buildings")
-  public Building createBuilding(@PathVariable("realestateId") int realestateId, Building building) {
+  public Building createBuilding(@PathVariable("realestateId") int realestateId, @RequestBody Building building) {
     return realestateService.createBuilding(realestateId, building);
   }
 
@@ -88,7 +88,7 @@ public class RealestateApiRestImpl implements RealestateApi {
   }
 
   @PostMapping("buildings/{buildingId}/houses")
-  public House createHouse(@PathVariable("buildingId") int buildingId, House house) {
+  public House createHouse(@PathVariable("buildingId") int buildingId, @RequestBody House house) {
     return realestateService.createHouse(buildingId, house);
   }
 
@@ -98,7 +98,7 @@ public class RealestateApiRestImpl implements RealestateApi {
   }
 
   @PutMapping("houses/{id}")
-  public House updateHouse(@PathVariable("id") int id, House house) {
+  public House updateHouse(@PathVariable("id") int id, @RequestBody House house) {
     house.setId(id);
     return realestateService.updateHouse(house);
   }
