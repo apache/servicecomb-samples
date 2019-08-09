@@ -19,6 +19,7 @@ package org.apache.servicecomb.samples.practise.houserush.realestate.service;
 
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Building;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.House;
+import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.HouseType;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Realestate;
 
 import java.util.List;
@@ -55,5 +56,15 @@ public interface RealestateService {
   List<House> indexHouses(Integer buildingId);
 
   List<House> lockHousesForSale(List<Integer> houseIds);
+
+  HouseType createHouseType(HouseType houseType);
+
+  void removeHouseType(Integer id);
+
+  HouseType updateHouseType(HouseType houseType);
+
+  HouseType findHouseType(Integer id);
+
+  List<HouseType> indexHouseTypes();
 
 }

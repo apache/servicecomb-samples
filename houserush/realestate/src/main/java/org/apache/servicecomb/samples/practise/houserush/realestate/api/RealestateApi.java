@@ -17,139 +17,58 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.api;
 
-import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Building;
-import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.House;
-import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Realestate;
+import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface RealestateApi {
-  /**
-   * 新增楼盘
-   *
-   * @param realestate 楼盘信息
-   * @return Realestate 添加成功后的楼盘信息
-   */
   Realestate createRealestate(Realestate realestate);
 
-  /**
-   * 查询楼盘
-   *
-   * @param id 楼盘id
-   * @return Realestate 楼盘信息
-   */
   Realestate findRealestate(int id);
 
-  /**
-   * 修改楼盘信息
-   *
-   * @param id         楼盘id
-   * @param realestate 楼盘信息
-   * @return Realestate 修改成功后的楼盘信息
-   */
   Realestate updateRealestate(int id, Realestate realestate);
 
-  /**
-   * 删除楼盘
-   *
-   * @param id 楼盘id
-   */
   void removeRealestate(int id);
 
-  /**
-   * 查询所有楼盘
-   *
-   * @return List<Realestate> 所有楼盘列表
-   */
   List<Realestate> indexRealestates();
 
-  /**
-   * 新增建筑楼
-   *
-   * @param realestateId 楼盘id
-   * @param building     建筑楼信息
-   * @return Building 添加成功后的建筑楼信息
-   */
   Building createBuilding(int realestateId, Building building);
 
-  /**
-   * 查询建筑楼
-   *
-   * @param id 建筑楼id
-   * @return Building 建筑楼信息
-   */
   Building findBuilding(int id);
 
-  /**
-   * 更改建筑楼信息
-   *
-   * @param id       建筑楼id
-   * @param building 建筑楼信息
-   * @return Building 更改成功后的建筑楼信息
-   */
   Building updateBuilding(int id, Building building);
 
-  /**
-   * 删除建筑楼
-   *
-   * @param id 建筑楼id
-   */
   void removeBuilding(int id);
 
-  /**
-   * 查询某一楼盘下的所有建筑楼
-   *
-   * @param realestateId 楼盘id
-   * @return List<Building> 建筑楼列表
-   */
   List<Building> indexBuildings(int realestateId);
 
-  /**
-   * 新增房源信息
-   *
-   * @param buidingId 建筑楼id
-   * @param house     房源信息
-   * @return House 添加成功后的房源信息
-   */
   House createHouse(int buidingId, House house);
 
-  /**
-   * 查询房源信息
-   *
-   * @param id 房源id
-   * @return House 房源信息
-   */
   House findHouse(int id);
 
-  /**
-   * 更改房源信息
-   *
-   * @param id    房源id
-   * @param house 房源信息
-   * @return House 更改成功后的房源信息
-   */
   House updateHouse(int id, House house);
 
-  /**
-   * 删除房源信息
-   *
-   * @param id 房源id
-   */
   void removeHouse(int id);
 
-  /**
-   * 查询某一建筑楼下的所有房源
-   *
-   * @param buildingId 建筑楼id
-   * @return List<House> 所有房源列表
-   */
   List<House> indexHouses(int buildingId);
 
-  /**
-   * 锁定已售房源
-   *
-   * @param ids 已售房源id列表
-   * @return List<House> 锁定的房源列表
-   */
   List<House> lockHousesForSale(List<Integer> ids);
+
+  HouseType createHouseType(HouseType houseType);
+
+  void removeHouseType(int id);
+
+  HouseType updateHouseType(int id, HouseType houseType);
+
+  HouseType findHouseType(int id);
+
+  List<HouseType> indexHouseTypes();
+
+  HouseTypeImage createHouseTypeImage(MultipartFile file);
+
+  void removeHouseTypeImage(int id);
+
+  byte[] findHouseTypeImage(int id);
+
 }

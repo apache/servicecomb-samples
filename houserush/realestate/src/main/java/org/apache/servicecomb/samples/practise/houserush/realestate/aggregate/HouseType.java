@@ -25,27 +25,22 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name = "realestates")
-@SQLDelete(sql = "update realestates set deleted_at = now() where id = ?")
+@Table(name = "housetype")
+@SQLDelete(sql = "update housetype set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener.class)
-public class Realestate {
+public class HouseType {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
-  @OneToMany(mappedBy = "realestate")
-  private List<Building> buildings = new ArrayList<>();
-
   private String name;
 
-  private String description;
+  private int imageId;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date deletedAt;

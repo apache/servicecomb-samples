@@ -19,9 +19,11 @@ package org.apache.servicecomb.samples.practise.houserush.realestate.service;
 
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Building;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.House;
+import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.HouseType;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Realestate;
 import org.apache.servicecomb.samples.practise.houserush.realestate.dao.BuildingDao;
 import org.apache.servicecomb.samples.practise.houserush.realestate.dao.HouseDao;
+import org.apache.servicecomb.samples.practise.houserush.realestate.dao.HouseTypeDao;
 import org.apache.servicecomb.samples.practise.houserush.realestate.dao.RealestateDao;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,9 @@ public class RealestateServiceImpl implements RealestateService {
 
   @Autowired
   private HouseDao houseDao;
+
+  @Autowired
+  private HouseTypeDao houseTypeDao;
 
   @Override
   public Realestate createRealesate(Realestate realestate) {
@@ -77,8 +82,7 @@ public class RealestateServiceImpl implements RealestateService {
   public Building createBuilding(Integer realestateId, Building building) {
     Realestate realestate = realestateDao.findOne(realestateId);
     if (null == realestate) {
-      throw new DataRetrievalFailureException("cannot create buildings for" +
-          " the not-existed realestate");
+      throw new DataRetrievalFailureException("cannot create buildings for the not-existed realestate");
     } else {
       building.setRealestate(realestate);
       return buildingDao.save(building);
@@ -165,5 +169,35 @@ public class RealestateServiceImpl implements RealestateService {
     });
     houseDao.updateLockingStatesForHouses(houseIds);
     return houses;
+  }
+
+  @Override
+  public HouseType createHouseType(HouseType houseType) {
+    return houseTypeDao.save(houseType);
+  }
+
+  @Override
+  public void removeHouseType(Integer id) {
+    houseTypeDao.delete(id);
+  }
+
+  @Override
+  public HouseType updateHouseType(HouseType houseType) {
+    int id = houseType.getId();
+    if(houseTypeDao.exists(id)){
+      return houseTypeDao.save(houseType);
+    }else {
+      throw new DataRetrievalFailureException("cannot update the non-existed house type.");
+    }
+  }
+
+  @Override
+  public HouseType findHouseType(Integer id) {
+    return houseTypeDao.findOne(id);
+  }
+
+  @Override
+  public List<HouseType> indexHouseTypes() {
+    return houseTypeDao.findAll();
   }
 }
