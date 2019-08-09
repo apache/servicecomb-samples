@@ -70,7 +70,7 @@ public class AuthorizeFilter extends ZuulFilter {
     requestUri = requestUri.replaceAll("\\d+", "{id}");
 
     String key = method + " " + requestUri;
-    if (loginUrlConfig.loginUrlsSet.contains(key)) {
+    if (loginUrlConfig.getNeedLoginUrlsSet().contains(key)) {
       String token = request.getHeader("Authorization");
       if (token != null && StringUtils.isNotBlank(token)) {
         User user = userApi.verifyToken(token);
@@ -81,7 +81,7 @@ public class AuthorizeFilter extends ZuulFilter {
         }
       }
       sendResponse(HttpStatus.SC_FORBIDDEN, "need login!");
-    } else if (loginUrlConfig.nologinUrlsSet.contains(key)) {
+    } else if (loginUrlConfig.getNoNeedLoginUrlsSet().contains(key)) {
       if ("/login/signin".equals(requestUri)) {
         try {
           ObjectMapper mapper = new ObjectMapper();

@@ -25,28 +25,28 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class LoginUrlConfig {
-  private DynamicStringProperty loginUrls = DynamicPropertyFactory.getInstance()
-      .getStringProperty("gateway.loginUrls", "");
+  private DynamicStringProperty needLoginUrls = DynamicPropertyFactory.getInstance()
+      .getStringProperty("gateway.needLoginUrls", "");
 
-  private DynamicStringProperty nologinUrls = DynamicPropertyFactory.getInstance()
-      .getStringProperty("gateway.noLoginUrls", "");
+  private DynamicStringProperty noNeedLoginUrls = DynamicPropertyFactory.getInstance()
+      .getStringProperty("gateway.noNeedLoginUrls", "");
 
-  private Set<String> loginUrlsSet = new HashSet<>(Arrays.asList(loginUrls.get().split(",")));
+  private Set<String> needLoginUrlsSet = new HashSet<>(Arrays.asList(needLoginUrls.get().split(",")));
 
-  private Set<String> nologinUrlsSet = new HashSet<>(Arrays.asList(nologinUrls.get().split(",")));
+  private Set<String> noNeedLoginUrlsSet = new HashSet<>(Arrays.asList(noNeedLoginUrls.get().split(",")));
 
   public LoginUrlConfig() {
     // add a callback when this property is changed
-    loginUrls.addCallback(() -> loginUrlsSet = new HashSet<>(Arrays.asList(loginUrls.get().split(","))));
-    nologinUrls.addCallback(() -> nologinUrlsSet = new HashSet<>(Arrays.asList(nologinUrls.get().split(","))));
+    needLoginUrls.addCallback(() -> needLoginUrlsSet = new HashSet<>(Arrays.asList(needLoginUrls.get().split(","))));
+    noNeedLoginUrls.addCallback(() -> noNeedLoginUrlsSet = new HashSet<>(Arrays.asList(noNeedLoginUrls.get().split(","))));
 
   }
 
-  public Set<String> getLoginUrlsSet() {
-    return loginUrlsSet;
+  public Set<String> getNeedLoginUrlsSet() {
+    return needLoginUrlsSet;
   }
 
-  public Set<String> getNologinUrlsSet() {
-    return nologinUrlsSet;
+  public Set<String> getNoNeedLoginUrlsSet() {
+    return noNeedLoginUrlsSet;
   }
 }
