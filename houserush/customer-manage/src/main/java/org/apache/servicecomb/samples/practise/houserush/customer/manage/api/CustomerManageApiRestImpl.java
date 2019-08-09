@@ -19,8 +19,8 @@ package org.apache.servicecomb.samples.practise.houserush.customer.manage.api;
 
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
-import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.User;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.UserApi;
+import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.po.User;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.service.CustomerManageService;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Customer;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Qualification;
