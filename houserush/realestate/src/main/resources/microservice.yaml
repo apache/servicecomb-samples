@@ -21,7 +21,7 @@ APPLICATION_ID: houserush
 service_description:
   # name of the declaring microservice
   name: realestate
-  version: 0.0.11
+  version: 0.0.12
 servicecomb:
   service:
     registry:
@@ -32,7 +32,14 @@ servicecomb:
     chain:
       Provider:
         default: bizkeeper-provider
+  uploads:
+    directory: /tmp
+
 spring:
+  servlet:
+    multipart:
+      max-request-size: 10M
+      max-file-size: 1M
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/realestate?characterEncoding=utf8&useSSL=false
     username: root
