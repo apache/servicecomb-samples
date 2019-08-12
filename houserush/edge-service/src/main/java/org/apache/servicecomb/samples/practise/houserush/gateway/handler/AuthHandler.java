@@ -58,7 +58,7 @@ public class AuthHandler implements Handler {
     String microsoerviceName = invocation.getMicroserviceName();
     String path = invocation.getOperationMeta().getOperationPath();
     String requestKey = method + " /" + microsoerviceName + path;
-    if (loginUrlConfig.getLoginUrlsSet().contains(requestKey)) {
+    if (loginUrlConfig.getNeedLoginUrlsSet().contains(requestKey)) {
       if (token == null) {
         asyncResp.consumerFail(new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "need authenticated"));
         return;
@@ -78,7 +78,7 @@ public class AuthHandler implements Handler {
         }
       });
 
-    } else if (loginUrlConfig.getNologinUrlsSet().contains(requestKey)) {
+    } else if (loginUrlConfig.getNoNeedLoginUrlsSet().contains(requestKey)) {
       if ("PUT /login/users/signin".equals(requestKey)) {
         ObjectMapper mapper = new ObjectMapper();
         User user = mapper.readValue(invocation.getRequestEx().getBodyBytes(), User.class);

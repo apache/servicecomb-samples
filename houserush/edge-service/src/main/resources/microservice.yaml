@@ -39,8 +39,7 @@ servicecomb:
     chain:
       Consumer:
         default: auth,loadbalance
-        login:
-          asynVerifyToken: loadbalance
+
   inspector:
     enabled: false
 
@@ -62,22 +61,22 @@ servicecomb:
         default:
           enabled: false #disable DefaultHttpClientFilter and use customClientFilter
 gateway:
-  loginUrls:
+  needLoginUrls:
     - POST /realestate/realestates
     - GET /realestate/realestates/{id}
     - PUT /realestate/realestates/{id}
     - DELETE /realestate/realestates/{id}
     - GET /realestate/realestates
-    - POST /realestate/{id}/buildings
+    - POST /realestate/realestates/{realestateId}/buildings
     - GET /realestate/buildings/{id}
     - PUT /realestate/buildings/{id}
     - DELETE /realestate/buildings/{id}
-    - GET /realestate/realestates/{id}/buildings
+    - GET /realestate/realestates/{realestateId}/buildings
     - POST /realestate/buildings/{buildingId}/houses
     - GET /realestate/houses/{id}
     - PUT /realestate/houses/{id}
     - DELETE /realestate/houses/{id}
-    - GET /realestate/buildings/{id}/houses
+    - GET /realestate/buildings/{buildingId}/houses
     - PUT /realestate/houses/lock_houses_for_sale
     - POST /customer-manage/customers
     - GET /customer-manage/customers/{id}
@@ -85,15 +84,16 @@ gateway:
     - DELETE /customer-manage/customers/{id}
     - GET /customer-manage/customers
     - PUT /customer-manage/customers/{id}/update_qualifications
-    - POST /house-order/sales/{id}/house_orders
-    - PUT /house-order/house_orders/{id}
+    - POST /house-order/sales/{saleId}/house_orders
+    - PUT /house-order/house_orders/{houseOrderId}
     - POST /house-order/sales
-    - GET /house-order/sales/{id}
-    - PUT /house-order/sales/{id}
-    - DELETE /house-order/sales/{id}
+    - GET /house-order/sales/{saleId}
+    - PUT /house-order/sales/{saleId}
+    - DELETE /house-order/sales/{saleId}
     - GET /house-order/sales
 
-  noLoginUrls:
+  noNeedLoginUrls:
     - POST /login/users
     - PUT /login/users/signin
     - PUT /login/users/verify_token
+

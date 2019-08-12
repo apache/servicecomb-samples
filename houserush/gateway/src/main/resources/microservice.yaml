@@ -28,7 +28,7 @@ servicecomb:
       address: http://127.0.0.1:30100
 
 gateway:
-  loginUrls:
+  needLoginUrls:
     - POST /realestate/realestates
     - GET /realestate/realestates/{id}
     - PUT /realestate/realestates/{id}
@@ -39,7 +39,7 @@ gateway:
     - PUT /realestate/buildings/{id}
     - DELETE /realestate/buildings/{id}
     - GET /realestate/realestates/{id}/buildings
-    - POST /realestate/buildings/{buildingId}/houses
+    - POST /realestate/buildings/{id}/houses
     - GET /realestate/houses/{id}
     - PUT /realestate/houses/{id}
     - DELETE /realestate/houses/{id}
@@ -60,7 +60,7 @@ gateway:
     - GET /house-order/sales
 
 
-  noLoginUrls:
+  noNeedLoginUrls:
     - POST /login/users
     - PUT /login/signin
 
