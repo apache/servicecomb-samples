@@ -23,7 +23,6 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CookieHandler;
 import org.apache.servicecomb.edge.core.AbstractEdgeDispatcher;
 import org.apache.servicecomb.edge.core.EdgeInvocation;
-import org.apache.servicecomb.samples.practise.houserush.gateway.rpc.po.User;
 
 import java.util.Map;
 
@@ -53,6 +52,10 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
         super.setContext();
         // get token from header and cookie for debug reasons
         String token = context.request().getHeader("Authorization");
+        //some operation need the customerId and the customerId added in auth,
+        //but the operation parameter valid check before AuthHandler,
+        //it would be replaced in CustomClientFilter
+        context.request().headers().add("customerId", "-1");
         if (token != null) {
           this.invocation.addContext("Authorization", token);
         } else {

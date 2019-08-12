@@ -45,6 +45,14 @@ gateway:
     - DELETE /realestate/houses/{id}
     - GET /realestate/buildings/{id}/houses
     - PUT /realestate/houses/lock_houses_for_sale
+    - POST /realestate/housetype
+    - GET /realestate/housetype/{id}
+    - PUT /realestate/housetype/{id}
+    - DELETE /realestate/housetype/{id}
+    - GET /realestate/housetype
+    - POST /realestate/housetype/image
+    - GET /realestate/housetype/image/{id}
+    - DELETE /realestate/housetype/image/{id}
     - POST /customer-manage/customers
     - GET /customer-manage/customers/{id}
     - PUT /customer-manage/customers/{id}
