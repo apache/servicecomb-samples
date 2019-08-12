@@ -69,7 +69,8 @@ public class AuthHandler implements Handler {
           asyncResp.consumerFail(res.isCompletedExceptionally() ? e : new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated failed"));
           return;
         }
-        invocation.getRequestEx().addHeader("customId", String.valueOf(resUser.getId()));
+        //add to clientRequest in CustomClientFilter
+        invocation.addContext("customerId", "" + resUser.getId());
         invocation.addContext("newAuthorization", resUser.getToken());
         try {
           invocation.next(asyncResp);

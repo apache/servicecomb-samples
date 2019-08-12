@@ -26,6 +26,7 @@ import org.apache.servicecomb.core.Invocation;
 import org.apache.servicecomb.core.definition.OperationMeta;
 import org.apache.servicecomb.foundation.vertx.http.HttpServletRequestEx;
 import org.apache.servicecomb.foundation.vertx.http.HttpServletResponseEx;
+import org.apache.servicecomb.foundation.vertx.http.VertxClientRequestToHttpServletRequest;
 import org.apache.servicecomb.swagger.invocation.Response;
 import org.apache.servicecomb.swagger.invocation.context.HttpStatus;
 import org.apache.servicecomb.swagger.invocation.exception.CommonExceptionData;
@@ -52,6 +53,11 @@ public class CustomClientFilter implements HttpClientFilter {
 
   @Override
   public void beforeSendRequest(Invocation invocation, HttpServletRequestEx requestEx) {
+    VertxClientRequestToHttpServletRequest vertRequest = (VertxClientRequestToHttpServletRequest) requestEx;
+    String customerId = invocation.getContext("customerId");
+    if (customerId != null) {
+      vertRequest.setHeader("customerId", customerId);
+    }
 
   }
 
@@ -132,8 +138,8 @@ public class CustomClientFilter implements HttpClientFilter {
     }
     //add refresh token
     String newAuthorization = invocation.getContext("newAuthorization");
-    if(newAuthorization!=null){
-      response.getHeaders().addHeader("newAuthorization",newAuthorization);
+    if (newAuthorization != null) {
+      response.getHeaders().addHeader("newAuthorization", newAuthorization);
     }
     return response;
   }
