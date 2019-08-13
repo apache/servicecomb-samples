@@ -25,7 +25,7 @@ service_description:
 servicecomb:
   service:
     registry:
-      address: http://192.168.229.134:30100
+      address: http://127.0.0.1:30100
   rest:
     address: 0.0.0.0:6877
   handler:

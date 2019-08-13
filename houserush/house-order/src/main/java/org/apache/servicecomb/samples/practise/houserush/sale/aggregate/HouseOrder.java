@@ -24,7 +24,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -45,6 +48,9 @@ public class HouseOrder {
   private String state = "new";
 
   private Integer houseId;
+
+  @OneToMany(mappedBy = "houseOrder")
+  private List<Favorite> favorites = new ArrayList<>();
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date orderedAt;

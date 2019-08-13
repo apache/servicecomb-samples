@@ -15,34 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.sale.service;
+package org.apache.servicecomb.samples.practise.houserush.sale.dao;
 
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
-import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
-import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface HouseOrderService {
-  List<HouseOrder> createHouseOrders(int saleId, List<Integer> houseIds);
-
-  HouseOrder placeHouseOrder(int customerId, int houseOrderId);
-
-  HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
-
-  Favorite addFavorite(int customerId, int houseOrderId);
-
-  Favorite findFavorite(int id);
-
-  void removeFavorite(int id);
-
-  Sale createSale(Sale sale);
-
-  Sale findSale(int saleId);
-
-  Sale updateSale(Sale sale);
-
-  void removeSale(int saleId);
-
-  List<Sale> indexSales();
+public interface FavoriteDao extends JpaRepository<Favorite, Integer> {
+  int countByCustomerIdAndHouseOrderId(int customerId, int houseOrderId);
 }

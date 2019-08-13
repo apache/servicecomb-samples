@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.service;
 
+import org.apache.http.HttpStatus;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Building;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.House;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.HouseType;
@@ -164,7 +165,7 @@ public class RealestateServiceImpl implements RealestateService {
     List<House> houses = houseDao.findAllByIdInForUpdate(houseIds);
     houses.forEach(house -> {
       if (!"in_stock".equals(house.getState())) {
-        throw new InvocationException(400, "", "house " + house.getId() + " is not in_stock.");
+        throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "house " + house.getId() + " is not in_stock.");
       }
     });
     houseDao.updateLockingStatesForHouses(houseIds);

@@ -15,41 +15,50 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate;
+package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
-import lombok.Data;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "house_types")
-@SQLDelete(sql = "update house_types set deleted_at = now() where id = ?")
-@Where(clause = "deleted_at is null")
+@Table(name = "favorites")
 @EntityListeners(AuditingEntityListener.class)
-public class HouseType {
+public class Favorite {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id;
+  private Integer id;
 
-  private String name;
+  @ManyToOne(fetch= FetchType.LAZY)
+  @JoinColumn(name = "house_order_id")
+  private HouseOrder houseOrder;
 
-  private int imageId;
-
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date deletedAt;
+  private Integer customerId;
 
   @CreatedDate
   @Temporal(TemporalType.TIMESTAMP)
-  private Date createdAt;
+  private Date CreatedAt;
 
   @LastModifiedDate
   @Temporal(TemporalType.TIMESTAMP)
-  private Date updatedAt;
+  private Date UpdatedAt;
 }

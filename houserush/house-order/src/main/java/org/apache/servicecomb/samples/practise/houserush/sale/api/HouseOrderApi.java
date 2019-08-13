@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.api;
 
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
 
@@ -28,6 +29,10 @@ public interface HouseOrderApi {
   HouseOrder placeHouseOrder(int customerId, int houseOrderId);
 
   HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
+
+  Favorite addFavorite(int customerId, int houseOrderId);
+
+  void removeFavorite(int customerId, int favoriteId);
 
   Sale createSale(Sale sale);
 

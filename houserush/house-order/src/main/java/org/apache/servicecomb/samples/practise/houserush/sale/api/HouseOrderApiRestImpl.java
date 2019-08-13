@@ -17,14 +17,19 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.api;
 
+import org.apache.http.HttpStatus;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
 import org.apache.servicecomb.samples.practise.houserush.sale.service.HouseOrderService;
+import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import javax.ws.rs.HeaderParam;
 
 @RestSchema(schemaId = "houseOrderApiRest")
 @RequestMapping("/")
@@ -64,6 +69,22 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
   public Sale updateSale(@PathVariable int saleId, @RequestBody Sale sale) {
     sale.setId(saleId);
     return houseOrderService.updateSale(sale);
+  }
+
+  @Override
+  @PutMapping("house_orders/{houseOrderId}/add_favorite")
+  public Favorite addFavorite(@RequestHeader int customerId, @PathVariable int houseOrderId) {
+    return houseOrderService.addFavorite(customerId, houseOrderId);
+  }
+
+  @Override
+  @DeleteMapping("favorites/{id}")
+  public void removeFavorite(@RequestHeader int customerId, @PathVariable int id) {
+    Favorite favorite = houseOrderService.findFavorite(id);
+    if (favorite.getCustomerId() != customerId) {
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "cannot remove favorite not belong the current customer.");
+    }
+    houseOrderService.removeFavorite(id);
   }
 
   @Override

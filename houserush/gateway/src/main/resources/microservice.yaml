@@ -61,6 +61,9 @@ gateway:
     - PUT /customer-manage/customers/{id}/update_qualifications
     - POST /house-order/sales/{id}/house_orders
     - PUT /house-order/house_orders/{id}
+    - PUT /house-order/house_orders/{id}/cancel
+    - PUT /house-order/house_orders/{id}/add_favorite
+    - DELETE /house-order/favorites/{id}
     - POST /house-order/sales
     - GET /house-order/sales/{id}
     - PUT /house-order/sales/{id}

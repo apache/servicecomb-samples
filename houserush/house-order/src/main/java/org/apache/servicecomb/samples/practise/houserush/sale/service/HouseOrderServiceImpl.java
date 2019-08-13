@@ -17,9 +17,12 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.service;
 
+import org.apache.http.HttpStatus;
 import org.apache.servicecomb.provider.pojo.RpcReference;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.dao.FavoriteDao;
 import org.apache.servicecomb.samples.practise.houserush.sale.dao.HouseOrderDao;
 import org.apache.servicecomb.samples.practise.houserush.sale.dao.SaleDao;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManageApi;
@@ -37,6 +40,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Service
 public class HouseOrderServiceImpl implements HouseOrderService {
   @Autowired
@@ -44,6 +50,11 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
   @Autowired
   SaleDao saleDao;
+
+  @Autowired
+  FavoriteDao favoriteDao;
+
+
 
   @RpcReference(microserviceName = "realestate", schemaId = "realestateApiRest")
   private RealestateApi realestateApi;
@@ -61,7 +72,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
     List<HouseOrder> houseOrders = houseOrderDao.findAllBySaleIdAndHouseIdInForUpdate(saleId, houseIds);
     if (!houseOrders.isEmpty()) {
-      throw new InvocationException(400, "", "some house is already in this sale.");
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "some house is already in this sale.");
     }
 
     List<House> houses = realestateApi.lockHousesForSale(houseIds);
@@ -90,7 +101,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
         int ordersCount = houseOrderDao.countByCustomerIdAndSaleId(customerId, sale.getId());
 
         if (qualificationsCount <= ordersCount) {
-          throw new InvocationException(400, "", "do not have the enough qualification to buy houses in this sale, " +
+          throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "do not have the enough qualification to buy houses in this sale, " +
               "the qualifications count is " + qualificationsCount + " , the order count is " + ordersCount);
         }
 
@@ -100,10 +111,10 @@ public class HouseOrderServiceImpl implements HouseOrderService {
         houseOrderDao.save(houseOrder);
         return houseOrder;
       } else {
-        throw new InvocationException(400, "", "this house have been occupied first by other customer, please choose another house or try it later.");
+        throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house have been occupied first by other customer, please choose another house or try it later.");
       }
     } else {
-      throw new InvocationException(400, "", "this house which you chose does not belong to the current sale.");
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house which you chose does not belong to the current sale.");
     }
   }
 
@@ -121,11 +132,41 @@ public class HouseOrderServiceImpl implements HouseOrderService {
         houseOrderDao.save(houseOrder);
         return houseOrder;
       } else {
-        throw new InvocationException(400, "", "cannot unoccupied the house which have not been occupied first by current customer first!");
+        throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "cannot unoccupied the house which have not been occupied first by current customer first!");
       }
     } else {
-      throw new InvocationException(400, "", "this house which you chose does not belong to the current sale.");
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house which you chose does not belong to the current sale.");
     }
+  }
+
+  @Override
+  @Transactional
+  public Favorite addFavorite(int customerId, int houseOrderId) {
+    HouseOrder houseOrder = houseOrderDao.findOne(houseOrderId);
+    if (null == houseOrder) {
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this houseOrder you chose does not exist");
+    }
+    if (favoriteDao.countByCustomerIdAndHouseOrderId(customerId, houseOrderId) == 0) {
+      Favorite favorite = new Favorite();
+      favorite.setCustomerId(customerId);
+      favorite.setHouseOrder(houseOrder);
+
+      favoriteDao.save(favorite);
+      return favorite;
+    }
+    else {
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house which you chose is already marked favorite by you.");
+    }
+  }
+
+  @Override
+  public Favorite findFavorite(int id) {
+    return favoriteDao.findOne(id);
+  }
+
+  @Override
+  public void removeFavorite(int id) {
+    favoriteDao.delete(id);
   }
 
   @Override

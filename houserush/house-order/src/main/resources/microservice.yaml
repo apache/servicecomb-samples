@@ -21,7 +21,7 @@ APPLICATION_ID: houserush
 service_description:
   # name of the declaring microservice
   name: house-order
-  version: 0.0.7
+  version: 0.0.13
 servicecomb:
   service:
     registry:
