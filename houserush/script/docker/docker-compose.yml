@@ -3,8 +3,6 @@ version: "3"
 services:
   servicecenter:
     image: servicecomb/service-center
-    ports:
-      - "30100:30100"
     hostname: servicecenter
   mysql:
     build:
@@ -25,26 +23,26 @@ services:
     environment:
       servicecomb_service_registry_address: http://servicecenter:30100
       spring_datasource_url: jdbc:mysql://mysql:3306/customer?characterEncoding=utf8&useSSL=false
-#  edge-service:
-#    depends_on:
-#      - mysql
-#      - servicecenter
-#    build:
-#      context: .
-#      dockerfile: edge-service.dockerfile
-#    environment:
-#      servicecomb_service_registry_address: http://servicecenter:30100
-  gateway:
+  edge-service:
     depends_on:
-      - mysql
       - servicecenter
     build:
       context: .
-      dockerfile: gateway.dockerfile
+      dockerfile: edge-service.dockerfile
     environment:
       servicecomb_service_registry_address: http://servicecenter:30100
     ports:
-      - "8889:8889"
+      - "9090:9090"
+#  gateway:
+#    depends_on:
+#      - servicecenter
+#    build:
+#      context: .
+#      dockerfile: gateway.dockerfile
+#    environment:
+#      servicecomb_service_registry_address: http://servicecenter:30100
+#    ports:
+#      - "8889:8889"
   house-order:
     depends_on:
       - mysql
