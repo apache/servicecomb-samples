@@ -587,7 +587,7 @@ LOCK TABLES `sales` WRITE;
 
 INSERT INTO `sales` (`id`, `state`, `begin_at`, `end_at`, `realestate_id`, `deleted_at`, `created_at`, `updated_at`)
 VALUES
-	(100,'published','2019-08-12 11:29:17.0000','2019-08-14 11:29:21.0000',100,NULL,'2019-08-12 11:29:21.2210','2019-08-12 11:29:21.2210');
+	(100,'published','2019-08-12 11:29:17.0000','2029-08-14 11:29:21.0000',100,NULL,'2019-08-12 11:29:21.2210','2019-08-12 11:29:21.2210');
 
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
