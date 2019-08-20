@@ -23,7 +23,11 @@
 # Dump of table favorites
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `favorites`;
+DROP DATABASE IF EXISTS `house_order`;
+
+CREATE DATABASE `house_order` DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `house_order`;
 
 CREATE TABLE `favorites` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

@@ -23,7 +23,11 @@
 # Dump of table users
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `users`;
+DROP DATABASE IF EXISTS `login`;
+
+CREATE DATABASE `login` DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `login`;
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

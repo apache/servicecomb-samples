@@ -23,7 +23,11 @@
 # Dump of table buildings
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `buildings`;
+DROP DATABASE IF EXISTS `realestate`;
+
+CREATE DATABASE `realestate` DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `realestate`;
 
 CREATE TABLE `buildings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
