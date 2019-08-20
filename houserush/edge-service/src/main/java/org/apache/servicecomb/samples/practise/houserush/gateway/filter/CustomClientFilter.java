@@ -53,10 +53,9 @@ public class CustomClientFilter implements HttpClientFilter {
 
   @Override
   public void beforeSendRequest(Invocation invocation, HttpServletRequestEx requestEx) {
-    VertxClientRequestToHttpServletRequest vertRequest = (VertxClientRequestToHttpServletRequest) requestEx;
     String customerId = invocation.getContext("customerId");
     if (customerId != null) {
-      vertRequest.setHeader("customerId", customerId);
+      requestEx.setHeader("customerId", customerId);
     }
 
   }
@@ -114,7 +113,7 @@ public class CustomClientFilter implements HttpClientFilter {
               responseEx.getHeader(HttpHeaders.CONTENT_TYPE));
       if (HttpStatus.isSuccess(responseEx.getStatus())) {
         return Response.createConsumerFail(
-            new InvocationException(HttpStatus.SC_BAD_REQUEST, responseEx.getStatusType().getReasonPhrase(),
+            new InvocationException(org.apache.http.HttpStatus.SC_BAD_REQUEST, responseEx.getStatusType().getReasonPhrase(),
                 new CommonExceptionData(msg), e));
       }
       return Response.createConsumerFail(
