@@ -46,6 +46,6 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
+#        show_sql: true
+#        format_sql: true
+#        use_sql_comments: true
