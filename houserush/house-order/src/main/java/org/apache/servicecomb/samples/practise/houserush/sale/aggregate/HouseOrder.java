@@ -19,6 +19,8 @@ package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -50,6 +52,7 @@ public class HouseOrder {
   private Integer houseId;
 
   @OneToMany(mappedBy = "houseOrder")
+  @Fetch(FetchMode.JOIN)
   private List<Favorite> favorites = new ArrayList<>();
 
   @Temporal(TemporalType.TIMESTAMP)
