@@ -8,7 +8,7 @@ RUN echo "deb http://mirrors.aliyun.com/debian  stretch main contrib non-free" >
     && apt-get update \
     && apt-get install -y git \
     && rm -rf /var/lib/apt/lists/* \
-    && git clone https://github.com/linzb0123/servicecomb-samples
+    && git clone https://github.com/alec-z/servicecomb-samples
 ADD ./settings.xml /root
 WORKDIR /servicecomb-samples/houserush
 RUN mvn install -s /root/settings.xml

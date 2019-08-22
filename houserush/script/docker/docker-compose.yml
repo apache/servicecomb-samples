@@ -82,6 +82,13 @@ services:
       dockerfile: user-center.dockerfile
     environment:
       servicecomb_service_registry_address: http://servicecenter:30100
-
-
-
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
