@@ -14,9 +14,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
     hostname: mysql
   customer-manage:
-    depends_on:
-      - mysql
-      - servicecenter
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/customer-manage
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
@@ -26,8 +23,6 @@ services:
     ports:
       - "7779:7779"
   edge-service:
-    depends_on:
-      - servicecenter
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/edge-service
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
@@ -46,9 +41,6 @@ services:
 #    ports:
 #      - "8889:8889"
   house-order:
-    depends_on:
-      - mysql
-      - servicecenter
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/house-order
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
@@ -58,9 +50,6 @@ services:
     ports:
       - "6788:6788"
   login:
-    depends_on:
-      - mysql
-      - servicecenter
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/login
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
@@ -70,9 +59,6 @@ services:
     ports:
       - "6777:6777"
   realestate:
-    depends_on:
-      - mysql
-      - servicecenter
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/realestate
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
@@ -82,9 +68,6 @@ services:
     ports:
       - "7771:7771"
   user-center:
-    depends_on:
-      - mysql
-      - servicecenter
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/user-center
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
