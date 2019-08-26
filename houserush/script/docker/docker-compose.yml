@@ -75,3 +75,5 @@ services:
       servicecomb_service_registry_address: http://192.168.88.244:30100
     ports:
       - "6877:6877"
+network_mode: "host"
+
