@@ -7,7 +7,7 @@ services:
       - "30100:30100"
     network_mode: "host"
   mysql:
-    image: servicecomb-samples/mysql
+    image: 192.168.88.244:5000/servicecomb-samples/mysql
     ports:
       - "3306:3306"
     environment:
