@@ -6,10 +6,14 @@ services:
     hostname: servicecenter
     ports:
       - "30100:30100"
+    networks:
+      - overlay
   mysql:
     image: servicecomb-samples/mysql
     ports:
       - "3306:3306"
+    networks:
+      - overlay
     environment:
       MYSQL_ROOT_PASSWORD: root
     hostname: mysql
@@ -23,6 +27,8 @@ services:
     environment:
       servicecomb_service_registry_address: http://servicecenter:30100
       spring_datasource_url: jdbc:mysql://mysql:3306/customer?characterEncoding=utf8&useSSL=false
+    networks:
+      - overlay
   edge-service:
     depends_on:
       - servicecenter
@@ -33,6 +39,8 @@ services:
       servicecomb_service_registry_address: http://servicecenter:30100
     ports:
       - "9090:9090"
+    networks:
+      - overlay
 #  gateway:
 #    depends_on:
 #      - servicecenter
@@ -53,6 +61,8 @@ services:
     environment:
       servicecomb_service_registry_address: http://servicecenter:30100
       spring_datasource_url: jdbc:mysql://mysql:3306/house_order?characterEncoding=utf8&useSSL=false
+    networks:
+      - overlay
   login:
     depends_on:
       - mysql
@@ -63,6 +73,8 @@ services:
     environment:
       servicecomb_service_registry_address: http://servicecenter:30100
       spring_datasource_url: jdbc:mysql://mysql:3306/login?characterEncoding=utf8&useSSL=false
+    networks:
+      - overlay
   realestate:
     depends_on:
       - mysql
@@ -73,6 +85,8 @@ services:
     environment:
       servicecomb_service_registry_address: http://servicecenter:30100
       spring_datasource_url: jdbc:mysql://mysql:3306/realestate?characterEncoding=utf8&useSSL=false
+    networks:
+      - overlay
   user-center:
     depends_on:
       - mysql
@@ -82,6 +96,8 @@ services:
     command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
       servicecomb_service_registry_address: http://servicecenter:30100
+    networks:
+      - overlay
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
@@ -92,3 +108,5 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+  networks:
+    overlay:
