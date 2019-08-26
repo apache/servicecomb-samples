@@ -18,7 +18,7 @@ services:
     working_dir: /servicecomb-samples/houserush/customer-manage
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.64:30100
+      servicecomb_service_registry_address: http://192.168.88.140:30100
       spring_datasource_url: jdbc:mysql://192.168.88.244:3306/customer?characterEncoding=utf8&useSSL=false
     ports:
       - "7779:7779"
@@ -28,7 +28,7 @@ services:
     working_dir: /servicecomb-samples/houserush/edge-service
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.64:30100
+      servicecomb_service_registry_address: http://192.168.88.140:30100
     ports:
       - "9090:9090"
     network_mode: "host"
@@ -39,7 +39,7 @@ services:
 #      context: .
 #      dockerfile: gateway.dockerfile
 #    environment:
-#      servicecomb_service_registry_address: http://192.168.88.64:30100
+#      servicecomb_service_registry_address: http://192.168.88.140:30100
 #    ports:
 #      - "8889:8889"
   house-order:
@@ -47,7 +47,7 @@ services:
     working_dir: /servicecomb-samples/houserush/house-order
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.64:30100
+      servicecomb_service_registry_address: http://192.168.88.140:30100
       spring_datasource_url: jdbc:mysql://192.168.88.244:3306/house_order?characterEncoding=utf8&useSSL=false
     ports:
       - "6788:6788"
@@ -57,7 +57,7 @@ services:
     working_dir: /servicecomb-samples/houserush/login
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.64:30100
+      servicecomb_service_registry_address: http://192.168.88.140:30100
       spring_datasource_url: jdbc:mysql://192.168.88.244:3306/login?characterEncoding=utf8&useSSL=false
     ports:
       - "6777:6777"
@@ -67,7 +67,7 @@ services:
     working_dir: /servicecomb-samples/houserush/realestate
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.64:30100
+      servicecomb_service_registry_address: http://192.168.88.140:30100
       spring_datasource_url: jdbc:mysql://192.168.88.244:3306/realestate?characterEncoding=utf8&useSSL=false
     ports:
       - "7771:7771"
@@ -77,7 +77,7 @@ services:
     working_dir: /servicecomb-samples/houserush/user-center
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.64:30100
+      servicecomb_service_registry_address: http://192.168.88.140:30100
     ports:
       - "6877:6877"
     network_mode: "host"
