@@ -7,9 +7,7 @@ services:
     ports:
       - "30100:30100"
   mysql:
-    build:
-      context: ../database
-      dockerfile: ../docker/mysql.dockerfile
+    image: servicecomb-samples/mysql
     ports:
       - "3306:3306"
     environment:
