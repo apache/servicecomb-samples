@@ -43,12 +43,12 @@ spring:
     username: root
     password: root
     type: org.apache.tomcat.jdbc.pool.DataSource
-      tomcat:
-        initial-size: 15
-        max-wait: 2000
-        max-active: 50
-        max-idle: 50
-        default-auto-commit: true
+    tomcat:
+      initial-size: 15
+      max-wait: 2000
+      max-active: 50
+      max-idle: 50
+      default-auto-commit: true
   jpa:
     properties:
       hibernate:

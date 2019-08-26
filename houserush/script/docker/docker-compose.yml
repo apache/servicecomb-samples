@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
   servicecenter:
@@ -108,5 +108,7 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-  networks:
-    overlay:
+networks:
+  overlay:
+    driver: overlay
+    attachable: true
