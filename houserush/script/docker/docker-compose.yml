@@ -3,7 +3,6 @@ version: "3"
 services:
   servicecenter:
     image: servicecomb/service-center
-    hostname: servicecenter
     ports:
       - "30100:30100"
     network_mode: "host"
@@ -13,7 +12,6 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-    hostname: mysql
     network_mode: "host"
   customer-manage:
     image: 192.168.88.244:5000/servicecomb-samples/updated
