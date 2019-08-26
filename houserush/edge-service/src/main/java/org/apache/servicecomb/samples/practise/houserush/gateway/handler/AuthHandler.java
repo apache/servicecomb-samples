@@ -63,21 +63,22 @@ public class AuthHandler implements Handler {
         asyncResp.consumerFail(new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "need authenticated"));
         return;
       }
-      CompletableFuture<User> res = userApi.verifyToken(token);
-      res.whenComplete((resUser, e) -> {
-        if (res.isCompletedExceptionally() || resUser == null) {
-          asyncResp.consumerFail(res.isCompletedExceptionally() ? e : new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated failed"));
-          return;
-        }
-        //add to clientRequest in CustomClientFilter
-        invocation.addContext("customerId", "" + resUser.getId());
-        invocation.addContext("newAuthorization", resUser.getToken());
-        try {
-          invocation.next(asyncResp);
-        } catch (Exception ex) {
-          asyncResp.consumerFail(new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated fail"));
-        }
-      });
+//      CompletableFuture<User> res = userApi.verifyToken(token);
+//      res.whenComplete((resUser, e) -> {
+//        if (res.isCompletedExceptionally() || resUser == null) {
+//          asyncResp.consumerFail(res.isCompletedExceptionally() ? e : new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated failed"));
+//          return;
+//        }
+//        //add to clientRequest in CustomClientFilter
+//        invocation.addContext("customerId", "" + resUser.getId());
+//        invocation.addContext("newAuthorization", resUser.getToken());
+//        try {
+//          invocation.next(asyncResp);
+//        } catch (Exception ex) {
+//          asyncResp.consumerFail(new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated fail"));
+//        }
+//      });
+      invocation.next(asyncResp);
 
     } else if (loginUrlConfig.getNoNeedLoginUrlsSet().contains(requestKey)) {
       if ("PUT /login/users/signin".equals(requestKey)) {
