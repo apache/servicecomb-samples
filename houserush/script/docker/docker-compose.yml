@@ -6,6 +6,7 @@ services:
     hostname: servicecenter
     ports:
       - "30100:30100"
+    network_mode: "host"
   mysql:
     image: 192.168.88.244:5000/servicecomb-samples/mysql
     ports:
@@ -13,6 +14,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     hostname: mysql
+    network_mode: "host"
   customer-manage:
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/customer-manage
@@ -22,6 +24,7 @@ services:
       spring_datasource_url: jdbc:mysql://192.168.88.244:3306/customer?characterEncoding=utf8&useSSL=false
     ports:
       - "7779:7779"
+    network_mode: "host"
   edge-service:
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/edge-service
@@ -30,6 +33,7 @@ services:
       servicecomb_service_registry_address: http://192.168.88.244:30100
     ports:
       - "9090:9090"
+    network_mode: "host"
 #  gateway:
 #    depends_on:
 #      - servicecenter
@@ -49,6 +53,7 @@ services:
       spring_datasource_url: jdbc:mysql://192.168.88.244:3306/house_order?characterEncoding=utf8&useSSL=false
     ports:
       - "6788:6788"
+    network_mode: "host"
   login:
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/login
@@ -58,6 +63,7 @@ services:
       spring_datasource_url: jdbc:mysql://192.168.88.244:3306/login?characterEncoding=utf8&useSSL=false
     ports:
       - "6777:6777"
+    network_mode: "host"
   realestate:
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/realestate
@@ -67,6 +73,7 @@ services:
       spring_datasource_url: jdbc:mysql://192.168.88.244:3306/realestate?characterEncoding=utf8&useSSL=false
     ports:
       - "7771:7771"
+    network_mode: "host"
   user-center:
     image: 192.168.88.244:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/user-center
@@ -75,5 +82,5 @@ services:
       servicecomb_service_registry_address: http://192.168.88.244:30100
     ports:
       - "6877:6877"
-network_mode: "host"
+    network_mode: "host"
 
