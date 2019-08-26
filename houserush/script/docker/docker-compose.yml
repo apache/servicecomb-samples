@@ -29,8 +29,7 @@ services:
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
       servicecomb_service_registry_address: http://192.168.88.140:30100
-    ports:
-      - "9090:9090"
+      servicecomb_rest_address: 0.0.0.0:9090
     network_mode: "host"
 #  gateway:
 #    depends_on:
