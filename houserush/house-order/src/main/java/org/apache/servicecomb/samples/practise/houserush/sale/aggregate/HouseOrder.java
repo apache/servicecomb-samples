@@ -35,6 +35,7 @@ import java.util.List;
 @Entity
 @Table(name = "house_orders")
 @EntityListeners(AuditingEntityListener.class)
+
 public class HouseOrder {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,8 +52,8 @@ public class HouseOrder {
 
   private Integer houseId;
 
-  @OneToMany(mappedBy = "houseOrder")
-  @Fetch(FetchMode.JOIN)
+  @JsonIgnore
+  @OneToMany(mappedBy = "houseOrder", fetch=FetchType.LAZY)
   private List<Favorite> favorites = new ArrayList<>();
 
   @Temporal(TemporalType.TIMESTAMP)

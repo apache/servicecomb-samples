@@ -17,10 +17,7 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -51,8 +48,7 @@ public class Sale {
   @Temporal(TemporalType.TIMESTAMP)
   private Date endAt;
 
-  @OneToMany(mappedBy = "sale")
-  @Fetch(FetchMode.JOIN)
+  @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
   private List<HouseOrder> houseOrders = new ArrayList<>();
 
   private Integer realestateId;

@@ -27,7 +27,6 @@ import org.apache.servicecomb.samples.practise.houserush.sale.dao.HouseOrderDao;
 import org.apache.servicecomb.samples.practise.houserush.sale.dao.SaleDao;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManageApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.RealestateApi;
-import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Customer;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.House;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Realestate;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
@@ -40,9 +39,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 @Service
 public class HouseOrderServiceImpl implements HouseOrderService {
   @Autowired
@@ -53,8 +49,6 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
   @Autowired
   FavoriteDao favoriteDao;
-
-
 
   @RpcReference(microserviceName = "realestate", schemaId = "realestateApiRest")
   private RealestateApi realestateApi;
@@ -153,8 +147,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
       favoriteDao.save(favorite);
       return favorite;
-    }
-    else {
+    } else {
       throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house which you chose is already marked favorite by you.");
     }
   }
