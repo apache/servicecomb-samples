@@ -35,6 +35,9 @@ servicecomb:
       verticle-count: 8
     client:
       verticle-count: 8
+      connection:
+        maxPoolSize: 40
+        idleTimeoutInSeconds: 1200
   handler:
     chain:
       Consumer:
