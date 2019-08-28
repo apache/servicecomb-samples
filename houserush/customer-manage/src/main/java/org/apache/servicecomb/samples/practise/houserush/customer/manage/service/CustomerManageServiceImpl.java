@@ -17,15 +17,23 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage.service;
 
+import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Customer;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Qualification;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.dao.CustomerDao;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.dao.QualificationDao;
+import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.HouseOrderApi;
+import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.po.SaleQualification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerManageServiceImpl implements CustomerManageService {
@@ -35,6 +43,9 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 
   @Autowired
   private QualificationDao qualificationDao;
+
+  @RpcReference(microserviceName = "house-order", schemaId = "houseOrderApiRest")
+  private HouseOrderApi houseOrderApi;
 
   @Override
   public Customer createCustomer(Customer customer) {
@@ -71,6 +82,10 @@ public class CustomerManageServiceImpl implements CustomerManageService {
     customer.setQualifications(qualifications);
     qualifications.forEach(qualification -> qualification.setCustomer(customer));
     customerDao.saveAndFlush(customer);
+    Map<Integer,Long> map = qualifications.stream().collect(Collectors.groupingBy(Qualification::getSaleId,Collectors.counting()));
+    List<SaleQualification> saleQualifications = new ArrayList<>();
+    map.forEach((k,v)->saleQualifications.add(new SaleQualification(customer.getId(),k,v.intValue())));
+    houseOrderApi.updateSaleQualification(saleQualifications);
     return true;
   }
 

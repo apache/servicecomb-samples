@@ -20,6 +20,9 @@ package org.apache.servicecomb.samples.practise.houserush.sale.api;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -43,4 +46,6 @@ public interface HouseOrderApi {
   void removeSale(int saleId);
 
   List<Sale> indexSales();
+
+  void updateSaleQualification(List<SaleQualification> saleQualifications);
 }

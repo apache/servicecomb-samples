@@ -22,9 +22,11 @@ import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
 import org.apache.servicecomb.samples.practise.houserush.sale.dao.FavoriteDao;
 import org.apache.servicecomb.samples.practise.houserush.sale.dao.HouseOrderDao;
 import org.apache.servicecomb.samples.practise.houserush.sale.dao.SaleDao;
+import org.apache.servicecomb.samples.practise.houserush.sale.dao.SaleQualificationDao;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManageApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.RealestateApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.House;
@@ -49,6 +51,9 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
   @Autowired
   FavoriteDao favoriteDao;
+
+  @Autowired
+  SaleQualificationDao saleQualificationDao;
 
   @RpcReference(microserviceName = "realestate", schemaId = "realestateApiRest")
   private RealestateApi realestateApi;
@@ -84,29 +89,25 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
   @Override
   @Transactional
-  public HouseOrder placeHouseOrder(int customerId, int houseOrderId) {
-    HouseOrder houseOrder = houseOrderDao.findOneForUpdate(houseOrderId);
+  public HouseOrder placeHouseOrder(int customerId,int houseOrderId) {
+    HouseOrder houseOrder = houseOrderDao.findOne(houseOrderId);
     Sale sale = houseOrder.getSale();
-
     if (null != sale && "opening".equals(sale.getState())) {
-      if (null == houseOrder.getCustomerId()) {
-        int qualificationsCount = customerManageApi.getQualificationsCount(customerId, sale.getId());
-
-        int ordersCount = houseOrderDao.countByCustomerIdAndSaleId(customerId, sale.getId());
-
-        if (qualificationsCount <= ordersCount) {
-          throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "do not have the enough qualification to buy houses in this sale, " +
-              "the qualifications count is " + qualificationsCount + " , the order count is " + ordersCount);
-        }
-
-        houseOrder.setCustomerId(customerId);
-        houseOrder.setState("confirmed");
-        houseOrder.setOrderedAt(new Date());
-        houseOrderDao.save(houseOrder);
-        return houseOrder;
-      } else {
+      SaleQualification qualification  = saleQualificationDao.findBySaleIdAndCustomerId(sale.getId(),customerId);
+      if(!qualification.hasPlaceQualification()){
+        throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "do not have the enough qualification to buy houses in this sale, " +
+            "the qualifications count is " + qualification.getQualificationCount() + " , the order count is " + qualification.getOrderCount());
+      }
+      houseOrder.setCustomerId(customerId);
+      houseOrder.setState("confirmed");
+      houseOrder.setOrderedAt(new Date());
+      int count = houseOrderDao.updateByIdAndCustomerIdIsNull(customerId,houseOrder.getState(),houseOrder.getOrderedAt(),houseOrderId);
+      if(count<1){
         throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house have been occupied first by other customer, please choose another house or try it later.");
       }
+      qualification.addOrderCount();
+      saleQualificationDao.save(qualification);
+      return houseOrder;
     } else {
       throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house which you chose does not belong to the current sale.");
     }
@@ -164,15 +165,13 @@ public class HouseOrderServiceImpl implements HouseOrderService {
 
   @Override
   public Sale createSale(Sale sale) {
+    sale.setRealestateName(realestateApi.findRealestate(sale.getId()).getName());
     return saleDao.save(sale);
   }
 
   @Override
   public Sale findSale(int saleId) {
-    Sale sale = saleDao.findOne(saleId);
-    Realestate realestate = realestateApi.findRealestate(sale.getRealestateId());
-    sale.setRealestateName(realestate.getName());
-    return sale;
+    return saleDao.findOne(saleId);
   }
 
   @Override
@@ -194,5 +193,21 @@ public class HouseOrderServiceImpl implements HouseOrderService {
   @Override
   public List<Sale> indexSales() {
     return saleDao.findAll();
+  }
+
+  @Override
+  public void updateSaleQualification(List<SaleQualification> saleQualifications){
+    if(null!=saleQualifications){
+      saleQualifications.forEach(saleQualification -> {
+        SaleQualification qualification = saleQualificationDao.findBySaleIdAndCustomerId(saleQualification.getSaleId(),saleQualification.getCustomerId());
+        if(null == qualification){
+          saleQualification.setOrderCount(0);
+          saleQualificationDao.save(saleQualification);
+        }else{
+          qualification.setQualificationCount(saleQualification.getQualificationCount());
+          saleQualificationDao.save(qualification);
+        }
+      });
+    }
   }
 }

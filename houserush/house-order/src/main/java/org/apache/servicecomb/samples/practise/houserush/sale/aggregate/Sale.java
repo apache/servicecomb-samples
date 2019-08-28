@@ -48,7 +48,7 @@ public class Sale {
   @Temporal(TemporalType.TIMESTAMP)
   private Date endAt;
 
-  @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "sale")
   private List<HouseOrder> houseOrders = new ArrayList<>();
 
   private Integer realestateId;

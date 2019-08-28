@@ -20,6 +20,7 @@ package org.apache.servicecomb.samples.practise.houserush.sale.service;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
 
 import java.util.List;
 
@@ -45,4 +46,6 @@ public interface HouseOrderService {
   void removeSale(int saleId);
 
   List<Sale> indexSales();
+
+  void updateSaleQualification(List<SaleQualification> saleQualifications);
 }
