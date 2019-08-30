@@ -21,7 +21,7 @@ APPLICATION_ID: houserush
 service_description:
   # name of the declaring microservice
   name: house-order
-  version: 0.0.21
+  version: 0.0.22
 #  environment: development
 servicecomb:
   service:
@@ -40,7 +40,7 @@ servicecomb:
         default: bizkeeper-provider
 spring:
   datasource:
-    url: jdbc:mysql://192.168.88.140:3306/house_order?characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/house_order?characterEncoding=utf8&useSSL=false
     username: root
     password: root
     type: org.apache.tomcat.jdbc.pool.DataSource
@@ -54,7 +54,18 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
-#        show_sql: true
-#        format_sql: true
-#        use_sql_comments: true
+  #        show_sql: true
+  #        format_sql: true
+  #        use_sql_comments: true
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    #password: 123456
+    pool:
+      max-active: 8
+      max-wait: 30
+      max-idle: 8
+      min-idle: 0
+      timeout: 3000
 

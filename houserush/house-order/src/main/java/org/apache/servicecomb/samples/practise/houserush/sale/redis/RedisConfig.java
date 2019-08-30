@@ -15,17 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.sale.dao;
+package org.apache.servicecomb.samples.practise.houserush.sale.redis;
 
-import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
+import org.springframework.context.annotation.Configuration;
 
-import javax.persistence.LockModeType;
+@Configuration
+public class RedisConfig {
 
-public interface SaleQualificationDao extends JpaRepository<SaleQualification, Integer> {
-
-  //avoid user place houseOrders outnumber qualifications
-  @Lock(LockModeType.PESSIMISTIC_WRITE)
-  SaleQualification findBySaleIdAndCustomerId(int saleId, int customerId);
 }

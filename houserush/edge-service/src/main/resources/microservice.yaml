@@ -36,7 +36,7 @@ servicecomb:
     client:
       verticle-count: 8
       connection:
-        maxPoolSize: 40
+        maxPoolSize: 100
         idleTimeoutInSeconds: 1200
   handler:
     chain:
@@ -96,7 +96,7 @@ gateway:
     - GET /customer-manage/customers
     - PUT /customer-manage/customers/{id}/update_qualifications
     - POST /house-order/sales/{saleId}/house_orders
-    - PUT /house-order/house_orders/{houseOrderId}
+    - PUT /house-order/house_orders/{saleId}/{houseOrderId}
     - POST /house-order/sales
     - GET /house-order/sales/{saleId}
     - PUT /house-order/sales/{saleId}

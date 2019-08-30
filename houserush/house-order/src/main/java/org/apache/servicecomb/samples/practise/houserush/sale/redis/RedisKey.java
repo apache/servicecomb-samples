@@ -15,17 +15,27 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.sale.dao;
+package org.apache.servicecomb.samples.practise.houserush.sale.redis;
 
-import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.LockModeType;
+@Component
+public class RedisKey {
+  private final String SALEHASHID = "SALEHASHID_";
+  private final String SALEID = "SALEID_";
+  private final String HOUSEORDERIDTOSALEID = "HOUSEORDER2SALEID_";
+  private final String SALENOHOUSEORDER = "SALENOHOUSEORDER_";
 
-public interface SaleQualificationDao extends JpaRepository<SaleQualification, Integer> {
-
-  //avoid user place houseOrders outnumber qualifications
-  @Lock(LockModeType.PESSIMISTIC_WRITE)
-  SaleQualification findBySaleIdAndCustomerId(int saleId, int customerId);
+  public String getSaleHashKey(int id) {
+    return SALEHASHID + id;
+  }
+  public String getSaleKey(int id) {
+    return SALEID + id;
+  }
+  public String getHouseOrderIdToSaleId(int id){
+    return HOUSEORDERIDTOSALEID+id;
+  }
+  public String getSaleNoHouseOrder(int saleId){
+    return SALENOHOUSEORDER+saleId;
+  }
 }
