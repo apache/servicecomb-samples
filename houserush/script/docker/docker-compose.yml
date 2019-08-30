@@ -7,14 +7,14 @@ services:
       - "30100:30100"
     network_mode: "host"
   mysql:
-    image: 192.168.88.244:5000/servicecomb-samples/mysql
+    image: servicecomb-samples/mysql
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
     network_mode: "host"
   customer-manage:
-    image: 192.168.88.244:5000/servicecomb-samples/updated
+    image: servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/customer-manage
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
@@ -24,7 +24,7 @@ services:
       - "7779:7779"
     network_mode: "host"
   edge-service:
-    image: 192.168.88.244:5000/servicecomb-samples/updated
+    image: servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/edge-service
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
@@ -42,7 +42,7 @@ services:
 #    ports:
 #      - "8889:8889"
   house-order:
-    image: 192.168.88.244:5000/servicecomb-samples/updated
+    image: servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/house-order
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
@@ -52,7 +52,7 @@ services:
       - "6788:6788"
     network_mode: "host"
   login:
-    image: 192.168.88.244:5000/servicecomb-samples/updated
+    image: servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/login
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
@@ -62,7 +62,7 @@ services:
       - "6777:6777"
     network_mode: "host"
   realestate:
-    image: 192.168.88.244:5000/servicecomb-samples/updated
+    image: servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/realestate
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
@@ -72,7 +72,7 @@ services:
       - "7771:7771"
     network_mode: "host"
   user-center:
-    image: 192.168.88.244:5000/servicecomb-samples/updated
+    image: servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/user-center
     command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
