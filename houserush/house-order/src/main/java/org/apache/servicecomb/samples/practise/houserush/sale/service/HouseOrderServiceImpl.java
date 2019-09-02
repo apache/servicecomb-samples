@@ -217,6 +217,13 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     }
     for (HouseOrder h : sale.getHouseOrders()) {
       h.setState(map.get(h.getId() + "").toString());
+      h.setSale(null);
+      h.setCustomerId(null);
+      h.setOrderedAt(null);
+      h.setCreatedAt(null);
+      h.setFavorites(null);
+      h.setUpdatedAt(null);
+      h.setHouseId(null);
     }
     return sale;
   }

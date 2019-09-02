@@ -21,7 +21,7 @@ APPLICATION_ID: houserush
 service_description:
   # name of the declaring microservice
   name: edgeservice
-  version: 0.0.1
+  version: 0.0.3
 servicecomb:
   service:
     registry:

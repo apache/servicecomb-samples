@@ -29,6 +29,7 @@ import org.apache.servicecomb.samples.practise.houserush.gateway.rpc.po.User;
 import org.apache.servicecomb.swagger.invocation.AsyncResponse;
 import org.apache.servicecomb.swagger.invocation.InvocationType;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import org.apache.servicecomb.tracing.Span;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -46,6 +47,7 @@ public class AuthHandler implements Handler {
 
   }
 
+  @Span
   @Override
   public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
     //Internal call

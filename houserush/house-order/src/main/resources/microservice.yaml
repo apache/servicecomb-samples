@@ -21,7 +21,7 @@ APPLICATION_ID: houserush
 service_description:
   # name of the declaring microservice
   name: house-order
-  version: 0.0.22
+  version: 0.0.24
 #  environment: development
 servicecomb:
   service:
@@ -52,7 +52,7 @@ spring:
     tomcat:
       initial-size: 15
       max-wait: 2000
-      max-active: 50
+      max-active: 200
       max-idle: 50
       default-auto-commit: true
   jpa:
@@ -68,9 +68,9 @@ spring:
     port: 6379
     #password: 123456
     pool:
-      max-active: 8
+      max-active: -1
       max-wait: 30
-      max-idle: 8
-      min-idle: 0
+      max-idle: 30
+      min-idle: 5
       timeout: 3000
 

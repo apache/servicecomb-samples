@@ -18,6 +18,8 @@
 package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -31,11 +33,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@JsonInclude(value = Include.NON_NULL)
 @Data
 @Entity
 @Table(name = "house_orders")
 @EntityListeners(AuditingEntityListener.class)
-
 public class HouseOrder {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
