@@ -34,6 +34,7 @@ import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManage
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.RealestateApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.House;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import org.apache.servicecomb.tracing.Span;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -101,6 +102,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     return resHouseOrders;
   }
 
+  @Span
   @Override
   @Transactional
   public HouseOrder placeHouseOrder(int customerId, int houseOrderId, int saleId) {
@@ -191,6 +193,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     return saleDao.save(sale);
   }
 
+  @Span
   @Override
   public Sale findSale(int saleId) {
     String saleKey = redisKey.getSaleKey(saleId);

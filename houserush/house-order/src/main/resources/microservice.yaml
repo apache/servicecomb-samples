@@ -37,7 +37,12 @@ servicecomb:
   handler:
     chain:
       Provider:
-        default: bizkeeper-provider
+        default: bizkeeper-provider,tracing-provider
+      Consumer:
+        default: tracing-consumer
+  tracing:
+    collector:
+      address: http://192.168.88.140:9411
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/house_order?characterEncoding=utf8&useSSL=false

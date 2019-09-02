@@ -19,6 +19,7 @@ package org.apache.servicecomb.samples.practise.houserush.gateway;
 
 import org.apache.servicecomb.common.rest.codec.RestObjectMapperFactory;
 import org.apache.servicecomb.springboot.starter.provider.EnableServiceComb;
+import org.apache.servicecomb.tracing.zipkin.EnableZipkinTracing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -27,6 +28,7 @@ import java.util.TimeZone;
 
 @SpringBootApplication
 @EnableServiceComb
+@EnableZipkinTracing
 public class EdgeServiceApplication {
   public static void main(String[] args) {
     configBeforeBoot();

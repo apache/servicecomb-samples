@@ -41,7 +41,12 @@ servicecomb:
   handler:
     chain:
       Consumer:
-        default: auth,loadbalance
+        default: auth,loadbalance,tracing-consumer
+      Provider:
+        default: tracing-provider
+  tracing:
+    collector:
+      address: http://192.168.88.140:9411
 
   inspector:
     enabled: false

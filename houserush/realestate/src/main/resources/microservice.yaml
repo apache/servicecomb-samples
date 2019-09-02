@@ -32,6 +32,11 @@ servicecomb:
     chain:
       Provider:
         default: bizkeeper-provider
+      Consumer:
+        default: tracing-consumer
+  tracing:
+    collector:
+      address: http://192.168.88.140:9411
   uploads:
     directory: /tmp
 
