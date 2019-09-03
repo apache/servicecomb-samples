@@ -36,7 +36,7 @@ servicecomb:
         default: tracing-consumer
   tracing:
     collector:
-      address: http://192.168.88.140:9411
+      address: http://127.0.0.1:9411
   uploads:
     directory: /tmp
 

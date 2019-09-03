@@ -40,6 +40,7 @@ public class ProduceJsonProcessor implements ProduceProcessor {
     mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     mapper.setDateFormat(format);
+    //return json value exclude null
     mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
   }
 

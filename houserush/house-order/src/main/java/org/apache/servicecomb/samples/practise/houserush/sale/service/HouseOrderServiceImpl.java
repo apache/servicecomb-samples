@@ -129,7 +129,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
         throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house have been occupied first by other customer, please choose another house or try it later.");
       }
       qualification.addOrderCount();
-      saleQualificationDao.save(qualification);
+      saleQualificationDao.saveAndFlush(qualification);
       redisUtil.hset(saleHashKey, houseOrderId + "", "confirmed", 600);
       return houseOrder;
     } else {
@@ -169,7 +169,6 @@ public class HouseOrderServiceImpl implements HouseOrderService {
       Favorite favorite = new Favorite();
       favorite.setCustomerId(customerId);
       favorite.setHouseOrder(houseOrder);
-
       favoriteDao.save(favorite);
       return favorite;
     } else {
@@ -205,6 +204,10 @@ public class HouseOrderServiceImpl implements HouseOrderService {
       if (sale == null) return null;
       sale.getHouseOrders().forEach(houseOrder -> houseOrder.setSale(null));
       redisUtil.set(saleKey, JSON.toJSONString(sale), 600);
+      List<HouseOrder> list = sale.getHouseOrders();
+      sale.setHouseOrders(null);
+      redisUtil.set(redisKey.getSaleNoHouseOrder(saleId), JSON.toJSONString(sale), 600);
+      sale.setHouseOrders(list);
     } else {
       sale = JSON.parseObject(saleStr, Sale.class);
     }

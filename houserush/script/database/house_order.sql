@@ -603,7 +603,8 @@ CREATE TABLE `sale_qualification` (
   `sale_id` int(11) DEFAULT NULL,
   `qualification_count` int(11) DEFAULT NULL,
   `order_count` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `hashkey` (`customer_id`,`sale_id`) USING HASH
 ) ENGINE=InnoDB AUTO_INCREMENT=20002 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

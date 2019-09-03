@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component;
 public class RedisKey {
   private final String SALEHASHID = "SALEHASHID_";
   private final String SALEID = "SALEID_";
-  private final String HOUSEORDERIDTOSALEID = "HOUSEORDER2SALEID_";
   private final String SALENOHOUSEORDER = "SALENOHOUSEORDER_";
 
   public String getSaleHashKey(int id) {
@@ -31,9 +30,6 @@ public class RedisKey {
   }
   public String getSaleKey(int id) {
     return SALEID + id;
-  }
-  public String getHouseOrderIdToSaleId(int id){
-    return HOUSEORDERIDTOSALEID+id;
   }
   public String getSaleNoHouseOrder(int saleId){
     return SALENOHOUSEORDER+saleId;

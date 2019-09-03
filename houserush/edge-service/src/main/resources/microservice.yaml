@@ -30,7 +30,7 @@ servicecomb:
         watch: false
 
   rest:
-    address: 0.0.0.0:9090
+    address: 0.0.0.0:9091
     server:
       verticle-count: 8
     client:
@@ -46,7 +46,7 @@ servicecomb:
         default: tracing-provider
   tracing:
     collector:
-      address: http://192.168.88.140:9411
+      address: http://127.0.0.1:9411
 
   inspector:
     enabled: false
