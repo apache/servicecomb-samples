@@ -60,9 +60,9 @@ set global max_connections = 10000     #修改最大连接数为10000
 
 - 线程数1000，抢购成功498
 
-  ![聚合报告](C:\Users\linzibin\Desktop\jmeter\result_img\1000_1.PNG)
+  ![聚合报告](result_img\1000_1.PNG)
 
-  ![图表](C:\Users\linzibin\Desktop\jmeter\result_img\1000_2.PNG)
+  ![图表](result_img\1000_2.PNG)
 
 可知，除了响应时间接近20多秒接近30，无异常情况，服务器能完美抗下1000的并发。
 
@@ -76,9 +76,9 @@ set global max_connections = 10000     #修改最大连接数为10000
 
   ![1500聚合报告](C:\Users\linzibin\Desktop\jmeter\result_img\1500_1.PNG)
 
-  ![1500响应时间](C:\Users\linzibin\Desktop\jmeter\result_img\1500_2.PNG)
+  ![1500响应时间](result_img\1500_2.PNG)
 
-  ![TPS](C:\Users\linzibin\Desktop\jmeter\result_img\1500_3.PNG)
+  ![TPS](result_img\1500_3.PNG)
 
   TPS接近1200
   
@@ -86,11 +86,11 @@ set global max_connections = 10000     #修改最大连接数为10000
   
 - 线程数2000
   
-  ![聚合报告](C:\Users\linzibin\Desktop\jmeter\result_img\2000_1.PNG)
+  ![聚合报告](result_img\2000_1.PNG)
   
-  ![2000_2](C:\Users\linzibin\Desktop\jmeter\result_img\2000_2.PNG)
+  ![2000_2](result_img\2000_2.PNG)
   
-  ![2000_3](C:\Users\linzibin\Desktop\jmeter\result_img\2000_3.PNG)
+  ![2000_3](result_img\2000_3.PNG)
   
   TPS反而降低了
   

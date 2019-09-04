@@ -29,6 +29,7 @@ import org.apache.servicecomb.samples.practise.houserush.gateway.rpc.po.User;
 import org.apache.servicecomb.swagger.invocation.AsyncResponse;
 import org.apache.servicecomb.swagger.invocation.InvocationType;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import org.apache.servicecomb.tracing.Span;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -46,6 +47,7 @@ public class AuthHandler implements Handler {
 
   }
 
+  @Span
   @Override
   public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
     //Internal call
@@ -63,22 +65,22 @@ public class AuthHandler implements Handler {
         asyncResp.consumerFail(new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "need authenticated"));
         return;
       }
-//      CompletableFuture<User> res = userApi.verifyToken(token);
-//      res.whenComplete((resUser, e) -> {
-//        if (res.isCompletedExceptionally() || resUser == null) {
-//          asyncResp.consumerFail(res.isCompletedExceptionally() ? e : new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated failed"));
-//          return;
-//        }
-//        //add to clientRequest in CustomClientFilter
-//        invocation.addContext("customerId", "" + resUser.getId());
-//        invocation.addContext("newAuthorization", resUser.getToken());
-//        try {
-//          invocation.next(asyncResp);
-//        } catch (Exception ex) {
-//          asyncResp.consumerFail(new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated fail"));
-//        }
-//      });
-      invocation.next(asyncResp);
+      CompletableFuture<User> res = userApi.verifyToken(token);
+      res.whenComplete((resUser, e) -> {
+        if (res.isCompletedExceptionally() || resUser == null) {
+          asyncResp.consumerFail(res.isCompletedExceptionally() ? e : new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated failed"));
+          return;
+        }
+        //add to clientRequest in CustomClientFilter
+        invocation.addContext("customerId", "" + resUser.getId());
+        invocation.addContext("newAuthorization", resUser.getToken());
+        try {
+          invocation.next(asyncResp);
+        } catch (Exception ex) {
+          asyncResp.consumerFail(new InvocationException(HttpStatus.SC_FORBIDDEN, "forbidden", "authenticated fail"));
+        }
+      });
+//      invocation.next(asyncResp);
 
     } else if (loginUrlConfig.getNoNeedLoginUrlsSet().contains(requestKey)) {
       if ("PUT /login/users/signin".equals(requestKey)) {

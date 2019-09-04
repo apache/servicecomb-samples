@@ -20,13 +20,15 @@ package org.apache.servicecomb.samples.practise.houserush.sale.service;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface HouseOrderService {
   List<HouseOrder> createHouseOrders(int saleId, List<Integer> houseIds);
 
-  HouseOrder placeHouseOrder(int customerId, int houseOrderId);
+  HouseOrder placeHouseOrder(int customerId, int houseOrderId, int saleId);
 
   HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
 
@@ -45,4 +47,6 @@ public interface HouseOrderService {
   void removeSale(int saleId);
 
   List<Sale> indexSales();
+
+  void updateSaleQualification(List<SaleQualification> saleQualifications);
 }

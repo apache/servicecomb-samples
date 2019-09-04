@@ -22,6 +22,7 @@ import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
 import org.apache.servicecomb.samples.practise.houserush.sale.service.HouseOrderService;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,9 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
     return houseOrderService.createHouseOrders(saleId, houseIds);
   }
 
-  @PutMapping("house_orders/{houseOrderId}")
-  public HouseOrder placeHouseOrder(@RequestHeader int customerId, @PathVariable int houseOrderId) {
-    return houseOrderService.placeHouseOrder(customerId, houseOrderId);
+  @PutMapping("house_orders/{saleId}/{houseOrderId}")
+  public HouseOrder placeHouseOrder(@RequestHeader int customerId, @PathVariable int saleId,@PathVariable int houseOrderId) {
+    return houseOrderService.placeHouseOrder(customerId, houseOrderId,saleId);
   }
 
   @PutMapping("house_orders/{houseOrderId}/cancel")
@@ -97,5 +98,11 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
   @GetMapping("sales")
   public List<Sale> indexSales() {
     return houseOrderService.indexSales();
+  }
+
+  @Override
+  @PutMapping("sale_qualification")
+  public void updateSaleQualification(@RequestBody List<SaleQualification> saleQualifications){
+    houseOrderService.updateSaleQualification(saleQualifications);
   }
 }
