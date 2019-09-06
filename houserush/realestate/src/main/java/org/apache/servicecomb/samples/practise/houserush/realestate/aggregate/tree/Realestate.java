@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate;
+package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -26,9 +26,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Data
@@ -42,9 +42,9 @@ public class Realestate {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
- @JsonIgnore
-  @OneToMany(mappedBy = "realestate")
-  private List<Building> buildings = new ArrayList<>();
+  @JsonIgnoreProperties(ignoreUnknown = true, value = {"realestate"})
+  @OneToMany(mappedBy = "realestate",fetch= FetchType.EAGER)
+  private Set<Building> buildings = new HashSet<>();
 
   private String name;
 

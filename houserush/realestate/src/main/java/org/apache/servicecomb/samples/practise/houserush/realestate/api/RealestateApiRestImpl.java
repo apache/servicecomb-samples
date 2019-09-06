@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.*;
 import org.apache.servicecomb.samples.practise.houserush.realestate.service.HouseTypeImageService;
@@ -26,7 +27,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestSchema(schemaId = "realestateApiRest")
 @RequestMapping("/")
@@ -122,17 +125,17 @@ public class RealestateApiRestImpl implements RealestateApi {
   }
 
   @PostMapping("housetype")
-  public HouseType createHouseType(@RequestBody HouseType houseType){
+  public HouseType createHouseType(@RequestBody HouseType houseType) {
     return realestateService.createHouseType(houseType);
   }
 
   @PutMapping("housetype/{id}")
-  public HouseType updateHouseType(@PathVariable("id") int id, @RequestBody HouseType houseType){
+  public HouseType updateHouseType(@PathVariable("id") int id, @RequestBody HouseType houseType) {
     houseType.setId(id);
 
     //Delete original image if image has been changed.
     HouseType oldVersion = realestateService.findHouseType(id);
-    if(oldVersion != null && oldVersion.getImageId() != houseType.getImageId()){
+    if (oldVersion != null && oldVersion.getImageId() != houseType.getImageId()) {
       houseTypeImageService.removeHouseTypeImage(oldVersion.getImageId());
     }
 
@@ -140,10 +143,10 @@ public class RealestateApiRestImpl implements RealestateApi {
   }
 
   @DeleteMapping("housetype/{id}")
-  public void removeHouseType(@PathVariable("id") int id){
+  public void removeHouseType(@PathVariable("id") int id) {
     //Delete house type image if it is exists.
     HouseType type = realestateService.findHouseType(id);
-    if(type != null && type.getImageId() != 0){
+    if (type != null && type.getImageId() != 0) {
       houseTypeImageService.removeHouseTypeImage(type.getImageId());
     }
 
@@ -151,12 +154,12 @@ public class RealestateApiRestImpl implements RealestateApi {
   }
 
   @GetMapping("housetype/{id}")
-  public HouseType findHouseType(@PathVariable("id") int id){
+  public HouseType findHouseType(@PathVariable("id") int id) {
     return realestateService.findHouseType(id);
   }
 
   @GetMapping("housetype")
-  public List<HouseType> indexHouseTypes(){
+  public List<HouseType> indexHouseTypes() {
     return realestateService.indexHouseTypes();
   }
 
@@ -175,4 +178,17 @@ public class RealestateApiRestImpl implements RealestateApi {
     return houseTypeImageService.findHouseTypeImage(id);
   }
 
+  @Override
+  @GetMapping("/realestates/findTreeRealestate/{id}")
+  public Map<String, Object> findByRealestateId(@PathVariable("id") Integer id) {
+    org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree.Realestate realestate = realestateService.findTreeRealestate(id);
+    Map map = new HashMap();
+    try {
+      ObjectMapper om = new ObjectMapper();
+      map.putAll(om.readValue(om.writeValueAsString(realestate), Map.class));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return map;
+  }
 }

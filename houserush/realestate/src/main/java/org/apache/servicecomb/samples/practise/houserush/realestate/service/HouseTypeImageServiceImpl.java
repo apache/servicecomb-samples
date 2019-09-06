@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class HouseTypeImageServiceImpl implements HouseTypeImageService{
+public class HouseTypeImageServiceImpl implements HouseTypeImageService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HouseTypeImageServiceImpl.class);
 

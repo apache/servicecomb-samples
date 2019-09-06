@@ -67,4 +67,7 @@ public interface RealestateService {
 
   List<HouseType> indexHouseTypes();
 
+  public List<Building> findByRealestateId(Integer realestateId);
+
+  org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree.Realestate findTreeRealestate(Integer id);
 }

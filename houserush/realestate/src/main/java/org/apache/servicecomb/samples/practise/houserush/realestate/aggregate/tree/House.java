@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate;
+package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,29 +27,35 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
-
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "realestates")
-@SQLDelete(sql = "update realestates set deleted_at = now() where id = ?")
+@Table(name = "houses")
+@SQLDelete(sql = "update houses set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 @EntityListeners(AuditingEntityListener.class)
-public class Realestate {
+public class House {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
- @JsonIgnore
-  @OneToMany(mappedBy = "realestate")
-  private List<Building> buildings = new ArrayList<>();
+  @ManyToOne(fetch= FetchType.EAGER)
+  @JoinColumn(name = "building_id")
+  private Building building;
 
   private String name;
 
-  private String description;
+  private Integer layer;
+
+  private String state;
+
+  private Integer sequenceInLayer;
+
+  private BigDecimal price;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date deletedAt;

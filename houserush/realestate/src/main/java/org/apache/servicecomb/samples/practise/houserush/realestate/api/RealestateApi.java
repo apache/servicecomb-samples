@@ -21,6 +21,7 @@ import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RealestateApi {
   Realestate createRealestate(Realestate realestate);
@@ -71,4 +72,5 @@ public interface RealestateApi {
 
   byte[] findHouseTypeImage(int id);
 
+  public Map<String,Object>  findByRealestateId(Integer realestateId);
 }

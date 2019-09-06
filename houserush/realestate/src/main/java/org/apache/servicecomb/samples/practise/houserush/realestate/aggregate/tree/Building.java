@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate;
+package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,29 +27,34 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "realestates")
-@SQLDelete(sql = "update realestates set deleted_at = now() where id = ?")
+@Table(name = "buildings")
+@SQLDelete(sql = "update buildings set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener.class)
-public class Realestate {
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
+public class Building {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
- @JsonIgnore
-  @OneToMany(mappedBy = "realestate")
-  private List<Building> buildings = new ArrayList<>();
+  @ManyToOne
+  @JoinColumn(name = "realestate_id")
+  private Realestate realestate;
+
+  @JsonIgnoreProperties(ignoreUnknown = true, value = {"building"})
+  @OneToMany(mappedBy = "building",fetch= FetchType.EAGER)
+  private Set<House> houses = new HashSet<>();
 
   private String name;
 
-  private String description;
+  private Integer sequenceInRealestate;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date deletedAt;
