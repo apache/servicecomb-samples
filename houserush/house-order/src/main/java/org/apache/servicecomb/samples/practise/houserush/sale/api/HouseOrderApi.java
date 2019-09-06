@@ -20,13 +20,14 @@ package org.apache.servicecomb.samples.practise.houserush.sale.api;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
 
 import java.util.List;
 
 public interface HouseOrderApi {
   List<HouseOrder> createHouseOrders(int saleId, List<Integer> houseIds);
 
-  HouseOrder placeHouseOrder(int customerId, int houseOrderId);
+  HouseOrder placeHouseOrder(int customerId, int houseOrderId,int saleId);
 
   HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
 
@@ -42,6 +43,8 @@ public interface HouseOrderApi {
 
   Sale findSale(int saleId);
 
+  Sale findOrderSale(int saleId);
+
   Sale findSaleByRealestateId(int realestateId);
 
   Sale updateSale(int saleId, Sale sale);
@@ -51,4 +54,6 @@ public interface HouseOrderApi {
   List<Sale> indexSales();
 
   List<Sale> indexAllSales();
+
+  void updateSaleQualification(List<SaleQualification> saleQualifications);
 }

@@ -119,6 +119,7 @@ gateway:
     - GET /realestate/realestates/findTreeRealestate/{id}
     - GET /house-order/sales/indexAllSales
     - GET /house-order/sales/indexOrderSales
+    - GET /house-order/sales/order/{saleId}
   noNeedLoginUrls:
     - POST /login/users
     - PUT /login/users/signin
