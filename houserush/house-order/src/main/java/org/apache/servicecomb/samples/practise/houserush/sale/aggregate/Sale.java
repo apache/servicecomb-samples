@@ -17,8 +17,9 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -36,13 +37,14 @@ import java.util.List;
 @SQLDelete(sql = "update sales set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener.class)
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class Sale {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
   private String state = "new";
+
+  private String name;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date beginAt;
@@ -51,6 +53,7 @@ public class Sale {
   private Date endAt;
 
   @OneToMany(mappedBy = "sale")
+  @Fetch(FetchMode.JOIN)
   private List<HouseOrder> houseOrders = new ArrayList<>();
 
   private Integer realestateId;

@@ -19,9 +19,29 @@ package org.apache.servicecomb.samples.practise.houserush.sale.rpc.po;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 @Data
 public class House {
   private Integer id;
 
   private String name;
+
+  private Building building;
+
+  private Integer layer;
+
+  private String state;
+
+  private Integer sequenceInLayer;
+
+  private BigDecimal price;
+
+  private Date deletedAt;
+
+  private Date createdAt;
+
+  private Date updatedAt;
+
 }

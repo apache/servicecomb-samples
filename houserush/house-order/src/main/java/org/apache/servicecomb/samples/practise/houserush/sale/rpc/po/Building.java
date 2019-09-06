@@ -15,17 +15,32 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.sale.rpc;
+package org.apache.servicecomb.samples.practise.houserush.sale.rpc.po;
 
-import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.House;
-import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Realestate;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public interface RealestateApi {
-  Realestate findRealestate(int id);
+@Getter
+@Setter
+public class Building {
 
-  House findHouse(int id);
+  private int id;
 
-  List<House> lockHousesForSale(List<Integer> ids);
+  private Realestate realestate;
+
+  private List<House> houses = new ArrayList<>();
+
+  private String name;
+
+  private Integer sequenceInRealestate;
+
+  private Date deletedAt;
+
+  private Date createdAt;
+
+  private Date updatedAt;
 }
