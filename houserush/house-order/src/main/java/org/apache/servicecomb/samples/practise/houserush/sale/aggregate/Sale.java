@@ -18,6 +18,8 @@
 package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -42,13 +44,16 @@ public class Sale {
 
   private String state = "new";
 
+  private String name;
+
   @Temporal(TemporalType.TIMESTAMP)
   private Date beginAt;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date endAt;
 
-  @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "sale")
+  @Fetch(FetchMode.JOIN)
   private List<HouseOrder> houseOrders = new ArrayList<>();
 
   private Integer realestateId;

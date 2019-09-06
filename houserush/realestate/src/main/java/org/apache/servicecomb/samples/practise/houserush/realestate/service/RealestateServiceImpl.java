@@ -22,10 +22,7 @@ import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Bu
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.House;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.HouseType;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Realestate;
-import org.apache.servicecomb.samples.practise.houserush.realestate.dao.BuildingDao;
-import org.apache.servicecomb.samples.practise.houserush.realestate.dao.HouseDao;
-import org.apache.servicecomb.samples.practise.houserush.realestate.dao.HouseTypeDao;
-import org.apache.servicecomb.samples.practise.houserush.realestate.dao.RealestateDao;
+import org.apache.servicecomb.samples.practise.houserush.realestate.dao.*;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
@@ -47,6 +44,9 @@ public class RealestateServiceImpl implements RealestateService {
 
   @Autowired
   private HouseTypeDao houseTypeDao;
+
+  @Autowired
+  private TreeDao treeDao;
 
   @Override
   public Realestate createRealesate(Realestate realestate) {
@@ -201,4 +201,15 @@ public class RealestateServiceImpl implements RealestateService {
   public List<HouseType> indexHouseTypes() {
     return houseTypeDao.findAll();
   }
+
+  @Override
+  @Transactional
+  public org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree.Realestate findTreeRealestate(Integer id) {
+    return treeDao.findOne(id);
+  }
+  @Transactional
+  public List<Building> findByRealestateId(Integer realestateId){
+    return buildingDao.findByRealestateId(realestateId);
+  }
+
 }

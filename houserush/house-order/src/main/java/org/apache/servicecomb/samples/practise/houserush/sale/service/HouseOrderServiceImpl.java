@@ -113,6 +113,11 @@ public class HouseOrderServiceImpl implements HouseOrderService {
   }
 
   @Override
+  public HouseOrder findOne(int houseOrderId) {
+    return houseOrderDao.findOne(houseOrderId);
+  }
+
+  @Override
   @Transactional
   public HouseOrder cancelHouseOrder(int customerId, int houseOrderId) {
     HouseOrder houseOrder = houseOrderDao.findOneForUpdate(houseOrderId);
@@ -158,6 +163,11 @@ public class HouseOrderServiceImpl implements HouseOrderService {
   }
 
   @Override
+  public List<Favorite> findMyFavorite(int customerId) {
+    return favoriteDao.findAllByCustomerId(customerId);
+  }
+
+  @Override
   public void removeFavorite(int id) {
     favoriteDao.delete(id);
   }
@@ -173,6 +183,11 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     Realestate realestate = realestateApi.findRealestate(sale.getRealestateId());
     sale.setRealestateName(realestate.getName());
     return sale;
+  }
+
+  @Override
+  public Sale findSaleByRealestateId(int realestateId) {
+    return saleDao.findByRealestateId(realestateId);
   }
 
   @Override

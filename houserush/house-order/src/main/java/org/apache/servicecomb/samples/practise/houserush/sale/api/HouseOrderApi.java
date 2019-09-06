@@ -30,7 +30,11 @@ public interface HouseOrderApi {
 
   HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
 
+  HouseOrder findOne(int houseOrderId);
+
   Favorite addFavorite(int customerId, int houseOrderId);
+
+  List<Favorite> findMyFavorite(int customerId);
 
   void removeFavorite(int customerId, int favoriteId);
 
@@ -38,9 +42,13 @@ public interface HouseOrderApi {
 
   Sale findSale(int saleId);
 
+  Sale findSaleByRealestateId(int realestateId);
+
   Sale updateSale(int saleId, Sale sale);
 
   void removeSale(int saleId);
 
   List<Sale> indexSales();
+
+  List<Sale> indexAllSales();
 }

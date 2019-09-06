@@ -28,17 +28,23 @@ public interface HouseOrderService {
 
   HouseOrder placeHouseOrder(int customerId, int houseOrderId);
 
+  HouseOrder findOne(int houseOrderId);
+
   HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
 
   Favorite addFavorite(int customerId, int houseOrderId);
 
   Favorite findFavorite(int id);
 
+  List<Favorite> findMyFavorite(int customerId);
+
   void removeFavorite(int id);
 
   Sale createSale(Sale sale);
 
   Sale findSale(int saleId);
+
+  Sale findSaleByRealestateId(int realestateId);
 
   Sale updateSale(Sale sale);
 

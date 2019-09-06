@@ -18,22 +18,32 @@
 package org.apache.servicecomb.samples.practise.houserush.sale.api;
 
 import org.apache.http.HttpStatus;
+import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManageApi;
+import org.apache.servicecomb.samples.practise.houserush.sale.rpc.RealestateApi;
+import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Customer;
+import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.House;
+import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Qualification;
+import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Realestate;
 import org.apache.servicecomb.samples.practise.houserush.sale.service.HouseOrderService;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.ws.rs.HeaderParam;
 
 @RestSchema(schemaId = "houseOrderApiRest")
 @RequestMapping("/")
 public class HouseOrderApiRestImpl implements HouseOrderApi {
+
+  @RpcReference(microserviceName = "realestate", schemaId = "realestateApiRest")
+  private RealestateApi realestateApi;
+
   @Autowired
   HouseOrderService houseOrderService;
 
@@ -53,6 +63,12 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
   }
 
   @Override
+  @GetMapping("house_orders/{houseOrderId}")
+  public HouseOrder findOne(@PathVariable int houseOrderId) {
+    return houseOrderService.findOne(houseOrderId);
+  }
+
+  @Override
   @PostMapping("sales")
   public Sale createSale(@RequestBody Sale sale) {
     return houseOrderService.createSale(sale);
@@ -62,6 +78,12 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
   @GetMapping("sales/{saleId}")
   public Sale findSale(@PathVariable int saleId) {
     return houseOrderService.findSale(saleId);
+  }
+
+  @Override
+  @GetMapping("sales/{realestateId}")
+  public Sale findSaleByRealestateId(@PathVariable int realestateId) {
+    return houseOrderService.findSaleByRealestateId(realestateId);
   }
 
   @Override
@@ -75,6 +97,12 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
   @PutMapping("house_orders/{houseOrderId}/add_favorite")
   public Favorite addFavorite(@RequestHeader int customerId, @PathVariable int houseOrderId) {
     return houseOrderService.addFavorite(customerId, houseOrderId);
+  }
+
+  @Override
+  @GetMapping("favorites")
+  public List<Favorite> findMyFavorite(@RequestHeader int customerId) {
+    return  houseOrderService.findMyFavorite(customerId);
   }
 
   @Override
@@ -96,6 +124,113 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
   @Override
   @GetMapping("sales")
   public List<Sale> indexSales() {
-    return houseOrderService.indexSales();
+    List<Sale>  saleList= houseOrderService.indexSales();
+    saleList.forEach(sale -> {
+      Realestate realestate = realestateApi.findRealestate(sale.getRealestateId());
+      sale.setRealestateName(realestate.getName());
+    });
+    return saleList;
   }
+
+
+
+  @Override
+  @GetMapping("sales/indexAllSales")
+  public List<Sale> indexAllSales() {
+    List<Sale>  saleList= houseOrderService.indexSales();
+    return saleList;
+  }
+
+  @RpcReference(microserviceName = "customer-manage", schemaId = "customerManageApiRest")
+  private CustomerManageApi customerManageApi;
+
+  @GetMapping("sales/list")
+  public List<Sale> indexListSales(@RequestHeader int customerId) {
+    List<Sale>  saleList = new ArrayList<>();
+    //查询我的购房资格列表
+    Customer customer = customerManageApi.findCustomer(customerId);
+    if(customer == null){
+      return saleList;
+    }
+    //购房销售活动列表
+    List<Qualification> qualifications = customer.getQualifications();
+
+    qualifications.forEach(qualification ->{
+      //所有资格的活动
+      Sale sale = houseOrderService.findSale(qualification.getSaleId());
+         //获取楼盘名称
+      Realestate realestate = realestateApi.findRealestate(sale.getRealestateId());
+      sale.setRealestateName(realestate.getName());
+      saleList.add(sale);
+    });
+    return saleList;
+  }
+
+
+
+  @GetMapping("sales/details/{saleId}")
+  public List<Sale> indexDetailsSales(@RequestHeader int customerId, @PathVariable int saleId) {
+    List<Sale>  saleList = new ArrayList<>();
+    //查询我的购房资格列表
+    Customer customer = customerManageApi.findCustomer(customerId);
+
+    if(customer == null){
+      return saleList;
+    }
+    //购房销售活动列表
+    List<Qualification> qualifications = customer.getQualifications();
+
+    qualifications.forEach(qualification ->{
+      //所有资格的活动
+      Sale sale = houseOrderService.findSale(qualification.getSaleId());
+      //查看当前楼盘活动列表
+      if(sale.getId().equals(saleId)){
+        List<HouseOrder> houseOrders = sale.getHouseOrders();
+        houseOrders.forEach(houseOrder ->{
+          //房屋
+          House house = realestateApi.findHouse(houseOrder.getHouseId());
+          houseOrder.setHouseName(house.getName());//名称
+          houseOrder.setPrice(house.getPrice());//价格
+          houseOrder.setBuilDingName(house.getBuilding().getName());//楼栋名称
+
+        } );
+        saleList.add(sale);
+      }
+    });
+    return saleList;
+  }
+
+  /**
+   * 所有活动订单状态
+   * @return
+   */
+  @GetMapping("sales/indexOrderSales")
+  public List<Sale> indexOrderSales() {
+    List<Sale>  saleList= houseOrderService.indexSales();
+    saleList.forEach(sale -> {
+      List<HouseOrder> houseOrders = sale.getHouseOrders();
+      houseOrders.forEach(houseOrder ->{
+        //房屋
+        House house = realestateApi.findHouse(houseOrder.getHouseId());
+        houseOrder.setHouseName(house.getName());//名称
+        houseOrder.setPrice(house.getPrice());//价格
+        houseOrder.setBuilDingName(house.getBuilding().getName());//楼栋名称
+      });
+    });
+    return saleList;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

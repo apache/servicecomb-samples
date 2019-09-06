@@ -25,5 +25,7 @@ import java.util.List;
 public interface RealestateApi {
   Realestate findRealestate(int id);
 
+  House findHouse(int id);
+
   List<House> lockHousesForSale(List<Integer> ids);
 }

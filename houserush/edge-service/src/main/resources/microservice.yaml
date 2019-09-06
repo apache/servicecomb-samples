@@ -21,27 +21,33 @@ APPLICATION_ID: houserush
 service_description:
   # name of the declaring microservice
   name: edgeservice
-  version: 0.0.1
+  version: 0.0.3
 servicecomb:
   service:
     registry:
       address: http://127.0.0.1:30100
       instance:
         watch: false
-
+  uploads:
+    directory: d:/tmp
   rest:
-    address: 0.0.0.0:9090
+    address: 0.0.0.0:8989
     server:
       verticle-count: 8
     client:
       verticle-count: 8
       connection:
-        maxPoolSize: 40
+        maxPoolSize: 100
         idleTimeoutInSeconds: 1200
   handler:
     chain:
       Consumer:
-        default: auth,loadbalance
+        default: auth,loadbalance,tracing-consumer
+      Provider:
+        default: tracing-provider
+  tracing:
+    collector:
+      address: http://127.0.0.1:9411
 
   inspector:
     enabled: false
@@ -96,13 +102,23 @@ gateway:
     - GET /customer-manage/customers
     - PUT /customer-manage/customers/{id}/update_qualifications
     - POST /house-order/sales/{saleId}/house_orders
-    - PUT /house-order/house_orders/{houseOrderId}
+    - PUT /house-order/house_orders/{saleId}/{houseOrderId}
     - POST /house-order/sales
     - GET /house-order/sales/{saleId}
     - PUT /house-order/sales/{saleId}
     - DELETE /house-order/sales/{saleId}
     - GET /house-order/sales
-
+    - GET /user-center/favorites
+    - GET /sales/{realestateId}
+    - GET /house_orders/{houseOrderId}
+    - GET /user-center/favorites/{id}
+    - GET /user-center/buyHouseNumber
+    - GET /house-order/sales/details
+    - GET /house-order/sales/list
+    - GET /login/users/findUser
+    - GET /realestate/realestates/findTreeRealestate/{id}
+    - GET /house-order/sales/indexAllSales
+    - GET /house-order/sales/indexOrderSales
   noNeedLoginUrls:
     - POST /login/users
     - PUT /login/users/signin

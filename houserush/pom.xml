@@ -78,6 +78,11 @@
         <artifactId>spring-boot-starter-data-rest</artifactId>
         <version>${spring-boot-1.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>1.2.59</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

@@ -19,6 +19,7 @@ package org.apache.servicecomb.samples.practise.houserush.customer.manage;
 
 import org.apache.servicecomb.common.rest.codec.RestObjectMapperFactory;
 import org.apache.servicecomb.springboot.starter.provider.EnableServiceComb;
+import org.apache.servicecomb.tracing.zipkin.EnableZipkinTracing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -29,6 +30,7 @@ import java.util.TimeZone;
 @SpringBootApplication
 @EnableServiceComb
 @EnableJpaAuditing
+//@EnableZipkinTracing
 public class CustomerManageApplication {
 
   public static void main(String[] args) {

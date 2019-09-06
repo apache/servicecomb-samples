@@ -42,6 +42,8 @@ public class Qualification {
 
   private Integer saleId;
 
+  private Integer houseId;
+
   @CreatedDate
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdAt;
