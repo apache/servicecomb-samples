@@ -21,8 +21,6 @@ import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -33,7 +31,11 @@ public interface HouseOrderApi {
 
   HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
 
+  HouseOrder findOne(int houseOrderId);
+
   Favorite addFavorite(int customerId, int houseOrderId);
+
+  List<Favorite> findMyFavorite(int customerId);
 
   void removeFavorite(int customerId, int favoriteId);
 
@@ -41,11 +43,17 @@ public interface HouseOrderApi {
 
   Sale findSale(int saleId);
 
+  Sale findOrderSale(int saleId);
+
+  Sale findSaleByRealestateId(int realestateId);
+
   Sale updateSale(int saleId, Sale sale);
 
   void removeSale(int saleId);
 
   List<Sale> indexSales();
+
+  List<Sale> indexAllSales();
 
   void updateSaleQualification(List<SaleQualification> saleQualifications);
 }

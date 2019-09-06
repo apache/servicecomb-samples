@@ -28,9 +28,10 @@ servicecomb:
       address: http://127.0.0.1:30100
       instance:
         watch: false
-
+  uploads:
+    directory: d:/tmp
   rest:
-    address: 0.0.0.0:9091
+    address: 0.0.0.0:8989
     server:
       verticle-count: 8
     client:
@@ -68,6 +69,8 @@ servicecomb:
       client:
         default:
           enabled: false #disable DefaultHttpClientFilter and use customClientFilter
+  uploads:
+    directory: /tmp
 gateway:
   needLoginUrls:
     - POST /realestate/realestates
@@ -107,7 +110,18 @@ gateway:
     - PUT /house-order/sales/{saleId}
     - DELETE /house-order/sales/{saleId}
     - GET /house-order/sales
-
+    - GET /user-center/favorites
+    - GET /sales/{realestateId}
+    - GET /house_orders/{houseOrderId}
+    - GET /user-center/favorites/{id}
+    - GET /user-center/buyHouseNumber
+    - GET /house-order/sales/details
+    - GET /house-order/sales/list
+    - GET /login/users/findUser
+    - GET /realestate/realestates/findTreeRealestate/{id}
+    - GET /house-order/sales/indexAllSales
+    - GET /house-order/sales/indexOrderSales
+    - GET /house-order/sales/order/{saleId}
   noNeedLoginUrls:
     - POST /login/users
     - PUT /login/users/signin

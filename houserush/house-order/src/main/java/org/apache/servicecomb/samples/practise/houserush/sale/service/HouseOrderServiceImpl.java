@@ -33,6 +33,7 @@ import org.apache.servicecomb.samples.practise.houserush.sale.redis.RedisUtil;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManageApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.RealestateApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.House;
+import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Realestate;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.apache.servicecomb.tracing.Span;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,6 +139,11 @@ public class HouseOrderServiceImpl implements HouseOrderService {
   }
 
   @Override
+  public HouseOrder findOne(int houseOrderId) {
+    return houseOrderDao.findOne(houseOrderId);
+  }
+
+  @Override
   @Transactional
   public HouseOrder cancelHouseOrder(int customerId, int houseOrderId) {
     HouseOrder houseOrder = houseOrderDao.findOneForUpdate(houseOrderId);
@@ -169,6 +175,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
       Favorite favorite = new Favorite();
       favorite.setCustomerId(customerId);
       favorite.setHouseOrder(houseOrder);
+
       favoriteDao.save(favorite);
       return favorite;
     } else {
@@ -182,14 +189,24 @@ public class HouseOrderServiceImpl implements HouseOrderService {
   }
 
   @Override
+  public List<Favorite> findMyFavorite(int customerId) {
+    return favoriteDao.findAllByCustomerId(customerId);
+  }
+
+  @Override
   public void removeFavorite(int id) {
     favoriteDao.delete(id);
   }
 
   @Override
   public Sale createSale(Sale sale) {
-    sale.setRealestateName(realestateApi.findRealestate(sale.getId()).getName());
     return saleDao.save(sale);
+  }
+
+  @Override
+  public Sale findBackSale(int saleId) {
+    Sale sale = saleDao.findOne(saleId);
+    return sale;
   }
 
   @Span
@@ -229,6 +246,23 @@ public class HouseOrderServiceImpl implements HouseOrderService {
       h.setHouseId(null);
     }
     return sale;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @Override
+  public Sale findSaleByRealestateId(int realestateId) {
+    return saleDao.findByRealestateId(realestateId);
   }
 
   @Override
@@ -280,5 +314,4 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     Sale sale = JSON.parseObject(obj, Sale.class);
     return "opening".equals(sale.getState());
   }
-
 }

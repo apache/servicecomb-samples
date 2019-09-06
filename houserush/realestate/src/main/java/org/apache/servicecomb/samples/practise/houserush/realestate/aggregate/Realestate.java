@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Data
 @Entity
 @Table(name = "realestates")
@@ -40,6 +42,7 @@ public class Realestate {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
+ @JsonIgnore
   @OneToMany(mappedBy = "realestate")
   private List<Building> buildings = new ArrayList<>();
 

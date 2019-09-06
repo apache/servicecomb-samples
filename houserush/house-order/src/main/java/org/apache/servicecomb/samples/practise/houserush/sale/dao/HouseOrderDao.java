@@ -36,9 +36,9 @@ public interface HouseOrderDao extends JpaRepository<HouseOrder, Integer> {
   @Query("SELECT ho FROM HouseOrder ho WHERE ho.id = ?1")
   HouseOrder findOneForUpdate(int id);
 
+  int countByCustomerIdAndSaleId(int customerId, int saleId);
+
   @Modifying
   @Query(value ="UPDATE house_orders SET customer_id = ?1,state=?2,ordered_at=?3 where id = ?4 and customer_id is null ",nativeQuery = true)
   int updateByIdAndCustomerIdIsNull(int customerId, String state, Date orderedAt, int houseOrderId);
-
-  int countByCustomerIdAndSaleId(int customerId, int saleId);
 }

@@ -573,6 +573,7 @@ DROP TABLE IF EXISTS `sales`;
 CREATE TABLE `sales` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `state` varchar(20) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
   `begin_at` timestamp(4) NULL DEFAULT NULL,
   `end_at` timestamp(4) NULL DEFAULT NULL,
   `realestate_id` int(11) DEFAULT NULL,

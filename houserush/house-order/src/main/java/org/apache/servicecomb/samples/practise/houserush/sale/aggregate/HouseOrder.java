@@ -17,10 +17,11 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.data.annotation.CreatedDate;
@@ -28,13 +29,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@JsonInclude(value = Include.NON_NULL)
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "house_orders")
 @EntityListeners(AuditingEntityListener.class)
@@ -54,8 +55,8 @@ public class HouseOrder {
 
   private Integer houseId;
 
-  @JsonIgnore
-  @OneToMany(mappedBy = "houseOrder", fetch=FetchType.LAZY)
+  @OneToMany(mappedBy = "houseOrder")
+  @Fetch(FetchMode.JOIN)
   private List<Favorite> favorites = new ArrayList<>();
 
   @Temporal(TemporalType.TIMESTAMP)
@@ -68,4 +69,21 @@ public class HouseOrder {
   @LastModifiedDate
   @Temporal(TemporalType.TIMESTAMP)
   private Date UpdatedAt;
+
+  @Transient
+  private String houseName;
+
+  @Transient
+  private BigDecimal price;
+
+  @Transient
+  private String builDingName;
+
+  @Transient
+  private String realestateName;
+
+  public static void main(String[] args) {
+    String str = JSONObject.toJSONString(new HouseOrder(), SerializerFeature.WriteMapNullValue);
+    System.out.println(str);
+  }
 }
