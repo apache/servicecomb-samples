@@ -69,6 +69,8 @@ servicecomb:
       client:
         default:
           enabled: false #disable DefaultHttpClientFilter and use customClientFilter
+  uploads:
+    directory: /tmp
 gateway:
   needLoginUrls:
     - POST /realestate/realestates
