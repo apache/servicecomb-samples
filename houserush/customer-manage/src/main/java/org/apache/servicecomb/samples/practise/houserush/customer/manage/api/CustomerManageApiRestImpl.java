@@ -19,11 +19,11 @@ package org.apache.servicecomb.samples.practise.houserush.customer.manage.api;
 
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Customer;
+import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Qualification;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.UserApi;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.po.User;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.service.CustomerManageService;
-import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Customer;
-import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Qualification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +44,12 @@ public class CustomerManageApiRestImpl implements CustomerManageApi {
     User user = new User();
     user.setUsername(customer.getRealName());
     user.setPassword("123456");
-    userApi.createUser(user);
+    User user1 = userApi.createUser(user);
+    Qualification qualification =customer.getQualifications().get(0);
+    Customer c1 = new Customer();
+    c1.setId(user1.getId());
+    qualification.setCustomer(c1);
+
     return customerManageService.createCustomer(customer);
   }
 

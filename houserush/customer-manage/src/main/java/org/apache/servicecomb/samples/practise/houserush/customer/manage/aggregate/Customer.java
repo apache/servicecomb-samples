@@ -33,7 +33,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "customers")
-@SQLDelete(sql = "update customers set   = now() where id = ?")
+@SQLDelete(sql = "update customers set  deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener.class)
 public class Customer {
@@ -42,6 +42,10 @@ public class Customer {
   private Integer id;
 
   private String phone;
+
+  private String name;
+
+  private String idCard;
 
   private String realName;
 
