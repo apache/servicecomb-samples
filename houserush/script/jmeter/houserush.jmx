@@ -10,7 +10,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="gateway_ip" elementType="Argument">
             <stringProp name="Argument.name">gateway_ip</stringProp>
-            <stringProp name="Argument.value">192.168.88.188</stringProp>
+            <stringProp name="Argument.value">192.168.88.177</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="gateway_port" elementType="Argument">
@@ -25,7 +25,7 @@
           </elementProp>
           <elementProp name="startTime" elementType="Argument">
             <stringProp name="Argument.name">startTime</stringProp>
-            <stringProp name="Argument.value">2019-09-03 16:23:40</stringProp>
+            <stringProp name="Argument.value">2019-09-06 15:24:20</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="loginPath" elementType="Argument">
@@ -111,7 +111,7 @@
           <stringProp name="HTTPSampler.port">${gateway_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/login/users/signin</stringProp>
+          <stringProp name="HTTPSampler.path">${loginPath}</stringProp>
           <stringProp name="HTTPSampler.method">PUT</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -160,7 +160,7 @@
             <stringProp name="HTTPSampler.port">${gateway_port}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/login/users/signin</stringProp>
+            <stringProp name="HTTPSampler.path">${loginPath}</stringProp>
             <stringProp name="HTTPSampler.method">PUT</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
