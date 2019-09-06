@@ -23,6 +23,7 @@ import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManageApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.RealestateApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Customer;
@@ -52,9 +53,10 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
     return houseOrderService.createHouseOrders(saleId, houseIds);
   }
 
-  @PutMapping("house_orders/{houseOrderId}")
-  public HouseOrder placeHouseOrder(@RequestHeader int customerId, @PathVariable int houseOrderId) {
-    return houseOrderService.placeHouseOrder(customerId, houseOrderId);
+  //@PutMapping("house_orders/{houseOrderId}")
+  @PutMapping("house_orders/{saleId}/{houseOrderId}")
+  public HouseOrder placeHouseOrder(@RequestHeader int customerId, @PathVariable int saleId,@PathVariable int houseOrderId) {
+    return houseOrderService.placeHouseOrder(customerId, houseOrderId,saleId);
   }
 
   @PutMapping("house_orders/{houseOrderId}/cancel")
@@ -77,8 +79,15 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
   @Override
   @GetMapping("sales/{saleId}")
   public Sale findSale(@PathVariable int saleId) {
+    return houseOrderService.findBackSale(saleId);
+  }
+
+  @Override
+  @GetMapping("sales/order/{saleId}")
+  public Sale findOrderSale(@PathVariable int saleId) {
     return houseOrderService.findSale(saleId);
   }
+
 
   @Override
   @GetMapping("sales/{realestateId}")
@@ -132,9 +141,13 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
     return saleList;
   }
 
-
-
   @Override
+  @PutMapping("sale_qualification")
+  public void updateSaleQualification(@RequestBody List<SaleQualification> saleQualifications){
+    houseOrderService.updateSaleQualification(saleQualifications);
+  }
+
+    @Override
   @GetMapping("sales/indexAllSales")
   public List<Sale> indexAllSales() {
     List<Sale>  saleList= houseOrderService.indexSales();
