@@ -17,7 +17,7 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
@@ -47,7 +47,7 @@ public class Building {
   @JoinColumn(name = "realestate_id")
   private Realestate realestate;
 
-  @JsonIgnore
+  @JsonManagedReference("building-house")
   @OneToMany(mappedBy = "building")
   private List<House> houses = new ArrayList<>();
 

@@ -10,7 +10,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="gateway_ip" elementType="Argument">
             <stringProp name="Argument.name">gateway_ip</stringProp>
-            <stringProp name="Argument.value">192.168.88.64</stringProp>
+            <stringProp name="Argument.value">192.168.88.188</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="gateway_port" elementType="Argument">
@@ -25,7 +25,7 @@
           </elementProp>
           <elementProp name="startTime" elementType="Argument">
             <stringProp name="Argument.name">startTime</stringProp>
-            <stringProp name="Argument.value">2019-08-23 16:23:00</stringProp>
+            <stringProp name="Argument.value">2019-09-03 16:23:40</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="loginPath" elementType="Argument">
@@ -35,17 +35,22 @@
           </elementProp>
           <elementProp name="threadNum" elementType="Argument">
             <stringProp name="Argument.name">threadNum</stringProp>
-            <stringProp name="Argument.value">750</stringProp>
+            <stringProp name="Argument.value">2000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="rampUpTime" elementType="Argument">
             <stringProp name="Argument.name">rampUpTime</stringProp>
-            <stringProp name="Argument.value">60</stringProp>
+            <stringProp name="Argument.value">50</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="resultFile" elementType="Argument">
             <stringProp name="Argument.name">resultFile</stringProp>
-            <stringProp name="Argument.value">C:\Users\linzibin\Desktop\jmeter\result750x10</stringProp>
+            <stringProp name="Argument.value">/home/lzb/jmeter/result2000x10</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="usersFile" elementType="Argument">
+            <stringProp name="Argument.name">usersFile</stringProp>
+            <stringProp name="Argument.value">/usr/jmeter/users.csv</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -78,7 +83,7 @@
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="read users from file" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
-          <stringProp name="filename">/usr/jmeter/users.csv</stringProp>
+          <stringProp name="filename">${usersFile}</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
@@ -106,7 +111,7 @@
           <stringProp name="HTTPSampler.port">${gateway_port}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${loginPath}</stringProp>
+          <stringProp name="HTTPSampler.path">/login/users/signin</stringProp>
           <stringProp name="HTTPSampler.method">PUT</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -332,7 +337,7 @@ Thread.sleep(waitTime&gt;0?waitTime:1);</stringProp>
                 <stringProp name="HTTPSampler.port">${gateway_port}</stringProp>
                 <stringProp name="HTTPSampler.protocol">http</stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/house-order/house_orders/${houseOrderId}</stringProp>
+                <stringProp name="HTTPSampler.path">/house-order/house_orders/${saleId}/${houseOrderId}</stringProp>
                 <stringProp name="HTTPSampler.method">PUT</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -391,7 +396,7 @@ Thread.sleep(waitTime&gt;0?waitTime:1);</stringProp>
                   <stringProp name="HTTPSampler.port">${gateway_port}</stringProp>
                   <stringProp name="HTTPSampler.protocol">http</stringProp>
                   <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">/house-order/house_orders/${houseOrderId}</stringProp>
+                  <stringProp name="HTTPSampler.path">/house-order/house_orders/${saleId}/${houseOrderId}</stringProp>
                   <stringProp name="HTTPSampler.method">PUT</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -685,51 +690,6 @@ if(list.size()==0){
           </objProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
-        <hashTree/>
-        <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.TransactionsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Transactions per Second" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
-              <url>true</url>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-              <connectTime>true</connectTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-          <longProp name="interval_grouping">1000</longProp>
-          <boolProp name="graph_aggregated">false</boolProp>
-          <stringProp name="include_sample_labels"></stringProp>
-          <stringProp name="exclude_sample_labels"></stringProp>
-          <stringProp name="start_offset"></stringProp>
-          <stringProp name="end_offset"></stringProp>
-          <boolProp name="include_checkbox_state">false</boolProp>
-          <boolProp name="exclude_checkbox_state">false</boolProp>
-        </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
         <hashTree/>
         <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="用表格察看结果" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>

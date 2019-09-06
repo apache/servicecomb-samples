@@ -206,8 +206,6 @@ public class HouseOrderServiceImpl implements HouseOrderService {
   @Override
   public Sale findBackSale(int saleId) {
     Sale sale = saleDao.findOne(saleId);
-    Realestate realestate = realestateApi.findRealestate(sale.getRealestateId());
-    sale.setRealestateName(realestate.getName());
     return sale;
   }
 
