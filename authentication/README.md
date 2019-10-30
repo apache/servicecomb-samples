@@ -1,5 +1,7 @@
 This project demonstrates authentications and authorizations based on JWT/OAuth2. Projct names follow OAuth2 architecture. 
 
+**NOTICE:** This project has become [servicecomb-fence](https://github.com/apache/servicecomb-fence).
+
 ## Implementations
 
 This project uses spring security API and mainly designed for ServiceComb architecture.

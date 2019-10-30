@@ -38,6 +38,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.servicecomb.common.rest.resource.ClassPathStaticResourceHandler;
 import org.apache.servicecomb.common.rest.resource.StaticResourceHandler;
 import org.apache.servicecomb.config.inject.ConfigObjectFactory;
+import org.apache.servicecomb.core.SCBEngine;
 import org.apache.servicecomb.foundation.common.part.InputStreamPart;
 import org.apache.servicecomb.inspector.internal.InspectorConfig;
 import org.apache.servicecomb.inspector.internal.swagger.AppendStyleProcessor;
@@ -78,7 +79,7 @@ public class InspectorEndpoint {
   private StaticResourceHandler resourceHandler = new ClassPathStaticResourceHandler();
 
   public InspectorEndpoint() {
-    this.inspectorConfig = new ConfigObjectFactory().create(InspectorConfig.class);
+    this.inspectorConfig = SCBEngine.getInstance().getPriorityPropertyManager().createConfigObject(InspectorConfig.class);
   }
 
   @Path("/schemas")
