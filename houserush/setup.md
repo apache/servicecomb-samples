@@ -7,8 +7,10 @@
       + [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
       + [Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
       + [Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
-      + [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-  安装前可能需要注册docker账号。如果仍有问题，see [docker 安装指南](https://docs.docker.com/install/)
+      + [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)  
+      
+   安装前可能需要注册docker账号。如果仍有问题，see [docker 安装指南](https://docs.docker.com/install/)
+
 3. 安装docker-compose。如果你的系统是Mac or Windows，docker-compose已经一并安装了。请用`docker-compose --version`命令确认。  
 对于linux系统, 请执行以下两条命令:
 ```bash
