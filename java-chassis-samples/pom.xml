@@ -25,6 +25,14 @@
   <name>Java Chassis::Samples</name>
   <packaging>pom</packaging>
   <version>2.0.0-SNAPSHOT</version>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+    <argLine>-Dfile.encoding=UTF-8</argLine>
+    <java-chassis-version>1.3.0</java-chassis-version>
+  </properties>
+
   <modules>
     <module>codefirst-sample</module>
     <module>custom-handler-sample</module>
@@ -48,7 +56,7 @@
       <dependency>
         <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>
-        <version>${project.version}</version>
+        <version>${java-chassis-version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
