@@ -44,14 +44,14 @@ public class UserCenterRestApiImpl implements UserCenterApi {
   private CustomerManageApi customerManageApi;
 
   /**
-   * 收藏
+   * find my favorites list.
    * @param customerId
    * @return
    */
   @Override
   @GetMapping("favorites")
   public List<Favorite> findMyFavorite(@RequestHeader int customerId) {
-    List<Favorite> favorites =  houseOrderApi.findMyFavorite(customerId);
+    List<Favorite> favorites = houseOrderApi.findMyFavorite(customerId);
     favorites.forEach(favorite -> {
       House house = realestateApi.findHouse(favorite.getHouseOrderId());
       favorite.setHouseName(house.getName());//名称
@@ -68,14 +68,15 @@ public class UserCenterRestApiImpl implements UserCenterApi {
     });
     return favorites;
   }
+
   /**
-   * 收藏详情
+   * find a favorite's detail
    * @param id
    * @return
    */
   @Override
   @GetMapping("favorites/{id}")
-  public HouseDetail findByHouseIdDetail(@PathVariable int id){
+  public HouseDetail findByHouseIdDetail(@PathVariable int id) {
     House house = realestateApi.findHouse(id);
     HouseDetail houseDetail = new HouseDetail();
     houseDetail.setHouseName(house.getName());//名称
@@ -85,19 +86,19 @@ public class UserCenterRestApiImpl implements UserCenterApi {
     houseDetail.setHouseOrderId(id);
     HouseOrder houseOrder = houseOrderApi.findOne(id);
     houseDetail.setState(houseOrder.getState());//订单状态
-    return  houseDetail;
+    return houseDetail;
   }
 
   /**
-   * 我的购房资格
+   * house qualification number.
    * @param customerId
    * @return
    */
   @GetMapping("buyHouseNumber")
-  public Customer findMyBuyHouseNumber(@RequestHeader int customerId){
-    Customer customer =customerManageApi.findCustomer(customerId);
+  public Customer findMyBuyHouseNumber(@RequestHeader int customerId) {
+    Customer customer = customerManageApi.findCustomer(customerId);
     List<Qualification> qualifications = customer.getQualifications();
-    qualifications.forEach(qualification ->{
+    qualifications.forEach(qualification -> {
       //房屋
       House house = realestateApi.findHouse(qualification.getHouseId());
       qualification.setHouseName(house.getName());//名称

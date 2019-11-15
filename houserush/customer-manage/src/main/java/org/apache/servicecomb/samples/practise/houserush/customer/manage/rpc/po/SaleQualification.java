@@ -37,5 +37,4 @@ public class SaleQualification {
 
   @NonNull
   private Integer qualificationCount;
-
 }

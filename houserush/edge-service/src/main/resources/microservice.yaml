@@ -31,7 +31,7 @@ servicecomb:
   uploads:
     directory: d:/tmp
   rest:
-    address: 0.0.0.0:8989
+    address: 0.0.0.0:9090
     server:
       verticle-count: 8
     client:
@@ -85,6 +85,7 @@ gateway:
     - GET /realestate/realestates/{realestateId}/buildings
     - POST /realestate/buildings/{buildingId}/houses
     - GET /realestate/houses/{id}
+    - POST /realestate/houses_batch
     - PUT /realestate/houses/{id}
     - DELETE /realestate/houses/{id}
     - GET /realestate/buildings/{buildingId}/houses
@@ -98,10 +99,8 @@ gateway:
     - GET /realestate/housetype/image/{id}
     - DELETE /realestate/housetype/image/{id}
     - POST /customer-manage/customers
-    - GET /customer-manage/customers/{id}
     - PUT /customer-manage/customers/{id}
     - DELETE /customer-manage/customers/{id}
-    - GET /customer-manage/customers
     - PUT /customer-manage/customers/{id}/update_qualifications
     - POST /house-order/sales/{saleId}/house_orders
     - PUT /house-order/house_orders/{saleId}/{houseOrderId}
@@ -126,4 +125,6 @@ gateway:
     - POST /login/users
     - PUT /login/users/signin
     - PUT /login/users/verify_token
+    - GET /customer-manage/customers
+    - GET /customer-manage/customers/{id}
 

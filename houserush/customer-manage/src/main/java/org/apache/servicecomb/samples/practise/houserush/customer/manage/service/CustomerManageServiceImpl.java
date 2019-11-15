@@ -17,6 +17,11 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Customer;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Qualification;
@@ -28,13 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
+/**
+ * The customer-manage core service implement.
+ */
 @Service
 public class CustomerManageServiceImpl implements CustomerManageService {
 
@@ -79,18 +80,16 @@ public class CustomerManageServiceImpl implements CustomerManageService {
 
   @Override
   public boolean updateCustomerQualifications(Customer customer, List<Qualification> qualifications) {
-    customer.setQualifications(qualifications);
     qualifications.forEach(qualification -> qualification.setCustomer(customer));
+    customer.setQualifications(qualifications);
     customerDao.saveAndFlush(customer);
-    Map<Integer,Long> map = qualifications.stream().collect(Collectors.groupingBy(Qualification::getSaleId,Collectors.counting()));
+
+    // update sale qualifications in house order microservice
+    Map<Integer, Long> map = qualifications.stream()
+        .collect(Collectors.groupingBy(Qualification::getSaleId, Collectors.counting()));
     List<SaleQualification> saleQualifications = new ArrayList<>();
-    map.forEach((k,v)->saleQualifications.add(new SaleQualification(customer.getId(),k,v.intValue())));
+    map.forEach((k, v) -> saleQualifications.add(new SaleQualification(customer.getId(), k, v.intValue())));
     houseOrderApi.updateSaleQualification(saleQualifications);
     return true;
-  }
-
-  @Override
-  public int getQualificationsCount(int customerId, int saleId) {
-    return qualificationDao.countByCustomerIdAndSaleId(customerId, saleId);
   }
 }

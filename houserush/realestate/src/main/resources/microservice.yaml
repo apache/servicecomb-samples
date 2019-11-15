@@ -21,7 +21,7 @@ APPLICATION_ID: houserush
 service_description:
   # name of the declaring microservice
   name: realestate
-  version: 0.0.30
+  version: 0.0.39
 servicecomb:
   service:
     registry:
@@ -57,6 +57,7 @@ spring:
       max-idle: 50
       default-auto-commit: true
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
     properties:
       hibernate:
         enable_lazy_load_no_trans: true

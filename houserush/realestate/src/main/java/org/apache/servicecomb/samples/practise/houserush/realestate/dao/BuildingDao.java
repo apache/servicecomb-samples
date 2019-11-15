@@ -23,5 +23,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BuildingDao extends JpaRepository<Building, Integer> {
-  public List<Building> findByRealestateId(Integer realestateId);
+  List<Building> findByRealestateId(Integer realestateId);
 }

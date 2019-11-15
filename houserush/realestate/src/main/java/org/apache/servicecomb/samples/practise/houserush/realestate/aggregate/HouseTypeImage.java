@@ -17,20 +17,13 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
 public class HouseTypeImage {
   private int id;
-
-  public HouseTypeImage(){}
-
-  public HouseTypeImage(int id){
-    this.id = id;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
+  public HouseTypeImage(int id) {
     this.id = id;
   }
 }

@@ -24,6 +24,7 @@ import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
+import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.view.SaleSummary;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManageApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.RealestateApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Customer;
@@ -37,6 +38,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
 @RestSchema(schemaId = "houseOrderApiRest")
 @RequestMapping("/")
@@ -53,7 +61,6 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
     return houseOrderService.createHouseOrders(saleId, houseIds);
   }
 
-  //@PutMapping("house_orders/{houseOrderId}")
   @PutMapping("house_orders/{saleId}/{houseOrderId}")
   public HouseOrder placeHouseOrder(@RequestHeader int customerId, @PathVariable int saleId,@PathVariable int houseOrderId) {
     return houseOrderService.placeHouseOrder(customerId, houseOrderId,saleId);
@@ -132,13 +139,25 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
 
   @Override
   @GetMapping("sales")
-  public List<Sale> indexSales() {
+  public List<SaleSummary> indexSales(){
+
     List<Sale>  saleList= houseOrderService.indexSales();
+    List<SaleSummary> saleSummaryList = new ArrayList<>();
+
     saleList.forEach(sale -> {
       Realestate realestate = realestateApi.findRealestate(sale.getRealestateId());
-      sale.setRealestateName(realestate.getName());
+      SaleSummary saleSummary = new SaleSummary();
+
+      saleSummary.setId(sale.getId());
+      saleSummary.setRealestateName(realestate.getName());
+      saleSummary.setBeginAt(sale.getBeginAt());
+      saleSummary.setEndAt(sale.getEndAt());
+      saleSummary.setState(sale.getState());
+      saleSummary.setRealestateId(sale.getRealestateId());
+      saleSummaryList.add(saleSummary);
     });
-    return saleList;
+
+    return saleSummaryList;
   }
 
   @Override
@@ -147,7 +166,7 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
     houseOrderService.updateSaleQualification(saleQualifications);
   }
 
-    @Override
+  @Override
   @GetMapping("sales/indexAllSales")
   public List<Sale> indexAllSales() {
     List<Sale>  saleList= houseOrderService.indexSales();
@@ -178,8 +197,6 @@ public class HouseOrderApiRestImpl implements HouseOrderApi {
     });
     return saleList;
   }
-
-
 
   @GetMapping("sales/details/{saleId}")
   public List<Sale> indexDetailsSales(@RequestHeader int customerId, @PathVariable int saleId) {

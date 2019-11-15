@@ -17,23 +17,35 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "customers")
-@SQLDelete(sql = "update customers set  deleted_at = now() where id = ?")
+@SQLDelete(sql = "update customers set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener.class)
 public class Customer {
@@ -59,11 +71,9 @@ public class Customer {
 
   @CreatedDate
   @Temporal(TemporalType.TIMESTAMP)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
   private Date createdAt;
 
   @LastModifiedDate
   @Temporal(TemporalType.TIMESTAMP)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
   private Date updatedAt;
 }

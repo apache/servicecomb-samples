@@ -24,8 +24,6 @@ public interface UserService {
 
   User findUser(int id);
 
-  User updateUser(User user);
-
   void removeUser(int id);
 
   User signin(User user);

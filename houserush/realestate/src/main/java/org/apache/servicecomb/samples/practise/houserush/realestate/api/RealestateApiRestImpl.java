@@ -103,6 +103,11 @@ public class RealestateApiRestImpl implements RealestateApi {
     return realestateService.findHouse(id);
   }
 
+  @PostMapping("houses_batch")
+  public List<House> findHouses(@RequestBody List<Integer> ids) {
+    return realestateService.findHouses(ids);
+  }
+
   @PutMapping("houses/{id}")
   public House updateHouse(@PathVariable("id") int id, @RequestBody House house) {
     house.setId(id);
@@ -176,19 +181,5 @@ public class RealestateApiRestImpl implements RealestateApi {
   @GetMapping(value = "housetype/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
   public byte[] findHouseTypeImage(@PathVariable("id") int id) {
     return houseTypeImageService.findHouseTypeImage(id);
-  }
-
-  @Override
-  @GetMapping("/realestates/findTreeRealestate/{id}")
-  public Map<String, Object> findByRealestateId(@PathVariable("id") Integer id) {
-    org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree.Realestate realestate = realestateService.findTreeRealestate(id);
-    Map map = new HashMap();
-    try {
-      ObjectMapper om = new ObjectMapper();
-      map.putAll(om.readValue(om.writeValueAsString(realestate), Map.class));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return map;
   }
 }

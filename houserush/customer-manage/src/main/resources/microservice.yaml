@@ -16,10 +16,8 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# all interconnected microservices must belong to an application wth the same ID
 APPLICATION_ID: houserush
 service_description:
-# name of the declaring microservice
   name: customer-manage
   version: 0.0.21
 servicecomb:
@@ -51,6 +49,7 @@ spring:
       max-idle: 50
       default-auto-commit: true
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
     properties:
       hibernate:
         enable_lazy_load_no_trans: true

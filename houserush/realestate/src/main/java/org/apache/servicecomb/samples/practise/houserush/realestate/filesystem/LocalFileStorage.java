@@ -17,15 +17,20 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.filesystem;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
-import java.util.Date;
-
 @Component
-public class LocalFileStorage extends FileStorage{
+public class LocalFileStorage extends FileStorage {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LocalFileStorage.class);
 
@@ -35,7 +40,7 @@ public class LocalFileStorage extends FileStorage{
 
   static {
     File file = new File(localPath);
-    if(!file.exists()){
+    if (!file.exists()) {
       file.mkdirs();
     }
   }
@@ -45,7 +50,7 @@ public class LocalFileStorage extends FileStorage{
     int id = (new Date()).hashCode();
     try {
       File file = new File(localPath + id + ".jpeg");
-      if(file.exists()){
+      if (file.exists()) {
         file.delete();
       }
       file.createNewFile();
@@ -61,7 +66,7 @@ public class LocalFileStorage extends FileStorage{
       os.close();
       inputStream.close();
       return id;
-    }catch (IOException e){
+    } catch (IOException e) {
       LOGGER.error(e.getMessage(), e);
       return -1;
     }
@@ -70,7 +75,7 @@ public class LocalFileStorage extends FileStorage{
   @Override
   public void delete(int id) {
     File file = new File(localPath + id + ".jpeg");
-    if(file.exists()){
+    if (file.exists()) {
       file.delete();
     }
   }
@@ -79,10 +84,10 @@ public class LocalFileStorage extends FileStorage{
   public InputStream getFile(int id) {
     try {
       File file = new File(localPath + id + ".jpeg");
-      if(file.exists()){
+      if (file.exists()) {
         return new FileInputStream(file);
       }
-    }catch (IOException e){
+    } catch (IOException e) {
       LOGGER.error(e.getMessage(), e);
     }
     return null;

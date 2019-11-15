@@ -2,35 +2,33 @@ version: "3"
 
 services:
   servicecenter:
-    image: servicecomb/service-center
+    image: 121.37.4.50:5000/servicecomb/service-center
     ports:
       - "30100:30100"
-    network_mode: "host"
   mysql:
-    image: servicecomb-samples/mysql
+    image: 121.37.4.50:5000/servicecomb-samples/mysql
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-    network_mode: "host"
   customer-manage:
-    image: servicecomb-samples/updated
+    image: 121.37.4.50:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/customer-manage
-    command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.140:30100
-      spring_datasource_url: jdbc:mysql://192.168.88.244:3306/customer?characterEncoding=utf8&useSSL=false
+      servicecomb_service_registry_address: http://servicecenter:30100
+      spring_datasource_url: jdbc:mysql://mysql:3306/customer?characterEncoding=utf8&useSSL=false
     ports:
       - "7779:7779"
-    network_mode: "host"
   edge-service:
-    image: servicecomb-samples/updated
+    image: 121.37.4.50:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/edge-service
-    command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    ports:
+      - "9090:9090"
     environment:
-      servicecomb_service_registry_address: http://192.168.88.140:30100
+      servicecomb_service_registry_address: http://servicecenter:30100
       servicecomb_rest_address: 0.0.0.0:9090
-    network_mode: "host"
 #  gateway:
 #    depends_on:
 #      - servicecenter
@@ -38,46 +36,54 @@ services:
 #      context: .
 #      dockerfile: gateway.dockerfile
 #    environment:
-#      servicecomb_service_registry_address: http://192.168.88.140:30100
+#      servicecomb_service_registry_address: http://servicecenter:30100
 #    ports:
 #      - "8889:8889"
   house-order:
-    image: servicecomb-samples/updated
+    image: 121.37.4.50:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/house-order
-    command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.140:30100
-      spring_datasource_url: jdbc:mysql://192.168.88.177:3306/house_order?characterEncoding=utf8&useSSL=false
+      servicecomb_service_registry_address: http://servicecenter:30100
+      spring_datasource_url: jdbc:mysql://mysql:3306/house_order?characterEncoding=utf8&useSSL=false
+      spring_redis_host: redis
     ports:
       - "6788:6788"
-    network_mode: "host"
   login:
-    image: servicecomb-samples/updated
+    image: 121.37.4.50:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/login
-    command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.140:30100
-      spring_datasource_url: jdbc:mysql://192.168.88.244:3306/login?characterEncoding=utf8&useSSL=false
+      servicecomb_service_registry_address: http://servicecenter:30100
+      spring_datasource_url: jdbc:mysql://mysql:3306/login?characterEncoding=utf8&useSSL=false
     ports:
       - "6777:6777"
-    network_mode: "host"
   realestate:
-    image: servicecomb-samples/updated
+    image: 121.37.4.50:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/realestate
-    command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.140:30100
-      spring_datasource_url: jdbc:mysql://192.168.88.129:3306/realestate?characterEncoding=utf8&useSSL=false
+      servicecomb_service_registry_address: http://servicecenter:30100
+      spring_datasource_url: jdbc:mysql://mysql:3306/realestate?characterEncoding=utf8&useSSL=false
     ports:
       - "7771:7771"
-    network_mode: "host"
   user-center:
-    image: servicecomb-samples/updated
+    image: 121.37.4.50:5000/servicecomb-samples/updated
     working_dir: /servicecomb-samples/houserush/user-center
-    command: ["192.168.88.244:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
     environment:
-      servicecomb_service_registry_address: http://192.168.88.140:30100
+      servicecomb_service_registry_address: http://servicecenter:30100
     ports:
       - "6877:6877"
-    network_mode: "host"
+  redis:
+    image: 121.37.4.50:5000/redis:3.2.9
+    ports:
+      - "6379:6379"
+  nginx:
+    image: 121.37.4.50:5000/servicecomb-samples/nginx
+    ports:
+      - "8080:8080"
+
+
+
 

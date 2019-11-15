@@ -18,8 +18,7 @@
 package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -31,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
 @Data
 @Entity
 @Table(name = "sales")
@@ -38,25 +39,30 @@ import java.util.List;
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener.class)
 public class Sale {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
   private String state = "new";
 
+  @Transient
   private String name;
+
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date beginAt;
 
+
   @Temporal(TemporalType.TIMESTAMP)
   private Date endAt;
 
-  @OneToMany(mappedBy = "sale")
-  @Fetch(FetchMode.JOIN)
+  @OneToMany(mappedBy = "sale", fetch = FetchType.LAZY)
   private List<HouseOrder> houseOrders = new ArrayList<>();
 
+
   private Integer realestateId;
+
 
   @Transient
   private String realestateName;

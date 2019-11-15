@@ -48,6 +48,8 @@ public interface RealestateApi {
 
   House findHouse(int id);
 
+  List<House> findHouses(List<Integer> ids);
+
   House updateHouse(int id, House house);
 
   void removeHouse(int id);
@@ -71,6 +73,4 @@ public interface RealestateApi {
   void removeHouseTypeImage(int id);
 
   byte[] findHouseTypeImage(int id);
-
-  public Map<String,Object>  findByRealestateId(Integer realestateId);
 }

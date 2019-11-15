@@ -17,6 +17,8 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage.api;
 
+import java.util.List;
+
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Customer;
@@ -24,14 +26,25 @@ import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggrega
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.UserApi;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.po.User;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.service.CustomerManageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 
+/**
+ * Customer-Manage Core Api implement.
+ */
 @RestSchema(schemaId = "customerManageApiRest")
 @RequestMapping("/")
 public class CustomerManageApiRestImpl implements CustomerManageApi {
+
+  private static String DEFAULT_PASSWORD = "123456";
 
   @RpcReference(microserviceName = "login", schemaId = "userApiRest")
   private UserApi userApi;
@@ -41,15 +54,12 @@ public class CustomerManageApiRestImpl implements CustomerManageApi {
 
   @PostMapping("customers")
   public Customer createCustomer(@RequestBody Customer customer) {
-    User user = new User();
-    user.setUsername(customer.getRealName());
-    user.setPassword("123456");
-    User user1 = userApi.createUser(user);
-    Qualification qualification =customer.getQualifications().get(0);
-    Customer c1 = new Customer();
-    c1.setId(user1.getId());
-    qualification.setCustomer(c1);
+    User userReq = new User();
+    userReq.setUsername(customer.getRealName());
+    userReq.setPassword(DEFAULT_PASSWORD);
+    User userRes = userApi.createUser(userReq);
 
+    customer.setId(userRes.getId()); // Customer and user have the same id.
     return customerManageService.createCustomer(customer);
   }
 
@@ -78,14 +88,6 @@ public class CustomerManageApiRestImpl implements CustomerManageApi {
   public Customer updateCustomerQualifications(@PathVariable int id, @RequestBody List<Qualification> qualifications) {
     Customer customer = customerManageService.findCustomer(id);
     customerManageService.updateCustomerQualifications(customer, qualifications);
-    // refresh customer
-    customer = customerManageService.findCustomer(id);
     return customer;
-  }
-
-  @GetMapping("customers/{customerId}/sales/{saleId}/qulification_count")
-  public int getQualificationsCount(@PathVariable int customerId, @PathVariable int saleId) {
-    return customerManageService.getQualificationsCount(customerId, saleId);
-
   }
 }

@@ -17,12 +17,23 @@
 
 package org.apache.servicecomb.samples.practise.houserush.login.aggregate;
 
+import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.JWTVerifier;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -30,13 +41,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import javax.persistence.*;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.Date;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.JWTVerifier;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
 
 @Data
 @Entity
@@ -45,9 +55,10 @@ import java.util.Date;
 @Where(clause = "deleted_at is null")
 @EntityListeners(AuditingEntityListener.class)
 public class User {
-  // this is secret key,you can changed it to what you want
-  private final static String USER_SECRET = "231sdfqwer21313123cafkhioerutieweirqwuqbjffbqwrwr3";
+  // This is secret key, you can change it to what you want
+  private final static String USER_SECRET = "231sdfqwer21313123cdsafkhioerutieweirqwuqbjffbqwrwr3";
   private final static String HASH_TYPE = "HmacSHA256";
+  private final static int TOKEN_EXPIRED_MINUTES = 600;
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
@@ -78,6 +89,9 @@ public class User {
   private String token;
 
 
+  /**
+   * Make hashed password, use username as salt, and return the Base64 encoded bytes.
+   */
   public String makeHashedPassword(String password) {
     try {
       String data = username + password;
@@ -91,23 +105,33 @@ public class User {
     }
   }
 
-  public String generateToken() {
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.MINUTE, 240);
-    Algorithm algorithm = Algorithm.HMAC256(USER_SECRET);
-    token = JWT.create().withSubject(String.valueOf(id)).withExpiresAt(calendar.getTime()).sign(algorithm);
-    return token;
-  }
-
   private static Algorithm algorithm = null;
   private static JWTVerifier verifier = null;
 
-  {
+  static {
     algorithm = Algorithm.HMAC256(USER_SECRET);
     verifier = JWT.require(algorithm)
         .build();
   }
 
+  /**
+   * Generate JWT token for user with TOKEN_EXPIRED_MINUTES minutes.
+   *
+   * @return the jwt token
+   */
+  public String generateToken() {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.MINUTE, TOKEN_EXPIRED_MINUTES);
+    token = JWT.create().withSubject(String.valueOf(id)).withExpiresAt(calendar.getTime()).sign(algorithm);
+    return token;
+  }
+
+  /**
+   * verify the jwt token.
+   *
+   * @param token
+   * @return the user id
+   */
   public static int verifyTokenGetUserId(String token) {
     String sub = verifier.verify(token).getSubject();
     if (StringUtils.isNotBlank(sub)) {

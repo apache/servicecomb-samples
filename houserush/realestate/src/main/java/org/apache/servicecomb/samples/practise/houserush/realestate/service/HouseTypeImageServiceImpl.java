@@ -17,6 +17,9 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.service;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.HouseTypeImage;
 import org.apache.servicecomb.samples.practise.houserush.realestate.filesystem.FileStorage;
 import org.slf4j.Logger;
@@ -24,9 +27,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 @Service
 public class HouseTypeImageServiceImpl implements HouseTypeImageService {
@@ -41,10 +41,10 @@ public class HouseTypeImageServiceImpl implements HouseTypeImageService {
     HouseTypeImage result = null;
     try {
       int id = fileStorage.storage(file.getInputStream());
-      if(id != -1){
+      if (id != -1) {
         result = new HouseTypeImage(id);
       }
-    }catch (IOException e){
+    } catch (IOException e) {
       LOGGER.error(e.getMessage(), e);
     }
 
@@ -63,7 +63,7 @@ public class HouseTypeImageServiceImpl implements HouseTypeImageService {
       byte[] bytes = new byte[is.available()];
       is.read(bytes, 0, is.available());
       return bytes;
-    }catch (IOException e){
+    } catch (IOException e) {
       LOGGER.error(e.getMessage(), e);
     }
 

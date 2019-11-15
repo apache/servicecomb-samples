@@ -49,6 +49,8 @@ public interface RealestateService {
 
   House findHouse(Integer id);
 
+  List<House> findHouses(List<Integer> ids);
+
   House updateHouse(House house);
 
   void removeHouse(Integer id);
@@ -67,7 +69,5 @@ public interface RealestateService {
 
   List<HouseType> indexHouseTypes();
 
-  public List<Building> findByRealestateId(Integer realestateId);
-
-  org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree.Realestate findTreeRealestate(Integer id);
+  org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.view.Realestate findTreeRealestate(Integer id);
 }

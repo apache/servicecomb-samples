@@ -17,20 +17,18 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage;
 
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 import org.apache.servicecomb.common.rest.codec.RestObjectMapperFactory;
 import org.apache.servicecomb.springboot.starter.provider.EnableServiceComb;
-import org.apache.servicecomb.tracing.zipkin.EnableZipkinTracing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-
 @SpringBootApplication
 @EnableServiceComb
 @EnableJpaAuditing
-//@EnableZipkinTracing
 public class CustomerManageApplication {
 
   public static void main(String[] args) {
@@ -38,6 +36,9 @@ public class CustomerManageApplication {
     SpringApplication.run(CustomerManageApplication.class, args);
   }
 
+  /**
+   * config the default timezone and date format for date object in JSON.
+   */
   private static void configBeforeBoot() {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));

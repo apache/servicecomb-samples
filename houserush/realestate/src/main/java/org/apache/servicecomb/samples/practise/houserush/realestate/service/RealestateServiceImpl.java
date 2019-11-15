@@ -17,19 +17,23 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.service;
 
+import java.util.List;
+
 import org.apache.http.HttpStatus;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Building;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.House;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.HouseType;
 import org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.Realestate;
-import org.apache.servicecomb.samples.practise.houserush.realestate.dao.*;
+import org.apache.servicecomb.samples.practise.houserush.realestate.dao.BuildingDao;
+import org.apache.servicecomb.samples.practise.houserush.realestate.dao.HouseDao;
+import org.apache.servicecomb.samples.practise.houserush.realestate.dao.HouseTypeDao;
+import org.apache.servicecomb.samples.practise.houserush.realestate.dao.RealestateDao;
+import org.apache.servicecomb.samples.practise.houserush.realestate.dao.TreeDao;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class RealestateServiceImpl implements RealestateService {
@@ -135,6 +139,11 @@ public class RealestateServiceImpl implements RealestateService {
   }
 
   @Override
+  public List<House> findHouses(List<Integer> ids) {
+    return houseDao.findAll(ids);
+  }
+
+  @Override
   public House updateHouse(House house) {
     int id = house.getId();
     if (houseDao.exists(id)) {
@@ -185,9 +194,9 @@ public class RealestateServiceImpl implements RealestateService {
   @Override
   public HouseType updateHouseType(HouseType houseType) {
     int id = houseType.getId();
-    if(houseTypeDao.exists(id)){
+    if (houseTypeDao.exists(id)) {
       return houseTypeDao.save(houseType);
-    }else {
+    } else {
       throw new DataRetrievalFailureException("cannot update the non-existed house type.");
     }
   }
@@ -204,12 +213,8 @@ public class RealestateServiceImpl implements RealestateService {
 
   @Override
   @Transactional
-  public org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree.Realestate findTreeRealestate(Integer id) {
+  public org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.view.Realestate findTreeRealestate(
+      Integer id) {
     return treeDao.findOne(id);
   }
-  @Transactional
-  public List<Building> findByRealestateId(Integer realestateId){
-    return buildingDao.findByRealestateId(realestateId);
-  }
-
 }

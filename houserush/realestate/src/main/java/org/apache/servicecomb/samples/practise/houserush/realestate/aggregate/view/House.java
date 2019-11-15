@@ -15,46 +15,58 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.tree;
+package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate.view;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigDecimal;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
-@Setter
+import lombok.Data;
+
+@Data
 @Entity
-@Table(name = "buildings")
-@SQLDelete(sql = "update buildings set deleted_at = now() where id = ?")
+@Table(name = "houses")
+@SQLDelete(sql = "update houses set deleted_at = now() where id = ?")
 @Where(clause = "deleted_at is null")
-@EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
-public class Building {
+@EntityListeners(AuditingEntityListener.class)
+public class House {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
-  @ManyToOne
-  @JoinColumn(name = "realestate_id")
-  private Realestate realestate;
-
-  @JsonIgnoreProperties(ignoreUnknown = true, value = {"building"})
-  @OneToMany(mappedBy = "building",fetch= FetchType.EAGER)
-  private Set<House> houses = new HashSet<>();
+  @ManyToOne(fetch= FetchType.EAGER)
+  @JoinColumn(name = "building_id")
+  private Building building;
 
   private String name;
 
-  private Integer sequenceInRealestate;
+  private Integer layer;
+
+  private String state;
+
+  private Integer sequenceInLayer;
+
+  private BigDecimal price;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date deletedAt;

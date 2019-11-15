@@ -25,5 +25,5 @@ import java.util.List;
 public interface UserCenterApi {
   List<Favorite> findMyFavorite(int customerId);
 
-  public HouseDetail findByHouseIdDetail(int houseId);
+  HouseDetail findByHouseIdDetail(int houseId);
 }

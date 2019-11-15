@@ -17,9 +17,9 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc;
 
-import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.po.SaleQualification;
-
 import java.util.List;
+
+import org.apache.servicecomb.samples.practise.houserush.customer.manage.rpc.po.SaleQualification;
 
 public interface HouseOrderApi {
 

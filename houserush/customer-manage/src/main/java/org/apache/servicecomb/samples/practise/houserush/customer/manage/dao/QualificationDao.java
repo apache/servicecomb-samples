@@ -21,5 +21,4 @@ import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggrega
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QualificationDao extends JpaRepository<Qualification, Integer> {
-  int countByCustomerIdAndSaleId(int customerId, int saleId);
 }

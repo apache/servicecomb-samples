@@ -21,7 +21,7 @@ APPLICATION_ID: houserush
 service_description:
   # name of the declaring microservice
   name: house-order
-  version: 0.0.26
+  version: 0.0.31
 #  environment: development
 servicecomb:
   service:
@@ -39,7 +39,7 @@ servicecomb:
       Provider:
         default: bizkeeper-provider,tracing-provider
       Consumer:
-        default: tracing-consumer
+        default: tracing-consumer,loadbalance
   tracing:
     collector:
       address: http://127.0.0.1:9411
@@ -56,6 +56,7 @@ spring:
       max-idle: 50
       default-auto-commit: true
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
     properties:
       hibernate:
         enable_lazy_load_no_trans: true

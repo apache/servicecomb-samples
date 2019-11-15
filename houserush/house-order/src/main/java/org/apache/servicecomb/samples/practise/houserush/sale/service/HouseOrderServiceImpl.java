@@ -248,18 +248,6 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     return sale;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
   @Override
   public Sale findSaleByRealestateId(int realestateId) {
     return saleDao.findByRealestateId(realestateId);

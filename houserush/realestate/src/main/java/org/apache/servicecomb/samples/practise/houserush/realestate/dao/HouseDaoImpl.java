@@ -17,9 +17,10 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 public class HouseDaoImpl implements HouseDaoMore {
   @PersistenceContext
@@ -27,6 +28,7 @@ public class HouseDaoImpl implements HouseDaoMore {
 
   @Override
   public int updateLockingStatesForHouses(List<Integer> ids) {
-    return em.createQuery("UPDATE House h set h.state = 'locking' where h.id in (?1)").setParameter(1, ids).executeUpdate();
+    return em.createQuery("UPDATE House h set h.state = 'locking' where h.id in (?1)").setParameter(1, ids)
+        .executeUpdate();
   }
 }

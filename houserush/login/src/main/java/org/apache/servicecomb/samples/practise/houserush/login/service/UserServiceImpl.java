@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
   @Autowired
   UserDao userDao;
 
+  @Override
   public User createUser(User user) {
     if (userDao.findByUsername(user.getUsername()) != null) {
       throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "user already exists");
@@ -41,24 +42,17 @@ public class UserServiceImpl implements UserService {
     return userDao.save(user);
   }
 
-
+  @Override
   public User findUser(int id) {
     return userDao.findOne(id);
   }
 
-  public User updateUser(User user) {
-    int id = user.getId();
-    if (userDao.exists(id)) {
-      return userDao.save(user);
-    } else {
-      throw new DataRetrievalFailureException("cannot update non-existed user");
-    }
-  }
-
+  @Override
   public void removeUser(int id) {
     userDao.delete(id);
   }
 
+  @Override
   public User signin(User user) {
     String username = user.getUsername();
     String password = user.getPassword();
@@ -72,6 +66,7 @@ public class UserServiceImpl implements UserService {
     return null;
   }
 
+  @Override
   public User verifyToken(String token) {
     int userId;
     try {
@@ -93,7 +88,7 @@ public class UserServiceImpl implements UserService {
       throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "user not existed");
     }
     if (!user.getHashedPassword().equals(user.makeHashedPassword(oldPassword))) {
-      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "The password is incorrect");
+      throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "the password is incorrect");
     }
     user.setHashedPassword(user.makeHashedPassword(newPassword));
     userDao.save(user);

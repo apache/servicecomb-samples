@@ -17,10 +17,10 @@
 
 package org.apache.servicecomb.samples.practise.houserush.customer.manage.service;
 
+import java.util.List;
+
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Customer;
 import org.apache.servicecomb.samples.practise.houserush.customer.manage.aggregate.Qualification;
-
-import java.util.List;
 
 public interface CustomerManageService {
   Customer createCustomer(Customer customer);
@@ -34,7 +34,4 @@ public interface CustomerManageService {
   List<Customer> indexCustomers();
 
   boolean updateCustomerQualifications(Customer customer, List<Qualification> qualifications);
-
-  int getQualificationsCount(int customerId, int saleId);
-
 }

@@ -27,5 +27,4 @@ public interface HouseTypeImageService {
   void removeHouseTypeImage(int id);
 
   byte[] findHouseTypeImage(int id);
-
 }

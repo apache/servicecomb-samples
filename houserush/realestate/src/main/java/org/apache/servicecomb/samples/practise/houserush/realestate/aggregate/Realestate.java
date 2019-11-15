@@ -17,19 +17,29 @@
 
 package org.apache.servicecomb.samples.practise.houserush.realestate.aggregate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
 
 @Data
 @Entity
@@ -42,7 +52,7 @@ public class Realestate {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
- @JsonIgnore
+  @JsonIgnore
   @OneToMany(mappedBy = "realestate")
   private List<Building> buildings = new ArrayList<>();
 
