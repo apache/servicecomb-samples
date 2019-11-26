@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  servicecenter:
+    image: 121.37.4.50:5000/servicecomb/service-center
+    ports:
+      - "30100:30100"
+  mysql:
+    image: servicecomb-samples/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  customer-manage:
+    image: 121.37.4.50:5000/servicecomb-samples/updated
+    working_dir: /servicecomb-samples/houserush/customer-manage
+    command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    environment:
+      servicecomb_service_registry_address: http://servicecenter:30100
+      spring_datasource_url: jdbc:mysql://mysql:3306/customer?characterEncoding=utf8&useSSL=false
+    ports:
+      - "7779:7779"
+  edge-service:
+    image: 121.37.4.50:5000/servicecomb-samples/updated
+    working_dir: /servicecomb-samples/houserush/edge-service
+    command: ["mysql:3306", "--", "mvn", "-s", "/root/settings.xml", "spring-boot:run"]
+    ports:
+      - "9090:9090"
+    environment:
+      servicecomb_service_registry_address: http://servicecenter:30100
+      servicecomb_rest_address: 0.0.0.0:9090
+
+
+
+
