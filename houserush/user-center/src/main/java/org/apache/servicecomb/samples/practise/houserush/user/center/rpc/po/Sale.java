@@ -17,9 +17,9 @@
 
 package org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po;
 
-import lombok.Data;
-
 import java.util.Date;
+
+import lombok.Data;
 
 @Data
 public class Sale {

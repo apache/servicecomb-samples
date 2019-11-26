@@ -34,6 +34,9 @@ public class UserCenterApplication {
     SpringApplication.run(UserCenterApplication.class, args);
   }
 
+  /**
+   * config the default timezone and date format for date object in JSON.
+   */
   private static void configBeforeBoot() {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));

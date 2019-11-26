@@ -16,13 +16,10 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# all interconnected microservices must belong to an application wth the same ID
 APPLICATION_ID: houserush
 service_description:
-  # name of the declaring microservice
   name: house-order
   version: 0.0.31
-#  environment: development
 servicecomb:
   service:
     registry:
@@ -67,7 +64,6 @@ spring:
     database: 0
     host: 127.0.0.1
     port: 6379
-    #password: 123456
     pool:
       max-active: -1
       max-wait: 30

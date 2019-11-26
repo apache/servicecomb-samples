@@ -17,10 +17,10 @@
 
 package org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
 import java.util.Date;
+
+import lombok.Data;
 
 @Data
 public class HouseDetail {

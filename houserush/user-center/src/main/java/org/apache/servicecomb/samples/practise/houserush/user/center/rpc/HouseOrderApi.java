@@ -1,10 +1,10 @@
 package org.apache.servicecomb.samples.practise.houserush.user.center.rpc;
 
+import java.util.List;
+
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.Sale;
-
-import java.util.List;
 
 public interface HouseOrderApi {
   List<Favorite> findMyFavorite(int customerId);

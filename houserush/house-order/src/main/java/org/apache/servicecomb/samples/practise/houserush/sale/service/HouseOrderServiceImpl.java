@@ -226,18 +226,22 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     String saleHashKey = redisKey.getSaleHashKey(saleId);
     String saleStr = redisUtil.get(saleKey);
     Sale sale;
+
+    // get the sale cache.
     if (saleStr == null) {
       sale = saleDao.findOne(saleId);
       if (sale == null) return null;
       sale.getHouseOrders().forEach(houseOrder -> houseOrder.setSale(null));
-      redisUtil.set(saleKey, JSON.toJSONString(sale), 600);
+      redisUtil.set(saleKey, JSON.toJSONString(sale), INVENTORY_CACHE_EXPIRED_MILLISECOND);
       List<HouseOrder> list = sale.getHouseOrders();
       sale.setHouseOrders(null);
-      redisUtil.set(redisKey.getSaleNoHouseOrder(saleId), JSON.toJSONString(sale), 600);
+      redisUtil.set(redisKey.getSaleNoHouseOrder(saleId), JSON.toJSONString(sale), INVENTORY_CACHE_EXPIRED_MILLISECOND);
       sale.setHouseOrders(list);
     } else {
       sale = JSON.parseObject(saleStr, Sale.class);
     }
+
+    // get the sale's houseOrders' hash
     Map<Object, Object> map = redisUtil.hmget(saleHashKey);
     if (map == null || map.size() == 0) {
       if (saleStr != null) {
@@ -245,8 +249,10 @@ public class HouseOrderServiceImpl implements HouseOrderService {
       }
       List<HouseOrder> houseOrders = sale.getHouseOrders();
       map = houseOrders.stream().collect(Collectors.toMap(h -> h.getId().toString(), HouseOrder::getState));
-      redisUtil.hmset(saleHashKey, map, 600);
+      redisUtil.hmset(saleHashKey, map, INVENTORY_CACHE_EXPIRED_MILLISECOND);
     }
+
+    // merge the two hash together.
     for (HouseOrder h : sale.getHouseOrders()) {
       h.setState(map.get(h.getId() + "").toString());
       h.setSale(null);
@@ -257,6 +263,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
       h.setUpdatedAt(null);
       h.setHouseId(null);
     }
+
     return sale;
   }
 

@@ -20,7 +20,5 @@ package org.apache.servicecomb.samples.practise.houserush.user.center.rpc;
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.Customer;
 
 public interface CustomerManageApi {
-
   Customer findCustomer(int id);
-
 }

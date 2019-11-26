@@ -17,10 +17,10 @@
 
 package org.apache.servicecomb.samples.practise.houserush.user.center.api;
 
+import java.util.List;
+
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.HouseDetail;
-
-import java.util.List;
 
 public interface UserCenterApi {
   List<Favorite> findMyFavorite(int customerId);

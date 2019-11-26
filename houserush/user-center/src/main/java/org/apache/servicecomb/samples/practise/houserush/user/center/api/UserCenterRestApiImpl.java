@@ -17,18 +17,24 @@
 
 package org.apache.servicecomb.samples.practise.houserush.user.center.api;
 
+import java.util.List;
+
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.CustomerManageApi;
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.HouseOrderApi;
 import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.RealestateApi;
-import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.*;
+import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.Customer;
+import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.Favorite;
+import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.House;
+import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.HouseDetail;
+import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.HouseOrder;
+import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.Qualification;
+import org.apache.servicecomb.samples.practise.houserush.user.center.rpc.po.Sale;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @RestSchema(schemaId = "userCenterApiRest")
 @RequestMapping("/")
@@ -59,11 +65,10 @@ public class UserCenterRestApiImpl implements UserCenterApi {
       favorite.setBuilDingName(house.getBuilding().getName());//楼栋名称
       favorite.setRealestateName(house.getBuilding().getRealestate().getName());//楼盘名称
       Sale sale = houseOrderApi.findSaleByRealestateId(house.getBuilding().getRealestate().getId());
-      //房屋订单状态
+      //find favorite's sale state.
       HouseOrder houseOrder = houseOrderApi.findOne(favorite.getHouseOrderId());
       favorite.setState(houseOrder.getState());
-      //楼盘活动开售状态
-      //favorite.setState(sale.getState());
+
       favorite.setHouseOrderId(house.getId());
     });
     return favorites;
@@ -79,13 +84,13 @@ public class UserCenterRestApiImpl implements UserCenterApi {
   public HouseDetail findByHouseIdDetail(@PathVariable int id) {
     House house = realestateApi.findHouse(id);
     HouseDetail houseDetail = new HouseDetail();
-    houseDetail.setHouseName(house.getName());//名称
-    houseDetail.setPrice(house.getPrice());//价格
-    houseDetail.setBuilDingName(house.getBuilding().getName());//楼栋名称
-    houseDetail.setRealestateName(house.getBuilding().getRealestate().getName());//楼盘名称
+    houseDetail.setHouseName(house.getName());
+    houseDetail.setPrice(house.getPrice());
+    houseDetail.setBuilDingName(house.getBuilding().getName());
+    houseDetail.setRealestateName(house.getBuilding().getRealestate().getName());
     houseDetail.setHouseOrderId(id);
     HouseOrder houseOrder = houseOrderApi.findOne(id);
-    houseDetail.setState(houseOrder.getState());//订单状态
+    houseDetail.setState(houseOrder.getState());
     return houseDetail;
   }
 
@@ -99,13 +104,11 @@ public class UserCenterRestApiImpl implements UserCenterApi {
     Customer customer = customerManageApi.findCustomer(customerId);
     List<Qualification> qualifications = customer.getQualifications();
     qualifications.forEach(qualification -> {
-      //房屋
       House house = realestateApi.findHouse(qualification.getHouseId());
-      qualification.setHouseName(house.getName());//名称
-      qualification.setPrice(house.getPrice());//价格
-      qualification.setBuilDingName(house.getBuilding().getName());//楼栋名称
-      qualification.setRealestateName(house.getBuilding().getRealestate().getName());//楼盘名称
-      //根据访问查看订单状态
+      qualification.setHouseName(house.getName());
+      qualification.setPrice(house.getPrice());
+      qualification.setBuilDingName(house.getBuilding().getName());
+      qualification.setRealestateName(house.getBuilding().getRealestate().getName());
       HouseOrder houseOrder = houseOrderApi.findOne(qualification.getHouseId());
       qualification.setState(houseOrder.getState());
     });
