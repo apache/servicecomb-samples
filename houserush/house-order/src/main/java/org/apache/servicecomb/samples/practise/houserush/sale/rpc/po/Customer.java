@@ -17,9 +17,9 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.rpc.po;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class Customer {

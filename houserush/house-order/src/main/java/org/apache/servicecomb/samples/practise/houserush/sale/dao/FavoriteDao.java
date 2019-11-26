@@ -17,10 +17,12 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.dao;
 
+import java.util.List;
+
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 
-import java.util.List;
 
 public interface FavoriteDao extends JpaRepository<Favorite, Integer> {
   int countByCustomerIdAndHouseOrderId(int customerId, int houseOrderId);

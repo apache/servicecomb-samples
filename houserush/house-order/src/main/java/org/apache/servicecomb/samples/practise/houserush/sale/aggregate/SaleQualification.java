@@ -17,15 +17,18 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
-import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "sale_qualification")
 public class SaleQualification {
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
@@ -38,11 +41,11 @@ public class SaleQualification {
 
   private Integer orderCount;
 
-  public boolean hasPlaceQualification(){
-    return qualificationCount>orderCount;
-  }
-  public void addOrderCount(){
-    orderCount++;
+  public boolean hasPlaceQualification() {
+    return qualificationCount > orderCount;
   }
 
+  public void addOrderCount() {
+    orderCount++;
+  }
 }

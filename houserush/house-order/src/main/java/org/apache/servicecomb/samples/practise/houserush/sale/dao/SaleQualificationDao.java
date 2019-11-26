@@ -17,11 +17,11 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.dao;
 
+import javax.persistence.LockModeType;
+
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
-
-import javax.persistence.LockModeType;
 
 public interface SaleQualificationDao extends JpaRepository<SaleQualification, Integer> {
 

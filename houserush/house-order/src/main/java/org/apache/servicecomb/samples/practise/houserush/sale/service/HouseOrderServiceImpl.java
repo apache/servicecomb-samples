@@ -17,7 +17,12 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.service;
 
-import com.alibaba.fastjson.JSON;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.http.HttpStatus;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
@@ -33,7 +38,6 @@ import org.apache.servicecomb.samples.practise.houserush.sale.redis.RedisUtil;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.CustomerManageApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.RealestateApi;
 import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.House;
-import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.Realestate;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.apache.servicecomb.tracing.Span;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +46,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.alibaba.fastjson.JSON;
 
 @Service
 public class HouseOrderServiceImpl implements HouseOrderService {
+  private static final int INVENTORY_CACHE_EXPIRED_MILLISECOND = 100;
+
   @Autowired
   HouseOrderDao houseOrderDao;
 
@@ -107,31 +109,39 @@ public class HouseOrderServiceImpl implements HouseOrderService {
   @Override
   @Transactional
   public HouseOrder placeHouseOrder(int customerId, int houseOrderId, int saleId) {
+    //see whether this house is occupied by other customer by checking the redis cache.
     String saleHashKey = redisKey.getSaleHashKey(saleId);
-    Object hstate = redisUtil.hget(saleHashKey, houseOrderId + "");
-    if ("confirmed".equals(hstate)) {
+    Object houseOrderStateCache = redisUtil.hget(saleHashKey, houseOrderId + "");
+    if ("confirmed".equals(houseOrderStateCache)) {
       throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house have been occupied first by other customer, please choose another house or try it later.");
     }
+
     if (isSaleOpen(saleId)) {
+      // Find and "locking the qualification first.
       SaleQualification qualification = saleQualificationDao.findBySaleIdAndCustomerId(saleId, customerId);
+      // Check if there are enough qualification.
       if (!qualification.hasPlaceQualification()) {
         throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "do not have the enough qualification to buy houses in this sale, " +
             "the qualifications count is " + qualification.getQualificationCount() + " , the order count is " + qualification.getOrderCount());
       }
+
+      // Use this "update-where" instead of "locking-update" technique to improve the performance.
       HouseOrder houseOrder = new HouseOrder();
       houseOrder.setId(houseOrderId);
       houseOrder.setState("confirmed");
       houseOrder.setOrderedAt(new Date());
-      houseOrder.setCustomerId(customerId);
-      houseOrder.setHouseId(houseOrderId);
-      int count = houseOrderDao.updateByIdAndCustomerIdIsNull(customerId, houseOrder.getState(), houseOrder.getOrderedAt(), houseOrder.getHouseId());
+
+      int count = houseOrderDao.updateByIdAndCustomerIdIsNull(customerId, houseOrder.getState(), houseOrder.getOrderedAt(), houseOrder.getId());
       if (count < 1) {
-        redisUtil.hset(saleHashKey, houseOrderId + "", "confirmed", 600);
+        redisUtil.hset(saleHashKey, houseOrderId + "", "confirmed", INVENTORY_CACHE_EXPIRED_MILLISECOND);
         throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house have been occupied first by other customer, please choose another house or try it later.");
       }
+      // the qualicatioon has been used, update it.
       qualification.addOrderCount();
       saleQualificationDao.saveAndFlush(qualification);
-      redisUtil.hset(saleHashKey, houseOrderId + "", "confirmed", 600);
+
+      // set this redis cache.
+      redisUtil.hset(saleHashKey, houseOrderId + "", "confirmed", INVENTORY_CACHE_EXPIRED_MILLISECOND);
       return houseOrder;
     } else {
       throw new InvocationException(HttpStatus.SC_BAD_REQUEST, "", "this house which you chose does not belong to the current sale.");
@@ -153,6 +163,7 @@ public class HouseOrderServiceImpl implements HouseOrderService {
         houseOrder.setCustomerId(null);
         houseOrder.setState("new");
         houseOrder.setOrderedAt(null);
+        // update the houseOrder
         houseOrderDao.save(houseOrder);
         redisUtil.hdel(redisKey.getSaleHashKey(houseOrder.getSale().getId()));
         return houseOrder;
@@ -175,7 +186,6 @@ public class HouseOrderServiceImpl implements HouseOrderService {
       Favorite favorite = new Favorite();
       favorite.setCustomerId(customerId);
       favorite.setHouseOrder(houseOrder);
-
       favoriteDao.save(favorite);
       return favorite;
     } else {
@@ -230,7 +240,9 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     }
     Map<Object, Object> map = redisUtil.hmget(saleHashKey);
     if (map == null || map.size() == 0) {
-      if (saleStr != null) sale = saleDao.findOne(saleId);
+      if (saleStr != null) {
+        sale = saleDao.findOne(saleId);
+      }
       List<HouseOrder> houseOrders = sale.getHouseOrders();
       map = houseOrders.stream().collect(Collectors.toMap(h -> h.getId().toString(), HouseOrder::getState));
       redisUtil.hmset(saleHashKey, map, 600);
@@ -278,7 +290,8 @@ public class HouseOrderServiceImpl implements HouseOrderService {
   public void updateSaleQualification(List<SaleQualification> saleQualifications) {
     if (null != saleQualifications) {
       saleQualifications.forEach(saleQualification -> {
-        SaleQualification qualification = saleQualificationDao.findBySaleIdAndCustomerId(saleQualification.getSaleId(), saleQualification.getCustomerId());
+        SaleQualification qualification = saleQualificationDao
+            .findBySaleIdAndCustomerId(saleQualification.getSaleId(), saleQualification.getCustomerId());
         if (null == qualification) {
           saleQualification.setOrderCount(0);
           saleQualificationDao.save(saleQualification);
@@ -294,7 +307,9 @@ public class HouseOrderServiceImpl implements HouseOrderService {
     String obj = redisUtil.get(redisKey.getSaleNoHouseOrder(saleId));
     if (obj == null) {
       Sale sale = saleDao.findOne(saleId);
-      if (sale == null) return false;
+      if (sale == null) {
+        return false;
+      }
       sale.setHouseOrders(null);
       obj = JSON.toJSONString(sale);
       redisUtil.set(redisKey.getSaleNoHouseOrder(saleId), obj, 600);

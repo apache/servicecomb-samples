@@ -17,20 +17,18 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.api;
 
+import java.util.List;
+
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Favorite;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.Sale;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.SaleQualification;
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.view.SaleSummary;
 
-import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 public interface HouseOrderApi {
   List<HouseOrder> createHouseOrders(int saleId, List<Integer> houseIds);
 
-  HouseOrder placeHouseOrder(int customerId, int houseOrderId,int saleId);
+  HouseOrder placeHouseOrder(int customerId, int houseOrderId, int saleId);
 
   HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
 
@@ -55,8 +53,6 @@ public interface HouseOrderApi {
   void removeSale(int saleId);
 
   List<SaleSummary> indexSales();
-
-  List<Sale> indexAllSales();
 
   void updateSaleQualification(List<SaleQualification> saleQualifications);
 }

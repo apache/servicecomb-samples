@@ -22,16 +22,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisKey {
   private final String SALEHASHID = "SALEHASHID_";
+
   private final String SALEID = "SALEID_";
+
   private final String SALENOHOUSEORDER = "SALENOHOUSEORDER_";
 
   public String getSaleHashKey(int id) {
     return SALEHASHID + id;
   }
+
   public String getSaleKey(int id) {
     return SALEID + id;
   }
-  public String getSaleNoHouseOrder(int saleId){
-    return SALENOHOUSEORDER+saleId;
+
+  public String getSaleNoHouseOrder(int saleId) {
+    return SALENOHOUSEORDER + saleId;
   }
 }

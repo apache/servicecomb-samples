@@ -17,15 +17,16 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.dao;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.LockModeType;
+
 import org.apache.servicecomb.samples.practise.houserush.sale.aggregate.HouseOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
-import javax.persistence.LockModeType;
-import java.util.Date;
-import java.util.List;
 
 public interface HouseOrderDao extends JpaRepository<HouseOrder, Integer> {
   @Lock(LockModeType.PESSIMISTIC_WRITE)
@@ -39,6 +40,6 @@ public interface HouseOrderDao extends JpaRepository<HouseOrder, Integer> {
   int countByCustomerIdAndSaleId(int customerId, int saleId);
 
   @Modifying
-  @Query(value ="UPDATE house_orders SET customer_id = ?1,state=?2,ordered_at=?3 where id = ?4 and customer_id is null ",nativeQuery = true)
+  @Query(value = "UPDATE house_orders SET customer_id = ?1,state=?2,ordered_at=?3 where id = ?4 and customer_id is null ", nativeQuery = true)
   int updateByIdAndCustomerIdIsNull(int customerId, String state, Date orderedAt, int houseOrderId);
 }

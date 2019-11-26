@@ -43,5 +43,4 @@ public class House {
   private Date createdAt;
 
   private Date updatedAt;
-
 }

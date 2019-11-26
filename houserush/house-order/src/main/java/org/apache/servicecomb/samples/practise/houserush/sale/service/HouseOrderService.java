@@ -29,8 +29,6 @@ public interface HouseOrderService {
 
   HouseOrder placeHouseOrder(int customerId, int houseOrderId, int saleId);
 
-  //HouseOrder placeHouseOrder(int customerId, int houseOrderId);
-
   HouseOrder findOne(int houseOrderId);
 
   HouseOrder cancelHouseOrder(int customerId, int houseOrderId);
@@ -57,5 +55,5 @@ public interface HouseOrderService {
 
   void updateSaleQualification(List<SaleQualification> saleQualifications);
 
-  public Sale findBackSale(int saleId);
+  Sale findBackSale(int saleId);
 }

@@ -17,27 +17,37 @@
 
 package org.apache.servicecomb.samples.practise.houserush.sale.aggregate;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import org.apache.servicecomb.samples.practise.houserush.sale.rpc.po.House;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Getter
-@Setter
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "house_orders")
 @EntityListeners(AuditingEntityListener.class)
@@ -83,9 +93,4 @@ public class HouseOrder {
 
   @Transient
   private String realestateName;
-
-  public static void main(String[] args) {
-    String str = JSONObject.toJSONString(new HouseOrder(), SerializerFeature.WriteMapNullValue);
-    System.out.println(str);
-  }
 }
