@@ -25,7 +25,6 @@
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-
   <artifactId>houserush-customer-manage</artifactId>
   <name>Java Chassis::Samples::Practice::HouseRush-Customer-Manage</name>
 
@@ -59,8 +58,16 @@
       <artifactId>handler-tracing-zipkin</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>tracing-zipkin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>handler-tracing-zipkin</artifactId>
     </dependency>
   </dependencies>
 

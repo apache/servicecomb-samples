@@ -38,8 +38,8 @@
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
@@ -52,6 +52,14 @@
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>handler-bizkeeper</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>handler-tracing-zipkin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>tracing-zipkin</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
