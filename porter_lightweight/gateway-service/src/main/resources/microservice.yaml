@@ -53,8 +53,14 @@ servicecomb:
      log: servicecomb.samples.executor.groupThreadPool
      inspector: servicecomb.samples.executor.groupThreadPool
 
-servicecomb.http.dispatcher.edge.default.enabled: false
-# StaticWebpageDispatcher checking file exists is async, and will mark request status to ended, and VertxRestDispatcher read 
-# body will print exception. 
-servicecomb.http.dispatcher.rest.enabled: false
-gateway.webroot: /code/servicecomb-samples/porter_lightweight/gateway-service/src/main/resources
+  http:
+    dispatcher:
+      edge:
+        default:
+          enabled: false
+      rest:
+        pattern: '[/v1/log/|/inspector](.*)'
+
+# This is web root for windows server, change this path according to where you put your source code
+gateway:
+  webroot: /code/servicecomb-samples/porter_lightweight/gateway-service/src/main/resources

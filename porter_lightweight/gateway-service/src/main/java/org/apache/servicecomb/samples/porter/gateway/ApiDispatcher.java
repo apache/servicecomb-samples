@@ -22,10 +22,9 @@ import java.util.Map;
 import org.apache.servicecomb.edge.core.AbstractEdgeDispatcher;
 import org.apache.servicecomb.edge.core.EdgeInvocation;
 
-import io.vertx.ext.web.Cookie;
+import io.vertx.core.http.Cookie;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.CookieHandler;
 
 public class ApiDispatcher extends AbstractEdgeDispatcher {
   @Override
@@ -36,7 +35,6 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
   @Override
   public void init(Router router) {
     String regex = "/api/([^\\/]+)/(.*)";
-    router.routeWithRegex(regex).handler(CookieHandler.create());
     router.routeWithRegex(regex).handler(createBodyHandler());
     router.routeWithRegex(regex).failureHandler(this::onFailure).handler(this::onRequest);
   }
@@ -55,7 +53,7 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
         if (sessionId != null) {
           this.invocation.addContext("session-id", sessionId);
         } else {
-          Cookie sessionCookie = context.getCookie("session-id");
+          Cookie sessionCookie = context.cookieMap().get("session-id");
           if (sessionCookie != null) {
             this.invocation.addContext("session-id", sessionCookie.getValue());
           }

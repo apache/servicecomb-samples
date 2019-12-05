@@ -17,4 +17,3 @@
 
 org.apache.servicecomb.samples.porter.gateway.ApiDispatcher
 org.apache.servicecomb.samples.porter.gateway.StaticWebpageDispatcher
-org.apache.servicecomb.samples.porter.gateway.CustomVertxRestDispatcher

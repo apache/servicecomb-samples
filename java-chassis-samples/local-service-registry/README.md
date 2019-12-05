@@ -25,7 +25,6 @@ Please find the details as follows.
       instances:
         - endpoints:
           - rest://localhost:8080
-          - highway://localhost:7070
   ```
 
 * Add the following code at the beginning and end of the service consumer Main function
