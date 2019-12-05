@@ -24,4 +24,3 @@ localserv:
     instances:
       - endpoints:
         - rest://localhost:8080
-        - highway://localhost:7070

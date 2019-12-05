@@ -22,8 +22,6 @@ service_description:
 servicecomb:
   rest:
     address: 0.0.0.0:8080
-  highway:
-    address: 0.0.0.0:7070
   handler:
     chain:
       Provider:
