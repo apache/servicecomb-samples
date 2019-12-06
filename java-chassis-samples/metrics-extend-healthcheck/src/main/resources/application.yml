@@ -16,8 +16,13 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
+# spring boot serttings
+server:
+  port: 7777
+
 # all interconnected microservices must belong to an application wth the same ID
 APPLICATION_ID: metrics
+
 service_description:
 # name of the declaring microservice
   name: metricsHealthCheckDemo
