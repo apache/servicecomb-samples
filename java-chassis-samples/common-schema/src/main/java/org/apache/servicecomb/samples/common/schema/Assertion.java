@@ -14,21 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.servicecomb.samples.springmvc.consumer;
+package org.apache.servicecomb.samples.common.schema;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+public final class Assertion {
+  private Assertion() {
 
-public class SpringmvcConsumerMain {
-  public static void main(String[] args) throws Exception {
-    BeanUtils.init();
+  }
 
-    SpringmvcBasicClient springmvcBasicClient = BeanUtils.getBean("SpringmvcBasicClient");
-    SpringmvcHelloClient springmvcHelloClient = BeanUtils.getBean("SpringmvcHelloClient");
-
-    long begin = System.currentTimeMillis();
-    springmvcHelloClient.run();
-    springmvcBasicClient.run();
-
-    System.out.println("Spring MVC Consumer execute successfully." + (System.currentTimeMillis() - begin) );
+  public static void assertEquals(String expected, String actual) {
+    if (expected == null) {
+      if (actual != null) {
+        throw new IllegalStateException("assert error. expected [" + expected + "], but [" + actual + "]");
+      }
+    } else {
+      if (!expected.equals(actual)) {
+        throw new IllegalStateException("assert error. expected [" + expected + "], but [" + actual + "]");
+      }
+    }
   }
 }

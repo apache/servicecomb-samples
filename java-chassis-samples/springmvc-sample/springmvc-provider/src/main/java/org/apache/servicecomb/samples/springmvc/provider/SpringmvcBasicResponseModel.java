@@ -14,21 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.servicecomb.samples.springmvc.consumer;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+package org.apache.servicecomb.samples.springmvc.provider;
 
-public class SpringmvcConsumerMain {
-  public static void main(String[] args) throws Exception {
-    BeanUtils.init();
+public class SpringmvcBasicResponseModel {
+  private int responseId;
+  private String resultMessage;
 
-    SpringmvcBasicClient springmvcBasicClient = BeanUtils.getBean("SpringmvcBasicClient");
-    SpringmvcHelloClient springmvcHelloClient = BeanUtils.getBean("SpringmvcHelloClient");
+  public int getResponseId() {
+    return responseId;
+  }
 
-    long begin = System.currentTimeMillis();
-    springmvcHelloClient.run();
-    springmvcBasicClient.run();
+  public void setResponseId(int responseId) {
+    this.responseId = responseId;
+  }
 
-    System.out.println("Spring MVC Consumer execute successfully." + (System.currentTimeMillis() - begin) );
+  public String getResultMessage() {
+    return resultMessage;
+  }
+
+  public void setResultMessage(String resultMessage) {
+    this.resultMessage = resultMessage;
   }
 }

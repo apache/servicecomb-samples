@@ -14,21 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.servicecomb.samples.springmvc.consumer;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
-
-public class SpringmvcConsumerMain {
-  public static void main(String[] args) throws Exception {
-    BeanUtils.init();
-
-    SpringmvcBasicClient springmvcBasicClient = BeanUtils.getBean("SpringmvcBasicClient");
-    SpringmvcHelloClient springmvcHelloClient = BeanUtils.getBean("SpringmvcHelloClient");
-
-    long begin = System.currentTimeMillis();
-    springmvcHelloClient.run();
-    springmvcBasicClient.run();
-
-    System.out.println("Spring MVC Consumer execute successfully." + (System.currentTimeMillis() - begin) );
-  }
+/**
+ * Consumer interface can be different than provider interface. This feature is quite useful in microservices and devops where
+ * every developers can work independently at his own work.
+ */
+public interface SpringmvcBasicService {
+  SpringmvcBasicResponseModel sayHello(SpringmvcBasicRequestModel requestModel);
 }
