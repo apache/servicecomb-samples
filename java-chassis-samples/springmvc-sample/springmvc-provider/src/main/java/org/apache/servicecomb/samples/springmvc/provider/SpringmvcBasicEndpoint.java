@@ -17,29 +17,22 @@
 
 package org.apache.servicecomb.samples.springmvc.provider;
 
-
 import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
-import org.apache.servicecomb.samples.common.schema.Hello;
 import org.apache.servicecomb.samples.common.schema.models.Person;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-@RestSchema(schemaId = "springmvcHello")
-@RequestMapping(path = "/springmvchello", produces = MediaType.APPLICATION_JSON)
-public class SpringmvcHelloImpl implements Hello {
-  @Override
-  @RequestMapping(path = "/sayhi", method = RequestMethod.POST)
-  public String sayHi(@RequestParam(name = "name", defaultValue = "test") String name) {
-    return "Hello " + name;
-  }
-
-  @Override
-  @RequestMapping(path = "/sayhello", method = RequestMethod.POST)
-  public String sayHello(@RequestBody Person person) {
-    return "Hello person " + person.getName();
+@RestSchema(schemaId = "SpringmvcBasicEndpoint")
+@RequestMapping(path = "/springmvc/basic", produces = MediaType.APPLICATION_JSON)
+public class SpringmvcBasicEndpoint {
+  @RequestMapping(path = "/postObject", method = RequestMethod.POST)
+  public SpringmvcBasicResponseModel sayHello(@RequestBody SpringmvcBasicRequestModel requestModel) {
+    SpringmvcBasicResponseModel model = new SpringmvcBasicResponseModel();
+    model.setResponseId(requestModel.getRequestId());
+    model.setResultMessage(requestModel.getName());
+    return model;
   }
 }
