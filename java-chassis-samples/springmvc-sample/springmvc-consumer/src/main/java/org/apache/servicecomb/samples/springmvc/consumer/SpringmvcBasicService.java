@@ -17,10 +17,14 @@
 
 package org.apache.servicecomb.samples.springmvc.consumer;
 
+import java.util.List;
+
 /**
  * Consumer interface can be different than provider interface. This feature is quite useful in microservices and devops where
  * every developers can work independently at his own work.
  */
 public interface SpringmvcBasicService {
-  SpringmvcBasicResponseModel sayHello(SpringmvcBasicRequestModel requestModel);
+  SpringmvcBasicResponseModel postObject(SpringmvcBasicRequestModel requestModel);
+
+  List<SpringmvcBasicResponseModel> postListObject(SpringmvcBasicRequestModel requestModel);
 }
