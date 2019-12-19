@@ -17,9 +17,14 @@
 
 package org.apache.servicecomb.samples.springmvc.consumer;
 
+import java.util.List;
+
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.apache.servicecomb.samples.common.schema.Assertion;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,15 +39,22 @@ public class SpringmvcBasicClient {
     SpringmvcBasicRequestModel requestModel = new SpringmvcBasicRequestModel();
     requestModel.setName("Hello World");
     SpringmvcBasicResponseModel responseModel;
+    List<SpringmvcBasicResponseModel> responseModelList;
 
     // Invoke a spring mvc provider using RPC
-    responseModel = rpcInoker.sayHello(requestModel);
+    responseModel = rpcInoker.postObject(requestModel);
     Assertion.assertEquals("Hello World", responseModel.getResultMessage());
+    responseModelList = rpcInoker.postListObject(requestModel);
+    Assertion.assertEquals("Hello World", responseModelList.get(0).getResultMessage());
 
-    // TODO : this test case should work in 2.0, currently not implemented
-//    // Invoke a spring mvc provider using RestTemplate
-//    responseModel = restTemplateInvoker
-//        .postForObject("cse://springmvc/springmvc/basic/postObject", responseModel, SpringmvcBasicResponseModel.class);
-//    Assertion.assertEquals("Hello World", responseModel.getResultMessage());
+    // Invoke a spring mvc provider using RestTemplate
+    responseModel = restTemplateInvoker
+        .postForObject("cse://springmvc/springmvc/basic/postObject", responseModel, SpringmvcBasicResponseModel.class);
+    Assertion.assertEquals("Hello World", responseModel.getResultMessage());
+    HttpEntity<SpringmvcBasicRequestModel> requestEntity = new HttpEntity(requestModel, null);
+    responseModelList = restTemplateInvoker.exchange("/postListObject", HttpMethod.POST, requestEntity,
+        new ParameterizedTypeReference<List<SpringmvcBasicResponseModel>>() {
+        }).getBody();
+    Assertion.assertEquals("Hello World", responseModelList.get(0).getResultMessage());
   }
 }

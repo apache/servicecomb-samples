@@ -17,10 +17,12 @@
 
 package org.apache.servicecomb.samples.springmvc.provider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
-import org.apache.servicecomb.samples.common.schema.models.Person;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,10 +31,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(path = "/springmvc/basic", produces = MediaType.APPLICATION_JSON)
 public class SpringmvcBasicEndpoint {
   @RequestMapping(path = "/postObject", method = RequestMethod.POST)
-  public SpringmvcBasicResponseModel sayHello(@RequestBody SpringmvcBasicRequestModel requestModel) {
+  public SpringmvcBasicResponseModel postObject(@RequestBody SpringmvcBasicRequestModel requestModel) {
     SpringmvcBasicResponseModel model = new SpringmvcBasicResponseModel();
     model.setResponseId(requestModel.getRequestId());
     model.setResultMessage(requestModel.getName());
     return model;
+  }
+
+  @RequestMapping(path = "/postObjectList", method = RequestMethod.POST)
+  public List<SpringmvcBasicResponseModel> postObjectList(@RequestBody SpringmvcBasicRequestModel requestModel) {
+    SpringmvcBasicResponseModel model = new SpringmvcBasicResponseModel();
+    model.setResponseId(requestModel.getRequestId());
+    model.setResultMessage(requestModel.getName());
+    List<SpringmvcBasicResponseModel> result = new ArrayList<>();
+    result.add(model);
+    return result;
   }
 }
