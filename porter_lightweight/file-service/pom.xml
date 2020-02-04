@@ -30,10 +30,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>inspector</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.servicecomb.samples.porter</groupId>
       <artifactId>file-service-api-endpoint</artifactId>
       <version>${project.parent.version}</version>
