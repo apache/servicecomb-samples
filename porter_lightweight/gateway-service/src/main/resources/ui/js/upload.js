@@ -27,7 +27,7 @@ function uploadAction() {
         success: function (data) {
             console.log(data);
             var error = document.getElementById("error");
-            error.textContent="Upload Successfully";
+            error.textContent="Upload Successfully, file id=" + data;
             error.hidden=false;
         },
         error: function(data) {
