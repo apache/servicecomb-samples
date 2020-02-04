@@ -16,7 +16,7 @@
   ~ limitations under the License.
   -->
 
-<!--this is sample configuration, please modify as your wish-->
+<!--this is sample configuration, please modify as your wish -->
 
 <configuration>
   <Properties>
@@ -25,19 +25,21 @@
 
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n"/>
+      <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n" />
     </Console>
     <RollingFile name="DailyRollingFile" fileName="${log_path}/output.log"
       filePattern="${log_path}/zcrTest%d{yyyy-MM-dd}.log">
-      <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n"/>
-      <TimeBasedTriggeringPolicy interval="1"/>
-      <SizeBasedTriggeringPolicy size="10 MB"/>
+      <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n" />
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1" />
+        <SizeBasedTriggeringPolicy size="10 MB" />
+      </Policies>
     </RollingFile>
   </Appenders>
   <Loggers>
     <Root level="info">
-      <AppenderRef ref="Console"/>
-      <AppenderRef ref="DailyRollingFile"/>
+      <AppenderRef ref="Console" />
+      <AppenderRef ref="DailyRollingFile" />
     </Root>
   </Loggers>
 </configuration>

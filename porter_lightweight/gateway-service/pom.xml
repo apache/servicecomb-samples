@@ -34,10 +34,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>inspector</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.servicecomb.samples.porter</groupId>
       <artifactId>user-service-api-service</artifactId>
       <version>${project.parent.version}</version>
