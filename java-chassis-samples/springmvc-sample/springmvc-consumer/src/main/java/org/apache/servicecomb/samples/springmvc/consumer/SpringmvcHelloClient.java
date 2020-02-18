@@ -74,6 +74,7 @@ public class SpringmvcHelloClient {
     System.out.println("POJO consumer sayhello services: " + pojoSayHello);
 
     //AsyncRestTemplate Consumer
+    // NOTICE: since 2.0.0, spring deprecated AsyncRestTemplate, user's can use CompletableFuture of RPC instead
     CseAsyncRestTemplate cseAsyncRestTemplate = new CseAsyncRestTemplate();
     ListenableFuture<ResponseEntity<String>> responseEntityListenableFuture = cseAsyncRestTemplate
         .postForEntity("cse://springmvc/springmvchello/sayhi?name=Java Chassis", null, String.class);

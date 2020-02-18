@@ -28,10 +28,12 @@ ServiceComb support users to define a customized handler and and invoke the hand
 
   ```
 
+   ***NOTICE:*** can use a different name other than `cse.handler.xml`, e.g. `userDefined.hanlder.xml`
+   
 * Configure customized `MyHandler` in `microservice.yaml` file along with other handler together
 
   ```yaml
-  cse:
+  servicecomb:
     # other configurations omitted
     handler:
       chain:
@@ -43,39 +45,38 @@ ServiceComb support users to define a customized handler and and invoke the hand
 
 1. Start the ServiceComb/Service Center
 
-   - [how to start the service center](http://servicecomb.apache.org/users/setup-environment/#)
+   - [how to start the service center](http://servicecomb.apache.org/docs/products/service-center/install/)
    - make sure service center address is configured correctly in `microservice.yaml` file
 
-   ```yaml
-   cse:
-     service:
-       registry:
-         address: http://127.0.0.1:30100		#service center address
-   ```
+```yaml
+servicecomb:
+ service:
+   registry:
+     address: http://127.0.0.1:30100		#service center address
+```
 
 2. Start the custom-handler-provider service
 
    - Start provider service by maven
 
-     Compile the source code at root directory of ServiceComb Java Chassis, which is `servicecomb-java-chassis/`, and use `mvn exec` to execute the main class `CustomHandlerProviderMain`.
+     Compile the source code, and use `mvn exec` to execute the main class `CustomHandlerProviderMain`.
 
      ```bash
-     cd servicecomb-java-chassis/			#need to complie code at root directory
-     mvn clean install -Psamples -DskipTests			#only need to install at first time.
-     cd samples/custom-handler-sample/custom-handler-provider/
+     mvn clean install
+     cd custom-handler-sample/custom-handler-provider/
      mvn exec:java -Dexec.mainClass="org.apache.servicecomb.samples.customerhandler.provider.CustomHandlerProviderMain"
      ```
 
    - Start provider service by IDE
 
-     Import the project by InteliJ IDEA or Eclipse, add sample module to pom.xml file in root module `servicecomb-java-chassis/pom.xml`, and add `<module>samples</module>` to `<modules></modules>` block, Then find `main` function `CustomHandlerProviderMain` of provider service and `RUN` it like any other Java program.
+     Import the project by InteliJ IDEA or Eclipse, then find `main` function `CustomHandlerProviderMain` of provider service and `RUN` it like any other Java program.
 
 3. Start the custom-handler-consumer service
 
    Just like how to start custom-handler-provider service. But the main class of custom-handler-consumer service is `CustomHandlerCustomerMain`. 
 
    ```bash
-   cd samples/custom-handler-sample/custom-handler-consumer
+   cd custom-handler-sample/custom-handler-consumer
    mvn exec:java -Dexec.mainClass="org.apache.servicecomb.samples.customerhandler.consumer.CustomHandlerCustomerMain"
    ```
 
@@ -83,7 +84,6 @@ ServiceComb support users to define a customized handler and and invoke the hand
    On the producer side, the output should contain the following stuffs if the producer starts up successfully:
    1. *'swagger: 2.0 info: version: 1.0.0 ...'* means the producer generated swagger contracts
    2. *'rest listen success. address=0.0.0.0:8080'* means the rest endpoint is listening on port 8080
-   3. *'Register microservice instance success'* means the producer has registered successfully to service center
    
    On the consumer side, you can see the following outputs:
    1. *'It's my handler!'* means custom handler had take effect

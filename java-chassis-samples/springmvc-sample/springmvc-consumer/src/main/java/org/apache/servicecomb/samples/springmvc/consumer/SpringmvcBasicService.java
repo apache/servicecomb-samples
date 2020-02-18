@@ -26,5 +26,5 @@ import java.util.List;
 public interface SpringmvcBasicService {
   SpringmvcBasicResponseModel postObject(SpringmvcBasicRequestModel requestModel);
 
-  List<SpringmvcBasicResponseModel> postListObject(SpringmvcBasicRequestModel requestModel);
+  List<SpringmvcBasicResponseModel> postObjectList(SpringmvcBasicRequestModel requestModel);
 }

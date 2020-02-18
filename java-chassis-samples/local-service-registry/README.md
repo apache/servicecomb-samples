@@ -30,7 +30,7 @@ Please find the details as follows.
 * Add the following code at the beginning and end of the service consumer Main function
 
 ```java
-    public class xxxClient {
+    public class MyClient {
       public static void main(String[] args) {
       //"yourregistry.yaml" should be put in resource directory
 　　    System.setProperty("local.registry.file", "yourregistry.yaml");
