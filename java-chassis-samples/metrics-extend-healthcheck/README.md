@@ -28,7 +28,6 @@ In this demo,we had make two checkers :
 <dependency>
   <groupId>org.apache.servicecomb</groupId>
   <artifactId>metrics-core</artifactId>
-  <version>{version}</version>
 </dependency>
 ```
 
@@ -40,7 +39,7 @@ mvn spring-boot:run
 ### Do check and get result
 If you had config rest transport address in microservice.yaml like:
 ```yaml
-cse:
+servicecomb:
   rest:
     address: 0.0.0.0:7777
 ```

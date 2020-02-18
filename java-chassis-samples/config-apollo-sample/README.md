@@ -4,7 +4,7 @@ To use Apollo as configuration source in ServiceComb Java Chassis services:
 
 * Start Apollo service and create a project to associate with Chassis service, then generate a token
 
-  [How to use Apollo configuration center](http://servicecomb.apache.org/cn/users/dynamic-config/)
+  [How to use Apollo configuration center](https://docs.servicecomb.io/java-chassis/zh_CN/config/general-config/)
 
 
 * Import `config-apollo` in pom:
@@ -31,14 +31,13 @@ To use Apollo as configuration source in ServiceComb Java Chassis services:
 
 * Start Chassis service and update configurations in Apollo portal service.
 
-  [Need to start service center first](http://servicecomb.apache.org/users/setup-environment/#)
+    - [how to start the service center](http://servicecomb.apache.org/docs/products/service-center/install/)
 
-  Compile the source code at root directory of ServiceComb Java Chassis, which is `servicecomb-java-chassis/`, and use `mvn exec` to execute the main class `MainServer`.
+  Compile the source code, and use `mvn exec` to execute the main class `MainServer`.
 
   ```bash
-  cd servicecomb-java-chassis/
-  mvn clean install -Psamples -DskipTests			#only need to install at first time.
-  cd samples/config-apollo-sample/
+  mvn clean install
+  cd config-apollo-sample/
   mvn exec:java -Dexec.mainClass="MainServer"
   ```
 
@@ -53,5 +52,5 @@ To use Apollo as configuration source in ServiceComb Java Chassis services:
 
 [Apollo Doc](https://github.com/ctripcorp/apollo/wiki)
 
-[Use Apollo In ServiceComb](http://servicecomb.apache.org/cn/users/dynamic-config/)
+[Use Apollo In ServiceComb]((https://docs.servicecomb.io/java-chassis/zh_CN/config/general-config/))
 

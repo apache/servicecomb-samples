@@ -44,15 +44,15 @@ public class SpringmvcBasicClient {
     // Invoke a spring mvc provider using RPC
     responseModel = rpcInoker.postObject(requestModel);
     Assertion.assertEquals("Hello World", responseModel.getResultMessage());
-    responseModelList = rpcInoker.postListObject(requestModel);
+    responseModelList = rpcInoker.postObjectList(requestModel);
     Assertion.assertEquals("Hello World", responseModelList.get(0).getResultMessage());
 
     // Invoke a spring mvc provider using RestTemplate
     responseModel = restTemplateInvoker
-        .postForObject("cse://springmvc/springmvc/basic/postObject", responseModel, SpringmvcBasicResponseModel.class);
+        .postForObject("cse://springmvc/springmvc/basic/postObject", requestModel, SpringmvcBasicResponseModel.class);
     Assertion.assertEquals("Hello World", responseModel.getResultMessage());
-    HttpEntity<SpringmvcBasicRequestModel> requestEntity = new HttpEntity(requestModel, null);
-    responseModelList = restTemplateInvoker.exchange("/postListObject", HttpMethod.POST, requestEntity,
+    HttpEntity<SpringmvcBasicRequestModel> requestEntity = new HttpEntity<>(requestModel, null);
+    responseModelList = restTemplateInvoker.exchange("cse://springmvc/springmvc/basic/postObjectList", HttpMethod.POST, requestEntity,
         new ParameterizedTypeReference<List<SpringmvcBasicResponseModel>>() {
         }).getBody();
     Assertion.assertEquals("Hello World", responseModelList.get(0).getResultMessage());
