@@ -33,6 +33,7 @@
   </properties>
 
   <modules>
+    <module>bmi</module>
     <module>codefirst-sample</module>
     <module>custom-handler-sample</module>
     <module>jaxrs-sample</module>
