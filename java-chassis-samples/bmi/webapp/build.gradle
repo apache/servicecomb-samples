@@ -17,14 +17,15 @@
 
 description = 'Java Chassis::Samples::BMI::Webapp'
 
+apply plugin: 'java'
+
+compileJava {
+    options.compilerArgs << '-parameters'
+}
+
 dependencies {
-    compile(group: 'org.springframework.boot', name: 'spring-boot-starter') {
-        exclude(module: 'commons-logging')
-    }
-    compile group: 'org.apache.servicecomb', name: 'spring-boot-starter-servicecomb'
-    compile group: 'org.apache.servicecomb', name: 'spring-boot-starter-discovery'
-    compile group: 'org.apache.servicecomb', name: 'spring-cloud-zuul'
-    compile group: 'org.apache.servicecomb', name: 'spring-cloud-zuul-zipkin'
+    compile group: 'org.apache.servicecomb', name: 'java-chassis-spring-boot-starter-standalone'
+    compile group: 'org.apache.servicecomb', name: 'edge-core'
 }
 
 // dependency-management-plugin is a replacement of dependencyManagement in maven
@@ -44,6 +45,6 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencyManagement {
     imports {
-        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:1.0.0-SNAPSHOT'
+        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:2.0.0'
     }
 }

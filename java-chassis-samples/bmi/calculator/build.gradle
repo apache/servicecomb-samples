@@ -17,11 +17,14 @@
 
 description = 'Java Chassis::Samples::BMI::Calculator'
 
+apply plugin: 'java'
+
+compileJava {
+    options.compilerArgs << '-parameters'
+}
+
 dependencies {
-    compile(group: 'org.springframework.boot', name: 'spring-boot-starter') {
-        exclude(module: 'commons-logging')
-    }
-    compile group: 'org.apache.servicecomb', name: 'spring-boot-starter-provider'
+    compile group: 'org.apache.servicecomb', name: 'java-chassis-spring-boot-starter-servlet'
     compile group: 'org.apache.servicecomb', name: 'handler-flowcontrol-qps'
     compile group: 'org.apache.servicecomb', name: 'handler-bizkeeper'
     compile group: 'org.apache.servicecomb', name: 'handler-tracing-zipkin'
@@ -44,6 +47,6 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencyManagement {
     imports {
-        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:1.0.0-SNAPSHOT'
+        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:2.0.0'
     }
 }

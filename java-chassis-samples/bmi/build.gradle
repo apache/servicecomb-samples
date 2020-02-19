@@ -15,6 +15,12 @@
  * limitations under the License.
  */
 
+apply plugin: 'java'
+
+compileJava {
+    options.compilerArgs << '-parameters'
+}
+
 allprojects  {
     apply plugin: 'maven'
 
