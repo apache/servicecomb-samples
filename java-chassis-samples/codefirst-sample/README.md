@@ -39,9 +39,8 @@ servicecomb:
       Compile the source code, and use `mvn exec` to execute the main class `CodeFirstProviderMain`.
 
       ```bash
-      mvn clean install
       cd codefirst-sample/codefirst-provider/
-      gradle clean run
+      
       ```
 
    - Start provider service via IDE
