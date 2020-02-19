@@ -17,12 +17,20 @@
 
 description = 'Java Chassis::Samples::CodeFirst::Provider'
 
+apply plugin: 'java'
+
+compileJava {
+    options.compilerArgs << '-parameters'
+}
+
 dependencies {
     compile group: 'org.apache.servicecomb', name: 'provider-pojo'
     compile group: 'org.apache.servicecomb', name: 'provider-springmvc'
     compile group: 'org.apache.servicecomb', name: 'transport-rest-vertx'
-    compile group: 'org.apache.servicecomb.samples', name: 'common-schema', version: '1.0.0-SNAPSHOT'
-    compile group: 'org.slf4j', name: 'slf4j-log4j12'
+    compile group: 'org.apache.servicecomb.samples', name: 'common-schema', version: '2.0.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core'
 }
 
 apply plugin: 'application'
@@ -46,6 +54,6 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencyManagement {
     imports {
-        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:1.0.0-SNAPSHOT'
+        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:2.0.0'
     }
 }

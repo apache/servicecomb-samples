@@ -20,31 +20,31 @@ There are two microservices in this demo.
 
 * Run microservices
 
-* via maven
-   * Run the **BMI calculator service**
-   
-```bash
-cd bmi/calculator; mvn spring-boot:run
-```
-  
-   * Run the **webapp service**
-   
-```bash
-cd bmi/webapp; mvn spring-boot:run
-```
+    * via maven
+       * Run the **BMI calculator service**
+       
+        ```bash
+        cd bmi/calculator; mvn spring-boot:run
+        ```
+      
+       * Run the **webapp service**
+       
+        ```bash
+        cd bmi/webapp; mvn spring-boot:run
+        ```
  
-* via gradle
-
-   * Run the **BMI calculator service**
-   
-```bash
-cd bmi/calculator; gradle bootRun
-```
-
-   * Run the **webapp service**
-   
-```bash
-cd bmi/webapp; gradle bootRun
-```
+    * via gradle
+    
+       * Run the **BMI calculator service**
+       
+        ```bash
+        cd bmi/calculator; gradle bootRun
+        ```
+    
+       * Run the **webapp service**
+       
+        ```bash
+        cd bmi/webapp; gradle bootRun
+        ```
 
 * Visit the services via **<a>http://127.0.0.1:8889</a>**.

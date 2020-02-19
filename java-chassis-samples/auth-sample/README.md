@@ -66,11 +66,11 @@ servicecomb:
 
      Compile the source code, and use `mvn exec` to execute the main class `AuthProviderMain`.
 
- ```bash
-mvn clean install
-cd auth-sample/auth-provider/
-mvn exec:java -Dexec.mainClass="org.apache.servicecomb.samples.auth.provider.AuthProviderMain"
- ```
+     ```bash
+     mvn clean install
+     cd auth-sample/auth-provider/
+     mvn exec:java -Dexec.mainClass="org.apache.servicecomb.samples.auth.provider.AuthProviderMain"
+     ```
 
    - Start provider service by IDE
 
