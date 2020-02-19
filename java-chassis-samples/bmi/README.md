@@ -1,4 +1,7 @@
 # Body Mass Index(BMI) Calculator Microservice Demo
+
+Check this [document](https://docs.servicecomb.io/java-chassis/zh_CN/featured-topics/application-bmi/) for details explanations about this demo.
+
 ## Architecture of BMI Calculator
 There are two microservices in this demo.
 * Webapp (API Gateway)
@@ -10,36 +13,38 @@ There are two microservices in this demo.
 3. [Gradle 4.x](https://gradle.org/install/)(Optional)
 
 ## Quick Start(Linux)
-1. Run the service center
+* Run the service center
 
-   [how to start service center](http://servicecomb.apache.org/users/setup-environment/#)
+     - [how to start the service center](http://servicecomb.apache.org/docs/products/service-center/install/)
 
-2. Get the bmi demo's code
-```bash
-git clone https://github.com/apache/servicecomb-java-chassis.git
-cd servicecomb-java-chassis/samples
-```
-3. Run microservices
+
+* Run microservices
+
 * via maven
    * Run the **BMI calculator service**
-      ```bash
-      (cd bmi/calculator; mvn spring-boot:run)
-      ```
+   
+```bash
+cd bmi/calculator; mvn spring-boot:run
+```
+  
    * Run the **webapp service**
-      ```bash
-      (cd bmi/webapp; mvn spring-boot:run)
-      ```
+   
+```bash
+cd bmi/webapp; mvn spring-boot:run
+```
+ 
 * via gradle
-   * Install ServiceComb Java Chassis
-      ```bash
-      mvn clean install -DskipTests
-      ```
+
    * Run the **BMI calculator service**
-      ```bash
-      (cd bmi/calculator; gradle bootRun)
-      ```
+   
+```bash
+cd bmi/calculator; gradle bootRun
+```
+
    * Run the **webapp service**
-      ```bash
-      (cd bmi/webapp; gradle bootRun)
-      ```
-4. Visit the services via **<a>http://127.0.0.1:8889</a>**.
+   
+```bash
+cd bmi/webapp; gradle bootRun
+```
+
+* Visit the services via **<a>http://127.0.0.1:8889</a>**.
