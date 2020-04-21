@@ -1,4 +1,3 @@
-#
 ## ---------------------------------------------------------------------------
 ## Licensed to the Apache Software Foundation (ASF) under one or more
 ## contributor license agreements.  See the NOTICE file distributed with
@@ -16,11 +15,13 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
+servicecomb-config-order: 100
+
 APPLICATION_ID: servicecomb-samples
 
 service_description:
   version: 0.0.1
-  name: spring-boot-external-tomcat
+  name: war-external-tomcat2
 
 servicecomb:
   service:
@@ -31,3 +32,5 @@ servicecomb:
 
   rest:
     address: 0.0.0.0:8080 # port should be same with external tomcat
+    servlet:
+      urlPattern: /rest/*
