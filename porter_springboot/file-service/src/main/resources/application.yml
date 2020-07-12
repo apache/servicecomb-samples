@@ -17,7 +17,7 @@
 ## ---------------------------------------------------------------------------
 # spring boot configurations
 server:
-  port: 9091  # should be same with servicecomb.rest.address to use web container
+  port: 9092  # should be same with servicecomb.rest.address to use web container
 
 # override common configurations in common module
 servicecomb-config-order: 10
@@ -36,7 +36,7 @@ servicecomb:
         watch: false
 
   rest:
-    address: 0.0.0.0:9091  # should be same with server.port to use web container
+    address: 0.0.0.0:9092  # should be same with server.port to use web container
 
   uploads:
     directory: tmp_for_upload_file

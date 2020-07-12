@@ -16,4 +16,3 @@
 #
 
 org.apache.servicecomb.samples.porter.gateway.ApiDispatcher
-org.apache.servicecomb.samples.porter.gateway.StaticWebpageDispatcher

@@ -83,3 +83,6 @@ __pycache__/
 
 # gradle
 .gradle
+
+# maven
+.versionsBackup

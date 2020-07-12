@@ -1,0 +1,26 @@
+## Spring Boot configurations
+server:
+  port: 9091
+  # servlet.path: /
+
+APPLICATION_ID: porter-application
+service_description:
+  version: 0.0.1
+  name: website
+
+servicecomb:
+  service:
+    registry:
+      address: http://localhost:30100
+      instance:
+        watch: false
+
+  rest:
+    address: 0.0.0.0:9091 # should be same with server.port to use web container
+    ## static web site will token root
+    servlet:
+      urlPattern: /api/*
+
+  metrics:
+    publisher.defaultLog:
+      enabled: false
