@@ -58,8 +58,16 @@ servicecomb:
       edge:
         default:
           enabled: false
-      rest:
-        pattern: '[/v1/log/|/inspector](.*)'
+        http:
+          enabled: true
+          pattern: /ui/(.*)
+          mappings:
+            website:
+              prefixSegmentCount: 0
+              path: "/ui/.*"
+              microserviceName: website
+              versionRule: 0.0.0+
+
 
 # This is web root for windows server, change this path according to where you put your source code
 gateway:
