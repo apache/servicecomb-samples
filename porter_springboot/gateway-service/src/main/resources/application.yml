@@ -19,13 +19,11 @@
 # override common configurations in common module
 servicecomb-config-order: 100
 
-APPLICATION_ID: porter-application
-service_description:
-  version: 0.0.1
-  name: gateway-service
-
 servicecomb:
   service:
+    application: porter-application
+    name: gateway-service
+    version: 0.0.1
     registry:
       address: http://localhost:30100
       instance:

@@ -27,7 +27,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <servicecomb.version>2.1.1</servicecomb.version>
+    <servicecomb.version>2.1.2</servicecomb.version>
   </properties>
 
   <dependencyManagement>
@@ -47,7 +47,6 @@
         <artifactId>mysql-connector-java</artifactId>
         <version>5.1.46</version>
       </dependency>
-      <!-- need to compile lastest java-chassis code -->
       <dependency>
         <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>

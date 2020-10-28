@@ -3,13 +3,11 @@ server:
   port: 9091
   # servlet.path: /
 
-APPLICATION_ID: porter-application
-service_description:
-  version: 0.0.1
-  name: website
-
 servicecomb:
   service:
+    application: porter-application
+    name: website
+    version: 0.0.1
     registry:
       address: http://localhost:30100
       instance:

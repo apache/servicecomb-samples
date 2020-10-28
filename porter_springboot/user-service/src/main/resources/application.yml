@@ -22,13 +22,11 @@ server:
 # override common configurations in common module
 servicecomb-config-order: 10
 
-APPLICATION_ID: porter-application
-service_description:
-  version: 0.0.1
-  name: user-service
-
 servicecomb:
   service:
+    application: porter-application
+    name: user-service
+    version: 0.0.1
     registry:
       address: http://localhost:30100
       instance:
