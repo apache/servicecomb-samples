@@ -35,7 +35,7 @@ public class StaticWebpageDispatcher implements VertxHttpDispatcher {
 
   @Override
   public int getOrder() {
-    return Integer.MAX_VALUE;
+    return Integer.MAX_VALUE / 2;
   }
 
   @Override

@@ -21,7 +21,6 @@ import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 
 public class LocalRegistryServer {
   public static void main(String[] args) {
-    System.setProperty("local.registry.file", "notExistJustForceLocal");
     BeanUtils.init();
   }
 }

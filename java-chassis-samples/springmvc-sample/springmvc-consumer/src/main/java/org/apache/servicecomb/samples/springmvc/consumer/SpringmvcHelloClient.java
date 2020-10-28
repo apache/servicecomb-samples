@@ -49,7 +49,7 @@ public class SpringmvcHelloClient {
     // RestTemplate Consumer or POJO Consumer. You can choose whatever you like
     // RestTemplate Consumer
     String sayHiResult =
-        restTemplate.postForObject("cse://springmvc/springmvchello/sayhi?name=Java Chassis", null, String.class);
+        restTemplate.postForObject("cse://springmvc/springmvchello/sayhi?name={name}", null, String.class, "Java Chassis");
     Assertion.assertEquals("Hello Java Chassis", sayHiResult);
 
     String sayHiDefaultResult =
@@ -77,7 +77,7 @@ public class SpringmvcHelloClient {
     // NOTICE: since 2.0.0, spring deprecated AsyncRestTemplate, user's can use CompletableFuture of RPC instead
     CseAsyncRestTemplate cseAsyncRestTemplate = new CseAsyncRestTemplate();
     ListenableFuture<ResponseEntity<String>> responseEntityListenableFuture = cseAsyncRestTemplate
-        .postForEntity("cse://springmvc/springmvchello/sayhi?name=Java Chassis", null, String.class);
+        .postForEntity("cse://springmvc/springmvchello/sayhi?name={name}", null, String.class, "Java Chassis");
     ResponseEntity<String> responseEntity = responseEntityListenableFuture.get();
     Assertion.assertEquals("Hello Java Chassis", responseEntity.getBody());
     System.out.println("AsyncRestTemplate Consumer sayHi services: " + responseEntity.getBody());

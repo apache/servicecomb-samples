@@ -29,8 +29,6 @@ public class LocalRegistryClient {
   private static RestTemplate templateNew = RestTemplateBuilder.create();
 
   public static void main(String[] args) {
-    System.setProperty("local.registry.file", "registry.yaml");
-
     BeanUtils.init();
 
     run();

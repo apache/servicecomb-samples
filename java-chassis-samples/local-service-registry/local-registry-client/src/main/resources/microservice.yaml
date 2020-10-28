@@ -15,11 +15,12 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-APPLICATION_ID: localservreg
-service_description:
-  name: localclient
-  version: 0.0.1
 servicecomb:
+  service:
+    application: localservreg
+    name: localclient
+    version: 0.0.1
+
   handler:
     chain:
       Consumer:

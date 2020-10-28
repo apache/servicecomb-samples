@@ -15,12 +15,12 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-APPLICATION_ID: auth-sample
-service_description:
-  name: auth-provider
-  version: 0.0.1
 servicecomb:
   service:
+    application: auth-sample
+    name: auth-provider
+    version: 0.0.1
+
     registry:
       address: http://127.0.0.1:30100
   handler:

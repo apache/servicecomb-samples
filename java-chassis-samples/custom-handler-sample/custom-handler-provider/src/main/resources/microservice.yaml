@@ -15,12 +15,12 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-APPLICATION_ID: chstest
-service_description:
-  name: customerhandler
-  version: 0.0.1
 servicecomb:
   service:
+    application: chstest
+    name: customerhandler
+    version: 0.0.1
+
     registry:
       address: http://127.0.0.1:30100
   rest:
