@@ -15,11 +15,12 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-APPLICATION_ID: localservreg
-service_description:
-  name: localserv
-  version: 0.0.1
 servicecomb:
+  service:
+    application: localservreg
+    name: localserv
+    version: 0.0.1
+
   rest:
     address: 0.0.0.0:8080
   handler:

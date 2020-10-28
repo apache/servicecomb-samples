@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.servicecomb.samples</groupId>
     <artifactId>samples</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.2</version>
   </parent>
   <artifactId>local-service-registry</artifactId>
   <name>Java Chassis::Demo::Local service registry</name>
@@ -32,4 +32,10 @@
     <module>local-registry-client</module>
   </modules>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>registry-local</artifactId>
+    </dependency>
+  </dependencies>
 </project>
