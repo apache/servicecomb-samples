@@ -9,7 +9,7 @@ servicecomb:
     name: website
     version: 0.0.1
     registry:
-      address: http://localhost:30100
+      address: https://cse.cn-south-1.myhuaweicloud.com
       instance:
         watch: false
 
@@ -22,3 +22,11 @@ servicecomb:
   metrics:
     publisher.defaultLog:
       enabled: false
+
+
+  credentials:
+    akskEnabled: true
+    accessKey: add your ak/sk from huaweicloud
+    secretKey: add your ak/sk from huaweicloud
+    akskCustomCipher: default
+    project: cn-south-1
