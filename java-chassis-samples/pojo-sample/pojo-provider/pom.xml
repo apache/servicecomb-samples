@@ -31,7 +31,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
-      <artifactId>servicestage</artifactId>
+      <artifactId>servicestage-environment</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.servicecomb.samples</groupId>
