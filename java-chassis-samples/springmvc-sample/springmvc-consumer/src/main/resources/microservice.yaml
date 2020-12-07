@@ -22,7 +22,18 @@ servicecomb:
     version: 0.0.1
 
     registry:
-      address: http://127.0.0.1:30100
+      # Default using local service center
+      address: http://localhost:30100
+      # address: https://cse.cn-south-1.myhuaweicloud.com
+      instance:
+        watch: false
+  config:
+    client:
+      # Default using local config center
+      # serverUri: https://cse.cn-south-1.myhuaweicloud.com
+      serverUri: http://localhost:30113
+      refreshMode: 1
+
   handler:
     chain:
       Consumer:
@@ -30,3 +41,11 @@ servicecomb:
   isolation:
     Consumer:
       enabled: false
+
+# Using Huawei Cloud Service Engine Professional Edition, AK/SK is required
+#  credentials:
+#    akskEnabled: true
+#    accessKey: add your ak/sk from huaweicloud
+#    secretKey: add your ak/sk from huaweicloud
+#    akskCustomCipher: default
+#    project: cn-south-1
