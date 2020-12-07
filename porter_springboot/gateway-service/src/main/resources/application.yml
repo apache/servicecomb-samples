@@ -25,9 +25,17 @@ servicecomb:
     name: gateway-service
     version: 0.0.1
     registry:
-      address: https://cse.cn-south-1.myhuaweicloud.com
+      # Default using local service center
+      address: http://localhost:30100
+      # address: https://cse.cn-south-1.myhuaweicloud.com
       instance:
         watch: false
+  config:
+    client:
+      # Default using local config center
+      # serverUri: https://cse.cn-south-1.myhuaweicloud.com
+      serverUri: http://localhost:30113
+      refreshMode: 1
 
   rest:
     address: 0.0.0.0:9090?sslEnabled=false
@@ -66,13 +74,13 @@ servicecomb:
               microserviceName: website
               versionRule: 0.0.0+
 
-
-  credentials:
-    akskEnabled: true
-    accessKey: add your ak/sk from huaweicloud
-    secretKey: add your ak/sk from huaweicloud
-    akskCustomCipher: default
-    project: cn-south-1
+# Using Huawei Cloud Service Engine Professional Edition, AK/SK is required
+#  credentials:
+#    akskEnabled: true
+#    accessKey: add your ak/sk from huaweicloud
+#    secretKey: add your ak/sk from huaweicloud
+#    akskCustomCipher: default
+#    project: cn-south-1
 
 # This is web root for windows server, change this path according to where you put your source code
 gateway:
