@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * {@link CalculatorRestEndpoint} provides the rest implementation of {@link CalculatorEndpoint}.
- * The rest endpoint is accessed by /bmi?height={value}&width={value} with HTTP GET.
+ * The rest endpoint is accessed by /bmi?height={value}&weight={value} with HTTP GET.
  */
 @RestSchema(schemaId = "calculatorRestEndpoint")
 @RequestMapping(path = "/")
