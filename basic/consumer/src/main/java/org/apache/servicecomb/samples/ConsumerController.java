@@ -29,6 +29,7 @@ public class ConsumerController {
   @RpcReference(schemaId = "ProviderController", microserviceName = "provider")
   private ProviderService providerService;
 
+  // consumer service which delegate the implementation to provider service.
   @GetMapping("/sayHello")
   public String sayHello(@RequestParam("name") String name) {
     return providerService.sayHello(name);

@@ -43,9 +43,9 @@ servicecomb:
   rest:
     address: 0.0.0.0:9093 # should be same with server.port to use web container
 
-# Using Huawei Cloud Service Engine Professional Edition, AK/SK is required
+# Configure AK/SK credentials if needed. Default not enabled.
 #  credentials:
-#    akskEnabled: true
+#    akskEnabled: false
 #    accessKey: add your ak/sk from huaweicloud
 #    secretKey: add your ak/sk from huaweicloud
 #    akskCustomCipher: default
