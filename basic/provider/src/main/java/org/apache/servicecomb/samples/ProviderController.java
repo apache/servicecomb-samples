@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestSchema(schemaId = "ProviderController")
 @RequestMapping(path = "/")
 public class ProviderController {
+  // a very simple service to echo the request parameter
   @GetMapping("/sayHello")
   public String sayHello(@RequestParam("name") String name) {
     return "Hello " + name;

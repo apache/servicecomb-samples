@@ -10,9 +10,33 @@ A Microserivce using Java Chassis with a REST interface. Consumer calls provider
 * gateway
 A Microserivce using Java Chassis Edge Service to forward requests to consumer.
 
-# Usage
-Start 3 microservices and open in browser： http://localhost:9090/sayHello?name=World
+# Build and Run
 
+* Build
+
+        mvn clean pacakge
+
+* Run provider
+
+  In ${Project}/provider/target/
+  
+        java -jar basic-provider-2.0-SNAPSHOT.jar
+
+* Run consumer
+
+  In ${Project}/consumer/target/
+
+        java -jar basic-consumer-2.0-SNAPSHOT.jar
+
+* Run gateway
+
+  In ${Project}/gateway/target/
+
+        java -jar basic-gateway-2.0-SNAPSHOT.jar
+
+* Testing
+
+Open in browser： http://localhost:9090/sayHello?name=World
 
 # 项目说明
 
@@ -29,4 +53,28 @@ Start 3 microservices and open in browser： http://localhost:9090/sayHello?name
 
 ## 使用
 
-启动3个微服务， 然后通过界面访问： http://localhost:9090/sayHello?name=World
+* 编译
+
+        mvn clean pacakge
+
+* 启动 provider
+
+  进入目录 ${Project}/provider/target/
+  
+        java -jar basic-provider-2.0-SNAPSHOT.jar
+
+* 启动 consumer
+
+  进入目录 ${Project}/consumer/target/
+
+        java -jar basic-consumer-2.0-SNAPSHOT.jar
+
+* 启动 gateway
+
+  进入目录 ${Project}/gateway/target/
+
+        java -jar basic-gateway-2.0-SNAPSHOT.jar
+
+* 测试
+
+启动3个微服务后， 然后通过界面访问： http://localhost:9090/sayHello?name=World
