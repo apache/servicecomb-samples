@@ -19,14 +19,16 @@ package org.apache.servicecomb.samples;
 
 import org.apache.servicecomb.springboot2.starter.EnableServiceComb;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 @EnableServiceComb
 public class ProviderApplication {
   public static void main(String[] args) throws Exception {
     try {
-      SpringApplication.run(ProviderApplication.class, args);
+      new SpringApplicationBuilder().web(WebApplicationType.NONE).sources(ProviderApplication.class).run(args);
     } catch (Exception e) {
       e.printStackTrace();
     }
