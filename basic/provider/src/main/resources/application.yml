@@ -43,6 +43,8 @@ servicecomb:
   rest:
     address: 0.0.0.0:9093 # should be same with server.port to use web container
 
+  metrics:
+    window_time: 5000
 # Configure AK/SK credentials if needed. Default not enabled.
 #  credentials:
 #    akskEnabled: false

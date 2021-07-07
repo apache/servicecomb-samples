@@ -18,6 +18,8 @@
 package org.apache.servicecomb.samples;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,9 +27,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestSchema(schemaId = "ProviderController")
 @RequestMapping(path = "/")
 public class ProviderController {
+  private static final Logger LOGGER = LoggerFactory.getLogger(ProviderController.class);
+
   // a very simple service to echo the request parameter
   @GetMapping("/sayHello")
   public String sayHello(@RequestParam("name") String name) {
+    LOGGER.info("receive request, name={}", name);
     return "Hello " + name;
   }
 }

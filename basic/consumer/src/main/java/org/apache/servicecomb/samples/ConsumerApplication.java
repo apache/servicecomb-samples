@@ -17,20 +17,47 @@
 
 package org.apache.servicecomb.samples;
 
+import java.util.concurrent.atomic.AtomicLong;
+
+import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.springboot2.starter.EnableServiceComb;
-import org.springframework.boot.SpringApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 @EnableServiceComb
+@Component
 public class ConsumerApplication {
+  private static final Logger LOGGER = LoggerFactory.getLogger(ConsumerApplication.class);
+
+  @RpcReference(microserviceName = "provider", schemaId = "ProviderController")
+  private static ProviderService providerService;
+
   public static void main(String[] args) throws Exception {
     try {
       new SpringApplicationBuilder().web(WebApplicationType.NONE).sources(ConsumerApplication.class).run(args);
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    new Thread() {
+      public void run() {
+        AtomicLong index = new AtomicLong(0);
+
+        while (true) {
+          try {
+            LOGGER.info("call service: name=" + index.get());
+            providerService.sayHello("hello" + index.getAndIncrement());
+            Thread.sleep(2000);
+          } catch (InterruptedException e) {
+            LOGGER.error("", e);
+          }
+        }
+      }
+    }.start();
   }
 }

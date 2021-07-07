@@ -54,7 +54,8 @@ servicecomb:
               path: "/.*"
               microserviceName: consumer
               versionRule: 0.0.0+
-
+  metrics:
+    window_time: 5000
 # Configure AK/SK credentials if needed. Default not enabled.
 #  credentials:
 #    akskEnabled: false
