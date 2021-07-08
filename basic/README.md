@@ -14,7 +14,7 @@ A Microserivce using Java Chassis Edge Service to forward requests to consumer.
 
 * Build
 
-        mvn clean pacakge
+        mvn clean package
 
 * Run provider
 
@@ -55,7 +55,7 @@ Open in browser： http://localhost:9090/sayHello?name=World
 
 * 编译
 
-        mvn clean pacakge
+        mvn clean package
 
 * 启动 provider
 
