@@ -18,28 +18,31 @@
 
 <!--this is sample configuration, please modify as your wish -->
 
-<configuration>
-  <Properties>
-    <Property name="log_path">./gateway/log/</Property>
-  </Properties>
+<configuration scan="true">
 
-  <Appenders>
-    <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n" />
-    </Console>
-    <RollingFile name="DailyRollingFile" fileName="${log_path}/output.log"
-      filePattern="${log_path}/zcrTest%d{yyyy-MM-dd}.log">
-      <PatternLayout pattern="[%d][%t][%p][%c:%L] %m%n" />
-      <Policies>
-        <TimeBasedTriggeringPolicy interval="1" />
-        <SizeBasedTriggeringPolicy size="10 MB" />
-      </Policies>
-    </RollingFile>
-  </Appenders>
-  <Loggers>
-    <Root level="info">
-      <AppenderRef ref="Console" />
-      <AppenderRef ref="DailyRollingFile" />
-    </Root>
-  </Loggers>
+  <property name="log.path" value="./consumer/log/" />
+
+  <appender name="DailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${log.path}/output.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${log.path}/zcrTest%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>1</maxHistory>
+      <totalSizeCap>10MB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d [%level] [%thread] - %msg (%F:%L\)%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="DailyRollingFile"/>
+  </root>
+
 </configuration>
