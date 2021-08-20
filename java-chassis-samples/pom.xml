@@ -24,7 +24,7 @@
   <artifactId>samples</artifactId>
   <name>Java Chassis::Samples</name>
   <packaging>pom</packaging>
-  <version>2.3.0</version>
+  <version>2.5.0</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
