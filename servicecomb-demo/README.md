@@ -36,8 +36,4 @@ Clone your code repository and start developing your application on IDE of your 
 
 if you want to deploy the sample code on servicestage, View your CI/CD pipeline and service stack on ServiceStage and customize it as per your needs
 
-## License:
-
-See [LICENSE](LICENSE).
-
 ## Contributing

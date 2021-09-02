@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @EnableServiceComb
 public class ServicecombspringmvcApplication {
-    public static void main(String[] args) {
-         SpringApplication.run(ServicecombspringmvcApplication.class,args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(ServicecombspringmvcApplication.class, args);
+  }
 }

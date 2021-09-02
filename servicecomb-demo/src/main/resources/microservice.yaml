@@ -15,13 +15,13 @@ cse:
       serverUri: http://127.0.0.1:30113
       refreshMode: 1
       refresh_interval: 5000
-  #monitor:
-    #client:
+      #monitor:
+      #client:
       #serverUri: https://cse.cn-north-1.myhuaweicloud.com
   rest:
     address: 0.0.0.0:8080
-  #When a local project is deployed as a container outside a cluster, you need to delete all monitor and credentials comments and configure the AK/SK.
-  #credentials:
+    #When a local project is deployed as a container outside a cluster, you need to delete all monitor and credentials comments and configure the AK/SK.
+    #credentials:
     #accessKey: ak
     #secretKey: sk
     #akskCustomCipher: default

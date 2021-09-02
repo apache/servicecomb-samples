@@ -2,6 +2,7 @@ package com.huawei.servicecomb.controller;
 
 
 import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +14,15 @@ import org.apache.servicecomb.provider.rest.common.RestSchema;
 @RequestMapping(path = "/rest", produces = MediaType.APPLICATION_JSON)
 public class ServicecombspringmvcImpl {
 
-    @Autowired
-    private ServicecombspringmvcDelegate userServicecombspringmvcDelegate;
+  @Autowired
+  private ServicecombspringmvcDelegate userServicecombspringmvcDelegate;
 
 
-    @RequestMapping(value = "/helloworld",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    public String helloworld( @RequestParam(value = "name", required = true) String name){
+  @RequestMapping(value = "/helloworld",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  public String helloworld(@RequestParam(value = "name", required = true) String name) {
 
-        return userServicecombspringmvcDelegate.helloworld(name);
-    }
-
+    return userServicecombspringmvcDelegate.helloworld(name);
+  }
 }
