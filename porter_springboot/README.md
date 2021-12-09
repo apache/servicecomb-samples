@@ -88,3 +88,21 @@ java $JAVA_OPT -jar porter-website-2.0-SNAPSHOT.jar >/dev/null 2>&1 &
 2. 选择一个文件上传，上传成功，上传成功后的文件会保存在file-service的当前目录， 文件名称是一个随机的数字，这个数字就是文件ID。
 3. 删除文件：输入上一步的文件ID，点击删除。 如果是admin用户，上传成功；如果是guest用户，上传失败。
 
+## 前提条件
+
+运行这些例子之前，需要先准备CSE运行环境。
+
+* 通过下载安装 [本地简化版 CSE](https://support.huaweicloud.com/devg-servicestage/ss-devg-34.html) ,搭建本地开发环境。
+* 使用[华为云云服务](https://support.huaweicloud.com/devg-servicestage/ss-devg-0002.html) 。
+
+[更多信息](https://support.huaweicloud.com/devg-servicestage/ss-devg-0006.html) 可以参考开发指南。
+
+CSE运行环境准备好以后，编辑每个微服务的`bootstrap.yml`文件，配置正确的CSE服务信息，比如配置中心、注册中心的地址。
+
+例子默认使用微服务引擎1.0版本，配置中心得类型为config-center,如果使用微服务引擎2.0，配置文件要做如下修改:
+
+```
+servicecomb:
+  kie:
+    serveUri:
+```

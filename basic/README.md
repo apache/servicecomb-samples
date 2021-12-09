@@ -78,3 +78,22 @@ Open in browser： http://localhost:9090/sayHello?name=World
 * 测试
 
 启动3个微服务后， 然后通过界面访问： http://localhost:9090/sayHello?name=World
+
+## 前提条件
+
+运行这些例子之前，需要先准备CSE运行环境。
+
+* 通过下载安装 [本地简化版 CSE](https://support.huaweicloud.com/devg-servicestage/ss-devg-34.html) ,搭建本地开发环境。
+* 使用[华为云云服务](https://support.huaweicloud.com/devg-servicestage/ss-devg-0002.html) 。
+
+[更多信息](https://support.huaweicloud.com/devg-servicestage/ss-devg-0006.html) 可以参考开发指南。
+
+CSE运行环境准备好以后，编辑每个微服务的`bootstrap.yml`文件，配置正确的CSE服务信息，比如配置中心、注册中心的地址。
+
+例子默认使用微服务引擎1.0版本，配置中心得类型为config-center,如果使用微服务引擎2.0，配置文件要做如下修改:
+
+```
+servicecomb:
+  kie:
+    serveUri:
+```
