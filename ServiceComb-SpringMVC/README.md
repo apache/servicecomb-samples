@@ -37,3 +37,8 @@ Clone your code repository and start developing your application on IDE of your 
 if you want to deploy the sample code on servicestage, View your CI/CD pipeline and service stack on ServiceStage and customize it as per your needs
 
 ## Contributing
+
+
+## Precondition
+
+Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

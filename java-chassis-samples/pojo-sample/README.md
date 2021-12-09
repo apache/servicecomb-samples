@@ -84,3 +84,7 @@ servicecomb:
    1. *'Hello person ServiceComb/Java Chassis'* means the consumer calls sayHello by RpcReference successfully
    2. *'a=1, b=2, result=3'* means the consumer calls compute.add by RpcReference successfully
    ​
+
+## Precondition
+
+Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

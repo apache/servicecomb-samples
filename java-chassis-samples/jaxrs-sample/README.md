@@ -63,3 +63,7 @@ servicecomb:
    1. *'Hello Java Chassis'* means the consumer calls sayhi by RpcReference successfully
    2. *'Hello person ServiceComb/Java Chassis'* means the consumer calls sayhello by RpcReference successfully
    3. *'Bye !'* means the consumer calls saybye by RestTemplate successfully
+
+## Precondition
+
+Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

@@ -9,3 +9,7 @@ Following are some useful articles to run spring boot in external web container.
 For java-chassis using spring boot, check following articles.
 
 * [Working with Spring Boot](https://docs.servicecomb.io/java-chassis/zh_CN/using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot/)
+
+## Precondition
+
+Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

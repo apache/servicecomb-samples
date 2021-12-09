@@ -14,6 +14,10 @@ A sample shows an application with basic login, download file, delete file funct
 ## java-chassis-samples
 Featured samples for java-chassis modules. Each module contains 10 minutes guides.
 
+## Precondition
+
+Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly。
+
 # 使用ServiceComb开发微服务的示例项目
 
 这个项目使用java-chassis 2.0.x版本。可以切换分支，查看其他版本的例子。
@@ -34,19 +38,5 @@ java-chassis 各个模块功能的例子。每个子项目包含了10分钟可�
 
 ## 前提条件
 
-运行这些例子之前，需要先准备CSE运行环境。
+运行这些例子之前，需要先安装[注册中心](https://github.com/apache/servicecomb-service-center) 和[配置中心](https://github.com/apache/servicecomb-kie) 。华为云提供一个出色的[本地轻量化微服务引擎](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,可以直接下载安装使用。
 
-* 通过下载安装 [本地简化版 CSE](https://support.huaweicloud.com/devg-servicestage/ss-devg-34.html) ,搭建本地开发环境。
-* 使用[华为云云服务](https://support.huaweicloud.com/devg-servicestage/ss-devg-0002.html) 。
-
-[更多信息](https://support.huaweicloud.com/devg-servicestage/ss-devg-0006.html) 可以参考开发指南。
-
-CSE运行环境准备好以后，编辑每个微服务的`bootstrap.yml`文件，配置正确的CSE服务信息，比如配置中心、注册中心的地址。
-
-例子默认使用微服务引擎1.0版本，配置中心得类型为config-center,如果使用微服务引擎2.0，配置文件要做如下修改:
-
-```
-servicecomb:
-  kie:
-    serveUri:
-```

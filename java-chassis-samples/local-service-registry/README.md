@@ -47,3 +47,7 @@ Please find the details as follows.
   -here microserviceName is servers's microservice name. Like this multiple schemaId files we can put in same location.
 
 * Run the consumer and verify the API's output.
+
+## Precondition
+
+Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.
