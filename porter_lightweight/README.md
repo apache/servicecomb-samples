@@ -41,9 +41,6 @@ java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSH
 2. Choose a file to upload. Uploaded file is stored in file-service working directory. And name is random number generated. 
 3. Delete file. Input the random number generated in step 2. 
 
-condition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly。
 
 ## 前提条件
 
