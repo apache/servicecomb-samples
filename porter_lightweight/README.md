@@ -41,7 +41,7 @@ java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSH
 2. Choose a file to upload. Uploaded file is stored in file-service working directory. And name is random number generated. 
 3. Delete file. Input the random number generated in step 2. 
 
-## Precondition
+condition
 
 Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly。
 
@@ -199,7 +199,3 @@ public ResponseBase rechargePrepaidCard(String cardId, double amount)
 ```
 public ResponseBase rechargePrepaidCard(@RequestBody PrepaidAmountRequest prepaidAmountRequest)
 ```
-## 前提条件
-
-运行这些例子之前，需要先安装[注册中心](https://github.com/apache/servicecomb-service-center) 和[配置中心](https://github.com/apache/servicecomb-kie) 。华为云提供一个出色的[本地轻量化微服务引擎](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,可以直接下载安装使用。
-

@@ -11,4 +11,4 @@ For java-chassis using spring boot, check following articles.
 * [Working with Spring Boot](https://docs.servicecomb.io/java-chassis/zh_CN/using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot/)
 
 ## Precondition
-see [Precondition](../README.md)
+see [Precondition](../../README.md)

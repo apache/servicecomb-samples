@@ -4,4 +4,4 @@ This folder contains some examples of java-chassis deployments.
 * war-external-tomcat : deploy java-chassis into a traditional war and run in an external web container.
 
 ## Precondition
-see [Precondition](../../README.md)
+see [Precondition](../README.md)

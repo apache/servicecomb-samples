@@ -40,9 +40,6 @@ see [Precondition](../README.md)
 
 Open in browser： http://localhost:9090/sayHello?name=World
 
-## Precondition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.
 
 
 # 项目说明
@@ -86,7 +83,4 @@ Before running the samples，need to install [Registration Center](https://githu
 
 启动3个微服务后， 然后通过界面访问： http://localhost:9090/sayHello?name=World
 
-## 前提条件
-
-运行这些例子之前，需要先安装[注册中心](https://github.com/apache/servicecomb-service-center) 和[配置中心](https://github.com/apache/servicecomb-kie) 。华为云提供一个出色的[本地轻量化微服务引擎](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,可以直接下载安装使用。
 
