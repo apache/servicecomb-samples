@@ -5,6 +5,9 @@
 * The URL must be in format of ServiceComb: `cse://microserviceName/path?querystring`.
 * During use of this URL format, the ServiceComb framework will perform internal microservice discovery, fallback, and fault tolerance and send the requests to the microservice providers.
 
+## Precondition
+see [Precondition](../../README.md)
+
 ## Sample Quick Start
 
 1. Start the ServiceComb/Service Center
@@ -58,7 +61,3 @@ servicecomb:
 ## More
 
 [Develop with SpringMVC](https://docs.servicecomb.io/java-chassis/zh_CN/build-provider/springmvc/)
-
-## Precondition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

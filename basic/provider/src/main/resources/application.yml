@@ -35,7 +35,6 @@ servicecomb:
         watch: false
   kie:
     serverUri: http://localhost:30110
-    customLabel: public
 
   rest:
     address: 0.0.0.0:9093 # should be same with server.port to use web container

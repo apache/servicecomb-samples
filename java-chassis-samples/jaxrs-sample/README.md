@@ -15,6 +15,9 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
 
 To consume a provider-service, only need to decalare a member of a service API type and add the `RpcReference` annotation for the member, the microservice that depends on the declaration and the `schemaID` just like pojo consumer sample.
 
+## Precondition
+see [Precondition](../../README.md)
+
 ### Sample Quick Start
 
 1. Start the ServiceComb/Service Center

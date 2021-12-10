@@ -7,6 +7,9 @@ Consumer will use local registry function and it will connect the server end poi
 
 Please find the details as follows.
 
+## Precondition
+see [Precondition](../../README.md)
+
 ## Provider Side
 
 * run the provider with/without service center and get the schema file.
@@ -48,6 +51,3 @@ Please find the details as follows.
 
 * Run the consumer and verify the API's output.
 
-## Precondition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

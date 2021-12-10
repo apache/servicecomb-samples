@@ -4,6 +4,9 @@ Because micro-services is desgin by SRP(Single Responsibility Principle),one mic
 
 Health check mechanism can let user write some logic to check components of micro-service dependent and return check result.
 
+## Precondition
+see [Precondition](../../README.md)
+
 ## How to use
 ### Add your checker implementation
 Implement *org.apache.servicecomb.foundation.metrics.health.HealthChecker* interface:  
@@ -50,6 +53,3 @@ Then you can invoke http://{serverip}:7777/health get summary check result : tru
 
 Also can invoke http://{serverip}:7777/health/details get details of each health checker reported.
 
-## Precondition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

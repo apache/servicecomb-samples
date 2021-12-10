@@ -29,7 +29,6 @@ servicecomb:
         watch: false
   kie:
     serverUri: http://localhost:30110
-    customLabel: public
 
   rest:
     address: 0.0.0.0:8080

@@ -29,7 +29,7 @@ servicecomb:
         watch: false
   kie:
     serverUri: http://localhost:30110
-    customLabel: public
+
   handler:
     chain:
       Consumer:

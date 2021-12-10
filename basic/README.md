@@ -10,6 +10,8 @@ A Microserivce using Java Chassis with a REST interface. Consumer calls provider
 * gateway
 A Microserivce using Java Chassis Edge Service to forward requests to consumer.
 
+## Precondition
+see [Precondition](../README.md)
 # Build and Run
 
 * Build

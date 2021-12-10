@@ -11,6 +11,8 @@ There are two microservices in this demo.
 1. [Oracle JDK 1.8+](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
 2. [Maven 3.x](https://maven.apache.org/install.html)
 3. [Gradle 4.x](https://gradle.org/install/)(Optional)
+## Precondition
+see [Precondition](../../README.md)
 
 ## Quick Start(Linux)
 * Run the service center
@@ -49,6 +51,3 @@ There are two microservices in this demo.
 
 * Visit the services via **<a>http://127.0.0.1:8889</a>**.
 
-## Precondition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

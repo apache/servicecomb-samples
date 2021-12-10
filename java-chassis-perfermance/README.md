@@ -1,4 +1,7 @@
-suppose jar named perf.jar
+## Precondition
+see [Precondition](../README.md)  
+
+suppose jar named perf.jar  
 1.copy perf.jar to different directory
 
 2.create microservice.yaml in each directory
@@ -44,6 +47,3 @@ java -jar perf.jar
 4.start consumer
 java -jar perf.jar -c
 
-## Precondition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.

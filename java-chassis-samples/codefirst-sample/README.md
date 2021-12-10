@@ -83,5 +83,4 @@ servicecomb:
    6. *'Spring mvc Hello person ServiceComb/Java Chassis'* means the consumer calls SpringMvc sayhello successfully
 
 ## Precondition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.
+see [Precondition](../../README.md)

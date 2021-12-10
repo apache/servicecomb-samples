@@ -1,5 +1,8 @@
 This project shows how to using java-chassis and service-center to create a simple microservice application. It shows basic authentication and authorization, uploading files and delete files operations.
 
+## Precondition
+see [Precondition](../README.md)
+
 ## build and run
 
 * compile
@@ -42,13 +45,14 @@ java $JAVA_OPT -jar porter-website-2.0-SNAPSHOT.jar >/dev/null 2>&1 &
 2. Choose a file to upload. Uploaded file is stored in file-service working directory. And name is random number generated. 
 3. Delete file. Input the random number generated in step 2. 
 
-## Precondition
-
-Before running the samples，need to install [Registration Center](https://github.com/apache/servicecomb-service-center) and [Configuration center](https://github.com/apache/servicecomb-kie). Huawei Cloud provide a perfect [Local lightweight microservice engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,can download and install to use directly.
 
 这个项目帮助开发者学习如何使用ServiceComb开发完整的微服务。 这个项目实现的功能非常简单，用户登录后，上传一个文件和删除一个文件，验证了没有权限的用户无法删除文件。
 
-# 编译和运行
+## 前提条件
+
+查看 [前提条件](../README.md)
+
+## 编译和运行
 
 * 编译
 
@@ -91,7 +95,4 @@ java $JAVA_OPT -jar porter-website-2.0-SNAPSHOT.jar >/dev/null 2>&1 &
 2. 选择一个文件上传，上传成功，上传成功后的文件会保存在file-service的当前目录， 文件名称是一个随机的数字，这个数字就是文件ID。
 3. 删除文件：输入上一步的文件ID，点击删除。 如果是admin用户，上传成功；如果是guest用户，上传失败。
 
-## 前提条件
-
-运行这些例子之前，需要先安装[注册中心](https://github.com/apache/servicecomb-service-center) 和[配置中心](https://github.com/apache/servicecomb-kie) 。华为云提供一个出色的[本地轻量化微服务引擎](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,可以直接下载安装使用。
 
