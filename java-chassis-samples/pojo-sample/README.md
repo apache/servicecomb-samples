@@ -35,6 +35,8 @@ public class CodeFirstConsumerMain {
     }
 }
 ```
+## Precondition
+see [Precondition](../../README.md)
 
 ### Sample Quick Start
 
@@ -84,3 +86,4 @@ servicecomb:
    1. *'Hello person ServiceComb/Java Chassis'* means the consumer calls sayHello by RpcReference successfully
    2. *'a=1, b=2, result=3'* means the consumer calls compute.add by RpcReference successfully
    ​
+

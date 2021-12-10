@@ -5,6 +5,9 @@
 * The URL must be in format of ServiceComb: `cse://microserviceName/path?querystring`.
 * During use of this URL format, the ServiceComb framework will perform internal microservice discovery, fallback, and fault tolerance and send the requests to the microservice providers.
 
+## Precondition
+see [Precondition](../../README.md)
+
 ## Sample Quick Start
 
 1. Start the ServiceComb/Service Center

@@ -14,6 +14,10 @@ A sample shows an application with basic login, download file, delete file funct
 ## java-chassis-samples
 Featured samples for java-chassis modules. Each module contains 10 minutes guides.
 
+## Precondition
+
+Before running the samples，install [service center](https://github.com/apache/servicecomb-service-center) and [kie](https://github.com/apache/servicecomb-kie). Or download [Lightweight Cloud Service Engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) which integrates both serivce center and kie for ease of use.
+
 # 使用ServiceComb开发微服务的示例项目
 
 这个项目使用java-chassis 2.0.x版本。可以切换分支，查看其他版本的例子。
@@ -31,3 +35,8 @@ REST over Servlet。
 
 ## java-chassis-samples
 java-chassis 各个模块功能的例子。每个子项目包含了10分钟可以学习完成的简单示例。
+
+## 前提条件
+
+运行这些例子之前，需要先安装[注册中心](https://github.com/apache/servicecomb-service-center) 和[配置中心](https://github.com/apache/servicecomb-kie) 。华为云提供一个出色的[本地轻量化微服务引擎](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,可以直接下载安装使用。
+

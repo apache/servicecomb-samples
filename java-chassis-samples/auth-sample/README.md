@@ -43,6 +43,8 @@ servicecomb:
       Consumer:
         default: auth-provider
 ```
+## Precondition
+see [Precondition](../../README.md)
 
 ## Sample Quick Start
 
@@ -93,3 +95,4 @@ mvn exec:java -Dexec.mainClass="org.apache.servicecomb.samples.auth.consumer.Aut
    On the consumer side, you can see the following outputs if the consumer can invoke the producer:
    1. *'Hello Authenticate'* means the consumer calls sayhi with name=Authenticate successfully
    2. *'Hello person ServiceComb/Authenticate'* means the consumer calls sayhello successfully
+

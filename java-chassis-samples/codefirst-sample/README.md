@@ -81,3 +81,6 @@ servicecomb:
    4. *'Pojo Hello person ServiceComb/Java Chassis'* means the consumer calls sayhello successfully
    5. *'Jaxrs Hello person ServiceComb/Java Chassis'* means the consumer calls Jaxrs sayhello successfully
    6. *'Spring mvc Hello person ServiceComb/Java Chassis'* means the consumer calls SpringMvc sayhello successfully
+
+## Precondition
+see [Precondition](../../README.md)

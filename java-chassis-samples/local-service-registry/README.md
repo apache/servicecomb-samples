@@ -7,6 +7,9 @@ Consumer will use local registry function and it will connect the server end poi
 
 Please find the details as follows.
 
+## Precondition
+see [Precondition](../../README.md)
+
 ## Provider Side
 
 * run the provider with/without service center and get the schema file.
@@ -47,3 +50,4 @@ Please find the details as follows.
   -here microserviceName is servers's microservice name. Like this multiple schemaId files we can put in same location.
 
 * Run the consumer and verify the API's output.
+

@@ -1,5 +1,8 @@
 This project shows how to using java-chassis and service-center to create a simple microservice application. It shows basic authentication and authorization, uploading files and delete files operations.
 
+## Precondition
+see [Precondition](../README.md)
+
 ## build and run
 
 * compile
@@ -38,6 +41,10 @@ java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSH
 2. Choose a file to upload. Uploaded file is stored in file-service working directory. And name is random number generated. 
 3. Delete file. Input the random number generated in step 2. 
 
+
+## 前提条件
+
+查看 [前提条件](../README.md)
 
 这个项目帮助开发者学习如何使用ServiceComb开发完整的微服务。 这个项目实现的功能非常简单，用户登录后，上传一个文件和删除一个文件，验证了没有权限的用户无法删除文件。
 

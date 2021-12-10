@@ -8,3 +8,6 @@ It's the samples of Java chassis
 5. customer handler sample
 6. extend metrics health checker sample
 7. write metrics data into separate text files sample
+
+## Precondition
+see [Precondition](../README.md)

@@ -40,6 +40,9 @@ ServiceComb support users to define a customized handler and and invoke the hand
         Consumer:
           default: bizkeeper-consumer,loadbalance, myhandler
   ```
+## Precondition
+see [Precondition](../../README.md)
+
 
 ## Sample Quick Start
 
@@ -87,4 +90,6 @@ servicecomb:
    
    On the consumer side, you can see the following outputs:
    1. *'It's my handler!'* means custom handler had take effect
+
+
   

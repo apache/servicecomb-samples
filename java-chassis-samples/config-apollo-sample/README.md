@@ -1,3 +1,6 @@
+## Precondition
+see [Precondition](../../README.md)
+
 ## Use Apollo as Configuration Center
 
 To use Apollo as configuration source in ServiceComb Java Chassis services:

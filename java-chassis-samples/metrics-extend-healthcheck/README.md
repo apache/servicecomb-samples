@@ -4,6 +4,9 @@ Because micro-services is desgin by SRP(Single Responsibility Principle),one mic
 
 Health check mechanism can let user write some logic to check components of micro-service dependent and return check result.
 
+## Precondition
+see [Precondition](../../README.md)
+
 ## How to use
 ### Add your checker implementation
 Implement *org.apache.servicecomb.foundation.metrics.health.HealthChecker* interface:  
@@ -49,3 +52,4 @@ Then you can invoke http://{serverip}:7777/health get summary check result : tru
 **Only all registered health checker confirm isHealthy=true,the  summary check result will be true,otherwise false**
 
 Also can invoke http://{serverip}:7777/health/details get details of each health checker reported.
+

@@ -1,4 +1,7 @@
-suppose jar named perf.jar
+## Precondition
+see [Precondition](../README.md)  
+
+suppose jar named perf.jar  
 1.copy perf.jar to different directory
 
 2.create microservice.yaml in each directory
@@ -43,3 +46,4 @@ java -jar perf.jar
 
 4.start consumer
 java -jar perf.jar -c
+

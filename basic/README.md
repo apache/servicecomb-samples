@@ -10,6 +10,8 @@ A Microserivce using Java Chassis with a REST interface. Consumer calls provider
 * gateway
 A Microserivce using Java Chassis Edge Service to forward requests to consumer.
 
+## Precondition
+see [Precondition](../README.md)
 # Build and Run
 
 * Build
@@ -37,6 +39,8 @@ A Microserivce using Java Chassis Edge Service to forward requests to consumer.
 * Testing
 
 Open in browser： http://localhost:9090/sayHello?name=World
+
+
 
 # 项目说明
 
@@ -78,3 +82,5 @@ Open in browser： http://localhost:9090/sayHello?name=World
 * 测试
 
 启动3个微服务后， 然后通过界面访问： http://localhost:9090/sayHello?name=World
+
+
