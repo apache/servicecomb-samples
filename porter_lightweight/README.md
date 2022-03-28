@@ -20,6 +20,7 @@ mvn clean install
 ```
 java $JAVA_OPT -Ddb.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Ddb.username=root -Ddb.password=root -jar porter-user-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
+Note: If startup fails, try removing "$JAVA_OPT" and ">/dev/null 2>&1 &" (same below)
 
 * run file-service:
 
@@ -29,7 +30,9 @@ java $JAVA_OPT -jar porter-file-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 
 * run gateway-service:
 
-gateway-service contains static web pages in resources/ui. First copy to web root folder，e.g webapp, which is relative to working directory. 
+gateway-service contains static web pages in resources/ui. First copy to web root folder，e.g webapp, which is relative to working directory
+(Note:"porter_lightweight/gateway-service/src/main/resources/microservice.yaml"The related configuration"gateway:webroot: /code/servicecomb-samples/porter_lightweight/gateway-service/src/main/resources"
+Is the location of its own native code). 
 
 ```
 java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
@@ -66,6 +69,7 @@ mvn clean install
 ```
 java $JAVA_OPT -Ddb.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Ddb.username=root -Ddb.password=root -jar porter-user-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
+注意：如果启动不了，可以尝试去掉“$JAVA_OPT”和“>/dev/null 2>&1 &”（下同）
 
 * 启动file-service:
 
@@ -75,7 +79,8 @@ java $JAVA_OPT -jar porter-file-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 
 * 启动gateway-serivce:
 
-gateway-service包含了静态页面文件，在resources/ui目录。首先需要将页面文件拷贝到WEB主目录（相对路径，当前运行目录），比如: webapp，然后将ui目录整体拷贝到webapp/ui目录。启动：
+gateway-service包含了静态页面文件，在resources/ui目录。首先需要将页面文件拷贝到WEB主目录（相对路径，当前运行目录），比如: webapp，然后将ui目录整体拷贝到webapp/ui目录(注意：porter_lightweight/gateway-service/src/main/resources/microservice.yaml中的相关配置
+gateway:webroot: /code/servicecomb-samples/porter_lightweight/gateway-service/src/main/resources是自己本地代码的位置)。启动：
 ```
 java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
