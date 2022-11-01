@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<!--
+    This configuration file was written by the eclipse-cs plugin configuration editor
+-->
+<!--
+    Checkstyle-Configuration: paas
+    Description: none
+-->
+<module name="Checker">
+  <module name="FileTabCharacter">
+    <!-- Checks that there are no tab characters in the file. -->
+  </module>
+  <module name="NewlineAtEndOfFile">
+  </module>
+  <module name="RegexpSingleline">
+    <property name="format" value="Throwables.propagate\("/>
+    <property name="message" value="Throwables.propagate is deprecated"/>
+    <property name="severity" value="error"/>
+  </module>
+  <module name="RegexpSingleline">
+    <property name="format" value="\s+$"/>
+    <property name="message" value="Trailing whitespace"/>
+    <property name="severity" value="error"/>
+  </module>
+  <module name="TreeWalker">
+    <module name="AvoidStarImport"/>
+    <module name="EmptyStatement"/>
+    <module name="LeftCurly">
+      <!-- Checks for placement of the left curly brace ('{'). -->
+      <property name="severity" value="error"/>
+    </module>
+    <module name="LocalFinalVariableName">
+      <!-- Validates identifiers for local final variables against the
+        expression "^[a-z][a-zA-Z0-9]*$". -->
+      <property name="severity" value="error"/>
+    </module>
+    <module name="LocalVariableName">
+      <!-- Validates identifiers for local variables against the
+        expression "^[a-z][a-zA-Z0-9]*$". -->
+      <property name="severity" value="error"/>
+    </module>
+    <module name="ModifierOrder"/>
+
+    <!--　check if a switch statement has a default clause -->
+    <module name="MissingSwitchDefault"/>
+
+    <module name="NoWhitespaceAfter">
+      <!-- Checks that there is no whitespace after various unary operators.
+           Linebreaks are allowed.
+      -->
+      <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
+        UNARY_PLUS"/>
+      <property name="allowLineBreaks" value="true"/>
+      <property name="severity" value="error"/>
+    </module>
+    <!-- Checks for braces around if and else blocks -->
+    <module name="NeedBraces">
+      <property name="severity" value="error"/>
+      <property name="tokens" value="LITERAL_IF, LITERAL_ELSE, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO"/>
+    </module>
+    <module name="NoWhitespaceBefore">
+      <!-- Checks that there is no whitespace before various unary operators.
+           Linebreaks are allowed.
+      -->
+      <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
+      <property name="allowLineBreaks" value="true"/>
+      <property name="severity" value="error"/>
+    </module>
+    <module name="ParenPad">
+      <!-- Checks that there is no whitespace before close parens or after
+           open parens.
+      -->
+      <property name="severity" value="error"/>
+    </module>
+    <!-- Checks for over-complicated boolean expressions. -->
+    <module name="SimplifyBooleanExpression"/>
+    <module name="RedundantImport"/>
+    <module name="RedundantModifier">
+      <property name="tokens" value="METHOD_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF, CLASS_DEF, ENUM_DEF"/>
+    </module>
+    <module name="RightCurly">
+      <!-- Checks right curlies on CATCH, ELSE, and TRY blocks are on
+      the same line. e.g., the following example is fine:
+      <pre>
+        if {
+          ...
+        } else
+      </pre>
+      -->
+      <!-- This next example is not fine:
+      <pre>
+        if {
+          ...
+        }
+        else
+      </pre>
+      -->
+      <property name="option" value="same"/>
+      <property name="severity" value="error"/>
+    </module>
+    <module name="UnusedImports">
+      <property name="processJavadoc" value="true"/>
+    </module>
+    <module name="UpperEll">
+      <!-- Checks that long constants are defined with an upper ell.-->
+      <property name="severity" value="error"/>
+    </module>
+    <module name="WhitespaceAfter">
+      <!-- Checks that commas, semicolons and typecasts are followed by
+           whitespace.
+      -->
+      <property name="tokens" value="COMMA, SEMI, TYPECAST"/>
+    </module>
+    <module name="WhitespaceAround">
+      <!-- Checks that various tokens are surrounded by whitespace.
+           This includes most binary operators and keywords followed
+           by regular or curly braces.
+      -->
+      <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR,
+        BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN,
+        EQUAL, GE, GT, LAND, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE,
+        LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN,
+        LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS,
+        MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION,
+        SL, SL_ASSIGN, SR_ASSIGN, STAR, STAR_ASSIGN"/>
+      <property name="severity" value="error"/>
+    </module>
+  </module>
+</module>
