@@ -14,6 +14,9 @@ A sample shows an application with basic login, download file, delete file funct
 ## java-chassis-samples
 Featured samples for java-chassis modules. Each module contains 10 minutes guides.
 
+## java-chassis-integration-tests
+java-chassis integration tests。 
+
 ## Precondition
 
 Before running the samples，install [service center](https://github.com/apache/servicecomb-service-center) and [kie](https://github.com/apache/servicecomb-kie). Or download [Lightweight Cloud Service Engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) which integrates both serivce center and kie for ease of use.
@@ -35,6 +38,9 @@ REST over Servlet。
 
 ## java-chassis-samples
 java-chassis 各个模块功能的例子。每个子项目包含了10分钟可以学习完成的简单示例。
+
+## java-chassis-integration-tests
+java-chassis 的集成测试用例。 
 
 ## 前提条件
 
