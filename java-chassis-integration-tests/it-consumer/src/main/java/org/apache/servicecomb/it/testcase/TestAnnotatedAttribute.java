@@ -127,7 +127,7 @@ public class TestAnnotatedAttribute {
       Assertions.assertEquals(400, e.getStatusCode());
       Assertions.assertTrue(
           e.getMessage()
-              .contains("InvocationException: code=400;msg=CommonExceptionData [message=Parameter is not valid"));
+              .contains("InvocationException: code=400;msg=CommonExceptionData [message=Parameter is required."));
     }
     headers.add(HttpHeaders.COOKIE, "input1=default1");
     requestEntity = new HttpEntity<>(headers);
@@ -142,7 +142,7 @@ public class TestAnnotatedAttribute {
       Assertions.assertEquals(400, e.getStatusCode());
       Assertions.assertTrue(
           e.getMessage()
-              .contains("InvocationException: code=400;msg=CommonExceptionData [message=Parameter is not valid"));
+              .contains("InvocationException: code=400;msg=CommonExceptionData [message=Parameter is required."));
     }
     headers.add(HttpHeaders.COOKIE, "input=joker");
     requestEntity = new HttpEntity<>(headers);

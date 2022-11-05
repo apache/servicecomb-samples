@@ -40,8 +40,8 @@ public class TestApiOperation {
   @Test
   public void jaxrs_TestMediaType1() {
     Operation operation = getOperation("apiOperationJaxrsSchema", "testMediaType1");
-    MatcherAssert.assertThat(operation.getConsumes(), Matchers.contains(MediaType.APPLICATION_JSON));
-    MatcherAssert.assertThat(operation.getProduces(), Matchers.contains(MediaType.APPLICATION_XML));
+    MatcherAssert.assertThat(operation.getConsumes(), Matchers.contains(MediaType.TEXT_PLAIN));
+    MatcherAssert.assertThat(operation.getProduces(), Matchers.contains(MediaType.TEXT_HTML));
   }
 
   @Test
@@ -54,8 +54,8 @@ public class TestApiOperation {
   @Test
   public void springMVC_TestMediaType1() {
     Operation operation = getOperation("apiOperationSpringMVCSchema", "testMediaType1");
-    MatcherAssert.assertThat(operation.getConsumes(), Matchers.contains(MediaType.APPLICATION_JSON));
-    MatcherAssert.assertThat(operation.getProduces(), Matchers.contains(MediaType.APPLICATION_XML));
+    MatcherAssert.assertThat(operation.getConsumes(), Matchers.contains(MediaType.TEXT_PLAIN));
+    MatcherAssert.assertThat(operation.getProduces(), Matchers.contains(MediaType.TEXT_HTML));
   }
 
   @Test
