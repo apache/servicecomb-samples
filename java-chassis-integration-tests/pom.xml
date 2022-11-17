@@ -21,17 +21,17 @@
   <parent>
     <groupId>org.apache.servicecomb</groupId>
     <artifactId>java-chassis-parent</artifactId>
-    <version>2.8.2</version>
+    <version>2.8.3</version>
   </parent>
 
   <properties>
-    <revision>2.8.2</revision>
+    <revision>2.8.3</revision>
   </properties>
 
   <repositories>
     <repository>
       <id>servicecomb-staging</id>
-      <url>https://repository.apache.org/content/repositories/orgapacheservicecomb-1522</url>
+      <url>https://repository.apache.org/content/repositories/orgapacheservicecomb-1523</url>
       <releases>
         <enabled>true</enabled>
       </releases>
