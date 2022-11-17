@@ -41,10 +41,6 @@ public class AuthHandler implements Handler {
   }
 
   @Override
-  public void init(MicroserviceMeta microserviceMeta, InvocationType invocationType) {
-  }
-
-  @Override
   public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
     if (invocation.getHandlerContext().get(EdgeConst.ENCRYPT_CONTEXT) != null) {
       invocation.next(asyncResp);
