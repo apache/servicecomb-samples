@@ -15,21 +15,14 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
-
-# override common configurations in common module
-servicecomb-config-order: 100
-
 servicecomb:
   service:
     application: basic-application
     name: gateway
     version: 0.0.1
-    registry:
-      # Default using local service center
+  registry:
+    sc:
       address: http://localhost:30100
-      # address: https://cse.cn-south-1.myhuaweicloud.com
-      instance:
-        watch: false
   kie:
     serverUri: http://localhost:30110
 
@@ -50,11 +43,3 @@ servicecomb:
               path: "/.*"
               microserviceName: consumer
               versionRule: 0.0.0+
-
-# Configure AK/SK credentials if needed. Default not enabled.
-#  credentials:
-#    akskEnabled: false
-#    accessKey: add your ak/sk from huaweicloud
-#    secretKey: add your ak/sk from huaweicloud
-#    akskCustomCipher: default
-#    project: cn-south-1

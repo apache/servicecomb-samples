@@ -1,9 +1,9 @@
 # ServiceComb samples
 
-This project is samples for java-chassis 2.0.x. You can switch to other branches to see different samples.
+This project is samples for java-chassis 3.x.x. You can switch to other branches to see different samples.
 
 ## basic
-A sample shows a provider, a consumer and a gateway using java chassis. 
+A sample shows a provider, a consumer and a gateway using java chassis. This sample uses service-center and kie. 
 
 ## porter_lightweight
 A sample shows an application with basic login, download file, delete file functions. Read this [document](https://servicecomb.apache.org/references/java-chassis/zh_CN/featured-topics/application-porter.html) for details.

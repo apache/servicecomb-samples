@@ -34,4 +34,9 @@ public class ConsumerController {
   public String sayHello(@RequestParam("name") String name) {
     return providerService.sayHello(name);
   }
+
+  @GetMapping("/exampleConfig")
+  public String exampleConfig() {
+    return providerService.exampleConfig();
+  }
 }

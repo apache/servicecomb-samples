@@ -15,34 +15,17 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
-# spring boot configurations
-server:
-  port: 9093  # should be same with servicecomb.rest.address to use web container
-
-# override common configurations in common module
-servicecomb-config-order: 10
-
 servicecomb:
   service:
     application: basic-application
     name: provider
     version: 0.0.1
-    registry:
-      # Default using local service center
+
+  registry:
+    sc:
       address: http://localhost:30100
-      # address: https://cse.cn-south-1.myhuaweicloud.com
-      instance:
-        watch: false
   kie:
     serverUri: http://localhost:30110
 
   rest:
-    address: 0.0.0.0:9093 # should be same with server.port to use web container
-
-# Configure AK/SK credentials if needed. Default not enabled.
-#  credentials:
-#    akskEnabled: false
-#    accessKey: add your ak/sk from huaweicloud
-#    secretKey: add your ak/sk from huaweicloud
-#    akskCustomCipher: default
-#    project: cn-south-1
+    address: 0.0.0.0:9093

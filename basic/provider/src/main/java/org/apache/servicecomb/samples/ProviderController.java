@@ -17,7 +17,9 @@
 
 package org.apache.servicecomb.samples;
 
+import org.apache.servicecomb.config.DynamicProperties;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,9 +27,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestSchema(schemaId = "ProviderController")
 @RequestMapping(path = "/")
 public class ProviderController {
+  private DynamicProperties dynamicProperties;
+
+  private String example;
+
+  @Autowired
+  public ProviderController(DynamicProperties dynamicProperties) {
+    this.dynamicProperties = dynamicProperties;
+    this.example = this.dynamicProperties.getStringProperty("basic.example",
+        value -> this.example = value, "not set");
+  }
+
   // a very simple service to echo the request parameter
   @GetMapping("/sayHello")
   public String sayHello(@RequestParam("name") String name) {
     return "Hello " + name;
+  }
+
+  @GetMapping("/exampleConfig")
+  public String exampleConfig() {
+    return example;
   }
 }
