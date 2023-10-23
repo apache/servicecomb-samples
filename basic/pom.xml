@@ -49,15 +49,6 @@
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>solution-basic</artifactId>
     </dependency>
-    <!-- using service-center & kie -->
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>registry-service-center</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>config-kie</artifactId>
-    </dependency>
     <!-- using log4j2 -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -72,6 +63,43 @@
       <artifactId>log4j-core</artifactId>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>servicecomb</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <!-- using service-center & kie -->
+        <dependency>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>registry-service-center</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>config-kie</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>nacos</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <dependencies>
+        <!-- using service-center & kie -->
+        <dependency>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>registry-nacos</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>config-nacos</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
 
   <modules>
     <module>provider</module>
