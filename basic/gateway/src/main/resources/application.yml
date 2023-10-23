@@ -20,11 +20,6 @@ servicecomb:
     application: basic-application
     name: gateway
     version: 0.0.1
-  registry:
-    sc:
-      address: http://localhost:30100
-  kie:
-    serverUri: http://localhost:30110
 
   rest:
     address: 0.0.0.0:9090?sslEnabled=false
@@ -43,3 +38,36 @@ servicecomb:
               path: "/.*"
               microserviceName: consumer
               versionRule: 0.0.0+
+
+spring:
+  profiles:
+    active: servicecomb # 注册中心类型：servicecomb 或者 nacos
+
+---
+spring:
+  config:
+    activate:
+      on-profile: servicecomb
+servicecomb:
+  # 注册发现
+  registry:
+    sc:
+      address: http://localhost:30100
+  # 动态配置
+  kie:
+    serverUri: http://localhost:30110
+
+---
+spring:
+  config:
+    activate:
+      on-profile: nacos
+servicecomb:
+  # 注册发现
+  registry:
+    nacos:
+      serverAddr: http://localhost:8848
+  # 动态配置
+  nacos:
+    serverAddr: http://localhost:8848
+
