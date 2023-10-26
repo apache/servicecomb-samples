@@ -19,7 +19,7 @@ java-chassis integration tests。
 
 ## Precondition
 
-Before running the samples，install [service center](https://github.com/apache/servicecomb-service-center) and [kie](https://github.com/apache/servicecomb-kie). Or download [Lightweight Cloud Service Engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) which integrates both serivce center and kie for ease of use.
+Before running the samples，install [service center](https://github.com/apache/servicecomb-service-center) and [kie](https://github.com/apache/servicecomb-kie). Or download [Lightweight Cloud Service Engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) which integrates both service center and kie for ease of use.
 
 # 使用ServiceComb开发微服务的示例项目
 
