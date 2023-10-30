@@ -3,23 +3,23 @@
 This project is samples for java-chassis 3.x.x. You can switch to other branches to see different samples.
 
 ## basic
-A sample shows a provider, a consumer and a gateway using java chassis. This sample uses service-center and kie. 
+A sample shows a provider, a consumer, and a gateway using java chassis. This sample uses service-center and kie. 
 
 ## porter_lightweight
-A sample shows an application with basic login, download file, delete file functions. Read this [document](https://servicecomb.apache.org/references/java-chassis/zh_CN/featured-topics/application-porter.html) for details.
+A sample shows an application with basic login, download file, and delete file functions. Read this [document](https://servicecomb.apache.org/references/java-chassis/zh_CN/featured-topics/application-porter.html) for details.
 
 ## porter_springboot
-A sample shows an application with basic login, download file, delete file functions. Read this [document](https://servicecomb.apache.org/references/java-chassis/zh_CN/featured-topics/application-porter.html) for details.
+A sample shows an application with basic login, download file, and delete file functions. Read this [document](https://servicecomb.apache.org/references/java-chassis/zh_CN/featured-topics/application-porter.html) for details.
 
 ## java-chassis-samples
-Featured samples for java-chassis modules. Each module contains 10 minutes guides.
+Featured samples for java-chassis modules. Each module contains 10 minutes of guides.
 
 ## java-chassis-integration-tests
 java-chassis integration tests。 
 
 ## Precondition
 
-Before running the samples，install [service center](https://github.com/apache/servicecomb-service-center) and [kie](https://github.com/apache/servicecomb-kie). Or download [Lightweight Cloud Service Engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) which integrates both service center and kie for ease of use.
+Before running the samples，install [service center](https://github.com/apache/servicecomb-service-center) and [kie](https://github.com/apache/servicecomb-kie). Or download [Lightweight Cloud Service Engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) which integrates both the service center and kie for ease of use.
 
 # 使用ServiceComb开发微服务的示例项目
 
