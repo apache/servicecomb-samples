@@ -1,6 +1,6 @@
 # Extend Metrics Health Checker Sample
 ## What is Health Checker
-Because micro-services is desgin by SRP(Single Responsibility Principle),one micro-service always depend on many components such as middle-ware like queue,database etc and other micro-services,so if one micro-service report failure,we want fast know what is the cause and more details to help us solve the problem.
+Because micro-services is designed by SRP(Single Responsibility Principle),one micro-service always depend on many components such as middle-ware like queue,database etc and other micro-services,so if one micro-service report failure,we want fast know what is the cause and more details to help us solve the problem.
 
 Health check mechanism can let user write some logic to check components of micro-service dependent and return check result.
 
