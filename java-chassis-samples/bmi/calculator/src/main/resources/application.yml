@@ -20,16 +20,13 @@ server:
   port: 7777
 
 servicecomb:
+  registry:
+    sc:
+      address: http://127.0.0.1:30100
   service:
     application: bmi
     name: calculator
     version: 0.0.1
 
-    registry:
-      address: http://127.0.0.1:30100
   rest:
     address: 0.0.0.0:7777
-  handler:
-    chain:
-      Provider:
-        default: bizkeeper-provider

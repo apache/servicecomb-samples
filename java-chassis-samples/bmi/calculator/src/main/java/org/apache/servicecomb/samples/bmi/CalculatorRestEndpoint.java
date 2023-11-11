@@ -20,9 +20,11 @@ package org.apache.servicecomb.samples.bmi;
 import java.util.Date;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * {@link CalculatorRestEndpoint} provides the rest implementation of {@link CalculatorEndpoint}.

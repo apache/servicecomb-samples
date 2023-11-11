@@ -16,13 +16,14 @@
 ## ---------------------------------------------------------------------------
 
 servicecomb:
+  registry:
+    sc:
+      address: http://127.0.0.1:30100
   service:
     application: bmi
     name: gateway
     version: 0.0.1
 
-    registry:
-      address: http://127.0.0.1:30100
   rest:
     address: 0.0.0.0:8889
 

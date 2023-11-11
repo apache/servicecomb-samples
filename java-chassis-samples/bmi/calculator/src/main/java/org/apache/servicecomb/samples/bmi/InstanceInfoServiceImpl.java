@@ -17,12 +17,16 @@
 
 package org.apache.servicecomb.samples.bmi;
 
-import org.apache.servicecomb.registry.RegistrationManager;
-import org.apache.servicecomb.registry.api.registry.MicroserviceInstance;
+import org.apache.servicecomb.registry.sc.SCRegistration;
+import org.apache.servicecomb.registry.sc.SCRegistrationInstance;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class InstanceInfoServiceImpl implements InstanceInfoService {
+
+  @Autowired
+  private SCRegistration scRegistration;
 
   /**
    * {@inheritDoc}
@@ -30,7 +34,7 @@ public class InstanceInfoServiceImpl implements InstanceInfoService {
   @Override
   public String getInstanceId() {
 
-    MicroserviceInstance instance = RegistrationManager.INSTANCE.getMicroserviceInstance();
+    SCRegistrationInstance instance = scRegistration.getMicroserviceInstance();
     if (instance == null) {
       throw new IllegalStateException(
           "unable to find any service instances, maybe there is problem registering in service center?");
