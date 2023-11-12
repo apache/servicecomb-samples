@@ -21,8 +21,9 @@ servicecomb:
     name: consumer
     version: 0.0.1
 
+  # port should same as tomcat
   rest:
-    address: 0.0.0.0:9092
+    address: 0.0.0.0:8080
 
 spring:
   profiles:
