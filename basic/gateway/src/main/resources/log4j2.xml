@@ -15,15 +15,57 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<Configuration status="INFO">
+<Configuration>
+    <Properties>
+        <property name="FILE_PATH" value="./logs/gateway"/>
+    </Properties>
+
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%d][%t][%p]%m [%c:%L]%n" />
+            <PatternLayout pattern="%d [%p][%t][%c:%L] %m%n"/>
         </Console>
+
+        <RollingFile name="AccessLog" fileName="${FILE_PATH}/access.log"
+          filePattern="${FILE_PATH}/access-%d{yyyy-MM-dd}_%i.log.gz">
+            <PatternLayout pattern="%d [%t] %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+
+        <RollingFile name="MetricsLog" fileName="${FILE_PATH}/metrics.log"
+          filePattern="${FILE_PATH}/metrics-%d{yyyy-MM-dd}_%i.log.gz">
+            <PatternLayout pattern="%d [%t] %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+
+        <RollingFile name="SlowLog" fileName="${FILE_PATH}/slow.log"
+          filePattern="${FILE_PATH}/slow-%d{yyyy-MM-dd}_%i.log.gz">
+            <PatternLayout pattern="%d [%t] %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
     </Appenders>
+
     <Loggers>
+        <Logger name="scb-access" level="INFO" additivity="false">
+            <AppenderRef ref="AccessLog"/>
+        </Logger>
+        <Logger name="scb-metrics" level="INFO" additivity="false">
+            <AppenderRef ref="MetricsLog"/>
+        </Logger>
+        <Logger name="scb-slow" level="INFO" additivity="false">
+            <AppenderRef ref="SlowLog"/>
+        </Logger>
+
         <Root level="INFO">
-            <AppenderRef ref="Console" />
+            <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
 </Configuration>
