@@ -26,12 +26,11 @@
     <version>3.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>basic-application-3.0.x</artifactId>
+  <artifactId>basic-application-2.8.x</artifactId>
   <packaging>pom</packaging>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <servicecomb.version>3.0.0-SNAPSHOT</servicecomb.version>
+    <servicecomb.version>2.8.12</servicecomb.version>
   </properties>
 
   <dependencyManagement>
@@ -56,6 +55,14 @@
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>solution-basic</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>registry-service-center</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>config-kie</artifactId>
+    </dependency>
     <!-- using log4j2 -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -70,43 +77,6 @@
       <artifactId>log4j-core</artifactId>
     </dependency>
   </dependencies>
-
-  <profiles>
-    <profile>
-      <id>servicecomb</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <dependencies>
-        <!-- using service-center & kie -->
-        <dependency>
-          <groupId>org.apache.servicecomb</groupId>
-          <artifactId>registry-service-center</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.servicecomb</groupId>
-          <artifactId>config-kie</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>nacos</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <dependencies>
-        <!-- using service-center & kie -->
-        <dependency>
-          <groupId>org.apache.servicecomb</groupId>
-          <artifactId>registry-nacos</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.servicecomb</groupId>
-          <artifactId>config-nacos</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
 
   <modules>
     <module>provider</module>
