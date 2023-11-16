@@ -29,10 +29,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <spring-boot-maven-plugin.version>3.1.3</spring-boot-maven-plugin.version>
+    <!--
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    <spring-boot-maven-plugin.version>2.1.6.RELEASE</spring-boot-maven-plugin.version>  -->
   </properties>
 
   <modules>
     <module>common</module>
+    <!--
+    <module>basic-1.3.x</module> -->
     <module>basic-2.8.x</module>
     <module>basic-3.0.x</module>
     <module>test-tool</module>
@@ -51,6 +56,16 @@
             <target>17</target>
           </configuration>
         </plugin>
+        <!-- <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-compiler-plugin</artifactId>
+         <version>${maven-compiler-plugin.version}</version>
+         <configuration>
+           <compilerArgument>-parameters</compilerArgument>
+           <source>8</source>
+           <target>8</target>
+         </configuration>
+       </plugin>-->
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>

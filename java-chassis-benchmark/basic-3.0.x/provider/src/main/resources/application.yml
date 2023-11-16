@@ -23,6 +23,9 @@ servicecomb:
   rest:
     address: 0.0.0.0:9093
 
+  accesslog:
+    enabled: false
+
 spring:
   profiles:
     active: servicecomb # 注册中心类型：servicecomb 或者 nacos

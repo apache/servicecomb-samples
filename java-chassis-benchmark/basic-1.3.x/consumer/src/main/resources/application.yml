@@ -15,32 +15,17 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
+APPLICATION_ID: basic-application
+
+service_description:
+  version: 0.0.1
+  name: consumer
+
 servicecomb:
-  service:
-    application: basic-application
-    name: gateway
-    version: 0.0.1
-
   rest:
-    address: 0.0.0.0:9090?sslEnabled=false
+    address: 0.0.0.0:9092
 
-  registry:
-    address: http://localhost:30100
+  service:
+    registry:
+      address: http://localhost:30100
 
-  accesslog:
-    enabled: false
-
-  http:
-    dispatcher:
-      edge:
-        default:
-          enabled: false
-        url:
-          enabled: true
-          pattern: /(.*)
-          mappings:
-            consumer:
-              prefixSegmentCount: 0
-              path: "/.*"
-              microserviceName: consumer
-              versionRule: 0.0.0+
