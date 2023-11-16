@@ -26,3 +26,6 @@ servicecomb:
 
   registry:
     address: http://localhost:30100
+
+  accesslog:
+    enabled: false

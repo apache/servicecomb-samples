@@ -73,7 +73,8 @@ public class TestCaseService {
   }
 
   public void run(int threadCount, int countPerThread, int wait, int dataSize) throws Exception {
-    System.out.println("Preparing run =======================================");
+    System.out.println(String.format("Preparing run ====%s/%s/%s/%s====", threadCount,
+        countPerThread, wait, dataSize));
     DataModel dataModel = DataModel.create("test-case", dataSize);
 
     ExecutorService executor = Executors.newFixedThreadPool(threadCount, new ThreadFactory() {

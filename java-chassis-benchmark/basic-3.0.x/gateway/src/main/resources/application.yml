@@ -24,6 +24,9 @@ servicecomb:
   rest:
     address: 0.0.0.0:9090?sslEnabled=false
 
+  accesslog:
+    enabled: false
+
   http:
     dispatcher:
       edge:
