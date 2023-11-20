@@ -17,19 +17,27 @@
 
 package org.apache.servicecomb.samples;
 
-import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.apache.servicecomb.swagger.invocation.exception.CommonExceptionData;
+import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 @Service
 public class CalculatorServiceImpl implements CalculatorService {
+  @Value("${bmi.mock.error:false}")
+  private boolean mockError = false;
 
   /**
    * {@inheritDoc}
    */
   @Override
   public double calculate(double height, double weight) {
+    if (mockError) {
+      throw new InvocationException(503, "mock error.", new CommonExceptionData("mock error."));
+    }
     if (height <= 0 || weight <= 0) {
       throw new IllegalArgumentException("Arguments must be above 0");
     }

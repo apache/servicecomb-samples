@@ -30,6 +30,67 @@ servicecomb:
   tracing:
     enabled: false
 
+  matchGroup:
+    bmi-operation: |
+      matches:
+        - apiPath:
+            exact: "/bmi"
+    bmi-operation-heavy: |
+      matches:
+        - apiPath:
+            exact: "/bmi"
+          queries:
+            weight:
+              compare: ">=60"
+    bmi-operation-thin: |
+      matches:
+        - apiPath:
+            exact: "/bmi"
+          queries:
+            weight:
+              compare: "<60"
+  mapper:
+    bmi-operation-heavy: |
+      target:
+        x-gray: "1"
+    bmi-operation-thin: |
+      target:
+        x-gray: "0"
+#  instanceIsolation:
+#    bmi-operation: |
+#      minimumNumberOfCalls: 5
+#      slidingWindowSize: 10
+#      slidingWindowType: COUNT_BASED
+#      failureRateThreshold: 50
+#      slowCallRateThreshold: 100
+#      slowCallDurationThreshold: 3000
+#      recordFailureStatus: [503]
+#      waitDurationInOpenState: 10000
+#      permittedNumberOfCallsInHalfOpenState: 10
+
+  # enable router for edge service
+  router:
+    type: router
+  globalRouteRule: |
+    - precedence: 2
+      match:
+        headers:
+          x-gray: 
+            exact: "1"
+      route:
+        - weight: 100
+          tags:
+            version: 0.0.2
+    - precedence: 1
+      match:
+        headers:
+          x-gray: 
+            exact: "0"
+      route:
+        - weight: 100
+          tags:
+            version: 0.0.1
+
   http:
     dispatcher:
       edge:
@@ -49,4 +110,4 @@ servicecomb:
 
 # This is web root for windows server, change this path according to where you put your source code
 gateway:
-  webroot: /code/servicecomb-samples/java-chassis-samples/bmi/webapp/src/main/resources/static
+  webroot: /code/servicecomb-samples/bmi/webapp/src/main/resources/static

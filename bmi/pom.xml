@@ -16,7 +16,7 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.apache.servicecomb.samples</groupId>
@@ -28,7 +28,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <servicecomb.version>3.0.0-SNAPSHOT</servicecomb.version>
-    <argLine>-Dfile.encoding=UTF-8</argLine>
+    <spring-boot-maven-plugin.version>3.1.3</spring-boot-maven-plugin.version>
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <java.version>17</java.version>
   </properties>
 
@@ -49,6 +50,27 @@
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>registry-service-center</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>java-chassis-spring-boot-starter-standalone</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>solution-basic</artifactId>
+    </dependency>
+    <!-- using log4j2 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+    </dependency>
   </dependencies>
 
   <modules>
@@ -59,14 +81,14 @@
   <description>Quick Start Demo for Using ServiceComb Java Chassis</description>
 
   <build>
-
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
+          <version>${maven-compiler-plugin.version}</version>
           <configuration>
+            <compilerArgument>-parameters</compilerArgument>
             <source>17</source>
             <target>17</target>
           </configuration>
@@ -74,7 +96,7 @@
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>2.1.2.RELEASE</version>
+          <version>${spring-boot-maven-plugin.version}</version>
           <executions>
             <execution>
               <goals>
@@ -88,54 +110,5 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
-    <plugins>
-      <!-- 配置项目使用jdk1.8编译 -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <compilerArgument>-parameters</compilerArgument>
-          <encoding>UTF-8</encoding>
-          <source>17</source>
-          <target>17</target>
-          <compilerArgs>
-            <arg>-Werror</arg>
-            <arg>-Xlint:all</arg>
-            <!--not care for jdk8/jdk7 compatible problem-->
-            <arg>-Xlint:-classfile</arg>
-            <!--not care for annotation not processed-->
-            <arg>-Xlint:-processing</arg>
-          </compilerArgs>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.8.2</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <version>0.13</version>
-        <configuration>
-          <excludes>
-            <exclude>.travis.yml</exclude>
-            <exclude>**/*.md</exclude>
-            <exclude>**/target/*</exclude>
-            <!-- Skip the ssl configuration files -->
-            <exculde>**/resources/ssl/**</exculde>
-            <!-- Skip the protobuf files -->
-            <exclude>**/*.proto</exclude>
-            <!-- Skip the idl files -->
-            <exclude>**/*.idl</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
 </project>
