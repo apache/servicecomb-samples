@@ -16,9 +16,6 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-server:
-  port: 7777
-
 servicecomb:
   registry:
     sc:
@@ -30,3 +27,15 @@ servicecomb:
 
   rest:
     address: 0.0.0.0:7777
+
+  matchGroup:
+    bmi-operation: |
+      matches:
+        - apiPath:
+            exact: "/bmi"
+#  rateLimiting:
+#    bmi-operation: |
+#      timeoutDuration: 0
+#      limitRefreshPeriod: 1000
+#      rate: 1
+

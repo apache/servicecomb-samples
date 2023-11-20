@@ -17,13 +17,17 @@
 
 package org.apache.servicecomb.samples;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class CalculatorApplication {
-
   public static void main(String[] args) {
-    SpringApplication.run(CalculatorApplication.class, args);
+    try {
+      new SpringApplicationBuilder().web(WebApplicationType.NONE).sources(CalculatorApplication.class).run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
