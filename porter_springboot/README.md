@@ -77,7 +77,7 @@ java $JAVA_OPT -Ddb.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Dd
 java $JAVA_OPT -jar porter-file-service-2.0-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
 
-* 启动 gateway-serivce:
+* 启动 gateway-service:
 
 ```
 java $JAVA_OPT -jar porter-gateway-service-2.0-SNAPSHOT.jar >/dev/null 2>&1 &

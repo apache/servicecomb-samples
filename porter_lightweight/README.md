@@ -77,7 +77,7 @@ java $JAVA_OPT -Ddb.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Dd
 java $JAVA_OPT -jar porter-file-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
 
-* 启动gateway-serivce:
+* 启动gateway-service:
 
 gateway-service包含了静态页面文件，在resources/ui目录。首先需要将页面文件拷贝到WEB主目录（相对路径，当前运行目录），比如: webapp，然后将ui目录整体拷贝到webapp/ui目录(注意：porter_lightweight/gateway-service/src/main/resources/microservice.yaml中的相关配置
 gateway:webroot: /code/servicecomb-samples/porter_lightweight/gateway-service/src/main/resources是自己本地代码的位置)。启动：
