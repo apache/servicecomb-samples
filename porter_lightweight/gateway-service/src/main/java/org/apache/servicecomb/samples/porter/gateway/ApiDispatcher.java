@@ -17,16 +17,25 @@
 
 package org.apache.servicecomb.samples.porter.gateway;
 
-import java.util.Map;
-
+import org.apache.servicecomb.common.rest.RestProducerInvocationFlow;
+import org.apache.servicecomb.core.Invocation;
+import org.apache.servicecomb.core.invocation.InvocationCreator;
 import org.apache.servicecomb.edge.core.AbstractEdgeDispatcher;
-import org.apache.servicecomb.edge.core.EdgeInvocation;
+import org.apache.servicecomb.edge.core.EdgeInvocationCreator;
+import org.apache.servicecomb.edge.core.Utils;
+import org.apache.servicecomb.foundation.vertx.http.HttpServletRequestEx;
+import org.apache.servicecomb.foundation.vertx.http.HttpServletResponseEx;
+import org.apache.servicecomb.foundation.vertx.http.VertxServerRequestToHttpServletRequest;
+import org.apache.servicecomb.foundation.vertx.http.VertxServerResponseToHttpServletResponse;
+import org.springframework.lang.Nullable;
 
 import io.vertx.core.http.Cookie;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
 public class ApiDispatcher extends AbstractEdgeDispatcher {
+  public static final String MICROSERVICE_NAME = "param0";
+
   @Override
   public int getOrder() {
     return 10002;
@@ -40,27 +49,39 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
   }
 
   protected void onRequest(RoutingContext context) {
-    Map<String, String> pathParams = context.pathParams();
-    String microserviceName = pathParams.get("param0");
-    String path = "/" + pathParams.get("param1");
+    String microserviceName = extractMicroserviceName(context);
+    String path = Utils.findActualPath(context.request().path(), 2);
 
-    EdgeInvocation invoker = new EdgeInvocation() {
-      // Authentication. Notice: adding context must after setContext or will override by network
-      public void setContext() throws Exception {
-        super.setContext();
+    requestByFilter(context, microserviceName, path);
+  }
+
+  @Nullable
+  private String extractMicroserviceName(RoutingContext context) {
+    return context.pathParam(MICROSERVICE_NAME);
+  }
+
+  protected void requestByFilter(RoutingContext context, String microserviceName, String path) {
+    HttpServletRequestEx requestEx = new VertxServerRequestToHttpServletRequest(context);
+    HttpServletResponseEx responseEx = new VertxServerResponseToHttpServletResponse(context.response());
+    InvocationCreator creator = new EdgeInvocationCreator(context, requestEx, responseEx,
+        microserviceName, path) {
+      @Override
+      protected Invocation createInstance() {
+        Invocation invocation = super.createInstance();
         // get session id from header and cookie for debug reasons
         String sessionId = context.request().getHeader("session-id");
         if (sessionId != null) {
-          this.invocation.addContext("session-id", sessionId);
+          invocation.addContext("session-id", sessionId);
         } else {
-          Cookie sessionCookie = context.cookieMap().get("session-id");
+          Cookie sessionCookie = context.request().getCookie("session-id");
           if (sessionCookie != null) {
-            this.invocation.addContext("session-id", sessionCookie.getValue());
+            invocation.addContext("session-id", sessionCookie.getValue());
           }
         }
+        return invocation;
       }
     };
-    invoker.init(microserviceName, context, path, httpServerFilters);
-    invoker.edgeInvoke();
+    new RestProducerInvocationFlow(creator, requestEx, responseEx)
+        .run();
   }
 }

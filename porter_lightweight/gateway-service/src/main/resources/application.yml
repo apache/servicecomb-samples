@@ -17,31 +17,30 @@
 ## ---------------------------------------------------------------------------
 
 # override common configurations in common module
-servicecomb-config-order: 10
+servicecomb-config-order: 100
 
 servicecomb:
   service:
     application: porter-application
-    name: file-service
+    name: gateway-service
     version: 0.0.1
-    registry:
+
+  registry:
+    sc:
       address: http://localhost:30100
-      instance:
-        watch: false
 
   rest:
-    address: 0.0.0.0:9091
+    address: 0.0.0.0:9090?sslEnabled=false
 
   uploads:
-    directory: tmp_for_upload_file
+    directory: tmp_for_upload_gateway
 
-  samples:
-    logdir: D:\code\servicecomb-samples\porter_lightweight\file-service
-    
-  inspector:
-    enabled: false
+  http:
+    dispatcher:
+      edge:
+        default:
+          enabled: false
 
-  executors:
-   Provider:
-     log: servicecomb.samples.executor.groupThreadPool
-     inspector: servicecomb.samples.executor.groupThreadPool
+# This is web root for Windows server, change this path according to where you put your source code
+gateway:
+  webroot: /code/servicecomb-samples/porter_lightweight/gateway-service/src/main/resources

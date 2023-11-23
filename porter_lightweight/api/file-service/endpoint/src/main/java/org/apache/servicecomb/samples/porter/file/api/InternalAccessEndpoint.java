@@ -22,15 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestSchema(schemaId = "InternalAccessEndpoint")
 @RequestMapping(path = "/")
-@Api(tags = {"INTERNAL"})
+@OpenAPIDefinition(tags = {@Tag(name = "INTERNAL")})
 public class InternalAccessEndpoint {
   @Autowired
   private InternalAccessService internalAccessService;
-  
+
   @GetMapping(path = "localAccess")
   public String localAccess(String name) {
     return internalAccessService.localAccess(name);

@@ -17,12 +17,38 @@
 
 package org.apache.servicecomb.samples.porter.user.dao;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
 
+@Mapper
 public interface SessionMapper {
-    void createSession(SessionInfo sessionInfo);
+  @Insert("""
+      insert into T_SESSION (SESSION_ID, USER_NAME, ROLE_NAME)
+        values(#{sessiondId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+               #{roleName,jdbcType=VARCHAR})""")
+  void createSession(SessionInfo sessionInfo);
 
-    SessionInfoModel getSessioinInfo(String sessionId);
-    
-    void updateSessionInfo(String sessionId);
+  @Select("""
+      select ID, SESSION_ID, USER_NAME, ROLE_NAME, CREATION_TIME, ACTIVE_TIME
+        from T_SESSION where SESSION_ID = #{0,jdbcType=VARCHAR}""")
+  @Results({
+      @Result(property = "id", column = "ID"),
+      @Result(property = "sessionId", column = "SESSION_ID"),
+      @Result(property = "userName", column = "USER_NAME"),
+      @Result(property = "roleName", column = "ROLE_NAME"),
+      @Result(property = "creationTime", column = "CREATION_TIME"),
+      @Result(property = "activeTime", column = "ACTIVE_TIME")
+  })
+  SessionInfoModel getSessionInfo(String sessionId);
+
+  @Update("""
+      update T_SESSION set CREATION_TIME = now()
+        where SESSION_ID = #{sessionId,jdbcType=VARCHAR}
+        """)
+  void updateSessionInfo(String sessionId);
 }
