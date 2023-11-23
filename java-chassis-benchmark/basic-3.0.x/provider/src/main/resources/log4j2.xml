@@ -54,15 +54,15 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="scb-access" level="INFO" additivity="false">
+        <AsyncLogger name="scb-access" level="INFO" additivity="false">
             <AppenderRef ref="AccessLog"/>
-        </Logger>
-        <Logger name="scb-metrics" level="INFO" additivity="false">
+        </AsyncLogger>
+        <AsyncLogger name="scb-metrics" level="INFO" additivity="false">
             <AppenderRef ref="MetricsLog"/>
-        </Logger>
-        <Logger name="scb-slow" level="INFO" additivity="false">
+        </AsyncLogger>
+        <AsyncLogger name="scb-slow" level="INFO" additivity="false">
             <AppenderRef ref="SlowLog"/>
-        </Logger>
+        </AsyncLogger>
 
         <Root level="INFO">
             <AppenderRef ref="Console"/>

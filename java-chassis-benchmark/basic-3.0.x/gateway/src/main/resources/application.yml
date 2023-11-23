@@ -25,7 +25,20 @@ servicecomb:
     address: 0.0.0.0:9090?sslEnabled=false
 
   accesslog:
-    enabled: false
+    enabled: true
+  metrics:
+    window_time: 60000
+    invocation:
+      latencyDistribution: 0,10,50,100,1000
+    Consumer.invocation.slow:
+      enabled: true
+      msTime: 50
+    Provider.invocation.slow:
+      enabled: true
+      msTime: 50
+    publisher.defaultLog:
+      enabled: true
+      endpoints.client.detail.enabled: true
 
   http:
     dispatcher:

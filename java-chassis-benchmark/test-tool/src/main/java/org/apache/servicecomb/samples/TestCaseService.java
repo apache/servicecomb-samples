@@ -88,7 +88,6 @@ public class TestCaseService {
     CountDownLatch initLatch = new CountDownLatch(threadCount);
     for (int i = 0; i < threadCount; i++) {
       executor.submit(() -> {
-        providerService.sayHello(wait, dataModel);
         initLatch.countDown();
       });
     }
