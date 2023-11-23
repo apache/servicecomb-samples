@@ -35,18 +35,14 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.servicecomb.samples.porter</groupId>
-      <artifactId>user-service-api-endpoint</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb.samples.porter</groupId>
-      <artifactId>common-api-endpoint</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>

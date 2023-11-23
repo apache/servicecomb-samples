@@ -94,7 +94,6 @@
   </dependencies>
 
   <modules>
-    <module>api</module>
     <module>file-service</module>
     <module>user-service</module>
     <module>gateway-service</module>
