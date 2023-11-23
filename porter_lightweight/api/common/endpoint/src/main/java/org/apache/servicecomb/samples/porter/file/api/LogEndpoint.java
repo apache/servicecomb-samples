@@ -22,20 +22,19 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.servicecomb.foundation.common.LegacyPropertyFactory;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.samples.porter.common.api.LogService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.netflix.config.DynamicPropertyFactory;
-
 @RestSchema(schemaId = "log")
 @RequestMapping(path = "/v1/log")
 public class LogEndpoint implements LogService {
   // protect your file in real applications
   private static final File LOG_DIR =
-      new File(DynamicPropertyFactory.getInstance().getStringProperty("servicecomb.samples.logdir", ".").get());
+      new File(LegacyPropertyFactory.getStringProperty("servicecomb.samples.logdir", "."));
 
   private static final String FILE_POST_FIX = ".log";
 

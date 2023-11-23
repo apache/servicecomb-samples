@@ -17,8 +17,28 @@
 
 package org.apache.servicecomb.samples.porter.user.dao;
 
-public interface UserMapper {
-    void createUser(UserInfo userInfo);
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 
-    UserInfo getUserInfo(String userName);
+@Mapper
+public interface UserMapper {
+  @Insert("""
+      insert into T_USER (ID, USER_NAME, PASSWORD, ROLE_NAME)
+        values(#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+               #{password,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR})""")
+  void createUser(UserInfo userInfo);
+
+  @Select("""
+      select ID, USER_NAME, PASSWORD, ROLE_NAME
+        from T_USER where USER_NAME = #{userName,jdbcType=VARCHAR}""")
+  @Results({
+      @Result(property = "id", column = "ID"),
+      @Result(property = "userName", column = "USER_NAME"),
+      @Result(property = "password", column = "PASSWORD"),
+      @Result(property = "roleName", column = "ROLE_NAME")
+  })
+  UserInfo getUserInfo(String userName);
 }

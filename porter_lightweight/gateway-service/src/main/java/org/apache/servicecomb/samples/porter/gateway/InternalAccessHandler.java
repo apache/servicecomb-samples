@@ -17,21 +17,34 @@
 
 package org.apache.servicecomb.samples.porter.gateway;
 
-import org.apache.servicecomb.core.Handler;
+import java.util.concurrent.CompletableFuture;
+
 import org.apache.servicecomb.core.Invocation;
-import org.apache.servicecomb.swagger.invocation.AsyncResponse;
+import org.apache.servicecomb.core.filter.AbstractFilter;
+import org.apache.servicecomb.core.filter.EdgeFilter;
+import org.apache.servicecomb.core.filter.FilterNode;
+import org.apache.servicecomb.swagger.invocation.Response;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import org.springframework.stereotype.Component;
 
-public class InternalAccessHandler implements Handler {
-
+@Component
+public class InternalAccessHandler extends AbstractFilter implements EdgeFilter {
   @Override
-  public void handle(Invocation invocation, AsyncResponse asyncReponse) throws Exception {
+  public CompletableFuture<Response> onFilter(Invocation invocation, FilterNode nextNode) {
     if (invocation.getOperationMeta().getSwaggerOperation().getTags() != null
         && invocation.getOperationMeta().getSwaggerOperation().getTags().contains("INTERNAL")) {
-      asyncReponse.consumerFail(new InvocationException(403, "", "not allowed"));
-      return;
+      return CompletableFuture.failedFuture(new InvocationException(403, "", "not allowed"));
     }
-    invocation.next(asyncReponse);
+    return nextNode.onFilter(invocation);
   }
 
+  @Override
+  public int getOrder() {
+    return -1999;
+  }
+
+  @Override
+  public String getName() {
+    return "internal-access";
+  }
 }

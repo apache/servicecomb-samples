@@ -24,6 +24,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.servicecomb.foundation.common.LegacyPropertyFactory;
 import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
 import org.apache.servicecomb.samples.porter.user.api.UserService;
 import org.apache.servicecomb.samples.porter.user.dao.SessionInfoModel;
@@ -35,8 +36,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.netflix.config.DynamicPropertyFactory;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -69,13 +68,13 @@ public class UserServiceImpl implements UserService {
     if (sessionId == null) {
       throw new InvocationException(405, "", "invalid session.");
     }
-    SessionInfoModel sessionInfo = sessionMapper.getSessioinInfo(sessionId);
+    SessionInfoModel sessionInfo = sessionMapper.getSessionInfo(sessionId);
     if (sessionInfo != null) {
       if (System.currentTimeMillis() - sessionInfo.getActiveTime().getTime() > 10 * 60 * 1000) {
         LOGGER.info("user session expired.");
         return null;
       } else {
-        sessionMapper.updateSessionInfo(sessionInfo.getSessiondId());
+        sessionMapper.updateSessionInfo(sessionInfo.getSessionId());
         return SessionInfoModel.toSessionInfo(sessionInfo);
       }
     }
@@ -100,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
 
   public String ping(String message) {
-    long delay = DynamicPropertyFactory.getInstance().getLongProperty("user.ping.delay", 0).get();
+    long delay = LegacyPropertyFactory.getLongProperty("user.ping.delay", 0);
     if (delay > 0) {
       try {
         TimeUnit.SECONDS.sleep(delay);

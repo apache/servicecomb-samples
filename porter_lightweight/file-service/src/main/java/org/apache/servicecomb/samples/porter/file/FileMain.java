@@ -17,10 +17,20 @@
 
 package org.apache.servicecomb.samples.porter.file;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
+@SpringBootApplication
 public class FileMain {
-    public static void main(String[] args) throws Exception {
-        BeanUtils.init();
+  public static void main(String[] args) throws Exception {
+    try {
+      new SpringApplicationBuilder()
+          .web(WebApplicationType.NONE)
+          .sources(FileMain.class)
+          .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 }

@@ -25,21 +25,16 @@ servicecomb:
     name: user-service
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       address: http://localhost:30100
-      instance:
-        watch: false
 
   rest:
     address: 0.0.0.0:9093
 
-  samples:
-    logdir: D:\code\servicecomb-samples\porter_lightweight\user-service
-    
-  inspector:
-    enabled: false
-
-  executors:
-   Provider:
-     log: servicecomb.samples.executor.groupThreadPool
-     inspector: servicecomb.samples.executor.groupThreadPool
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/porter_user_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
