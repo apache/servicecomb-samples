@@ -29,16 +29,6 @@
   <packaging>jar</packaging>
 
   <dependencies>
-    <dependency>
-      <groupId>org.apache.servicecomb.samples.porter</groupId>
-      <artifactId>file-service-api-endpoint</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb.samples.porter</groupId>
-      <artifactId>common-api-endpoint</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
   </dependencies>
   <properties>
     <main.class>org.apache.servicecomb.samples.porter.file.FileMain</main.class>
