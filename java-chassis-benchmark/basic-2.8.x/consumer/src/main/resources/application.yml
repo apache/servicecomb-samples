@@ -28,4 +28,18 @@ servicecomb:
     address: http://localhost:30100
 
   accesslog:
-    enabled: false
+    enabled: true
+  metrics:
+    window_time: 60000
+    invocation:
+      latencyDistribution: 0,10,50,100,1000
+    Consumer.invocation.slow:
+      enabled: true
+      msTime: 300
+    Provider.invocation.slow:
+      enabled: true
+      msTime: 300
+    publisher.defaultLog:
+      enabled: true
+      endpoints.client.detail.enabled: true
+
