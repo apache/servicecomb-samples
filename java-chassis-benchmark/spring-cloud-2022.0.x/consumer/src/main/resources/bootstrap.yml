@@ -1,0 +1,62 @@
+#
+## ---------------------------------------------------------------------------
+## Licensed to the Apache Software Foundation (ASF) under one or more
+## contributor license agreements.  See the NOTICE file distributed with
+## this work for additional information regarding copyright ownership.
+## The ASF licenses this file to You under the Apache License, Version 2.0
+## (the "License"); you may not use this file except in compliance with
+## the License.  You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+## ---------------------------------------------------------------------------
+server:
+  port: 9094
+
+spring:
+  application:
+    # 微服务名称。 微服务名称定义好以后，后续不能变更。
+    name: consumer
+
+  cloud:
+    servicecomb:
+      # 微服务的基本信息
+      service:
+        # 微服务名称，和spring.application.name保持一致。
+        name: ${spring.application.name}
+        # 微服务版本号，本示例使用ServiceStage环境变量。建议保留这种配置方式，
+        # 部署的时候，不用手工修改版本号，防止契约注册失败。
+        version: ${CAS_INSTANCE_VERSION:0.0.1}
+        # 应用名称。默认情况下只有应用名称相同的微服务之间才可以相互发现。
+        application: ${CAS_APPLICATION_NAME:basic-application}
+        # 环境名称。只有环境名称相同的微服务之间才可以相互发现。
+        # 可以取值 development, testing, acceptance, production
+        environment: production
+      # 注册发现相关配置
+      discovery:
+        # 注册中心地址，本示例使用ServiceStage环境变量。建议保留这种配置方式，
+        # 部署的时候，不用手工修改地址。
+        address: ${PAAS_CSE_SC_ENDPOINT:http://127.0.0.1:30100}
+        # 微服务向CSE发送心跳间隔时间，单位秒
+        healthCheckInterval: 10
+        # 拉取实例的轮询时间，单位毫秒
+        pollInterval: 15000
+        # 优雅停机设置。优雅停机后，先从注册中心注销自己。这个时间表示注销自己后等待的时间，这个时间后才退出。
+        waitTimeForShutDownInMillis: 15000
+      config:
+        # 配置中心地址，本示例使用ServiceStage环境变量。建议保留这种配置方式，
+        # 部署的时候，不用手工修改地址。
+        serverAddr: ${PAAS_CSE_CC_ENDPOINT:http://127.0.0.1:30110}
+        serverType: kie
+        # 自定义配置
+        kie:
+          customLabel: ${spring.application.name}
+          customLabelValue: ${INSTANCE_TAG:default}
+      metrics:
+        logsEnabled: true
+        logsInterval: PT1M # Duration表达式，打印周期
