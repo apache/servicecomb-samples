@@ -60,3 +60,5 @@ spring:
       metrics:
         logsEnabled: true
         logsInterval: PT1M # Duration表达式，打印周期
+      context:
+        enableTraceInfo: true

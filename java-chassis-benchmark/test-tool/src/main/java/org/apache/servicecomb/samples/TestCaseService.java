@@ -73,7 +73,7 @@ public class TestCaseService {
   }
 
   public void run(int threadCount, int countPerThread, int wait, int dataSize) throws Exception {
-    System.out.println(String.format("Preparing run ====%s/%s/%s/%s====", threadCount,
+    System.out.println(String.format("Preparing run ==== thread-count:%s threads:/%s wait:/%s size:/%s====", threadCount,
         countPerThread, wait, dataSize));
     DataModel dataModel = DataModel.create("test-case", dataSize);
 
