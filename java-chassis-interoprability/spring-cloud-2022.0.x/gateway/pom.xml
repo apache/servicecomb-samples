@@ -21,11 +21,11 @@
 
   <parent>
     <groupId>org.apache.servicecomb.interoprability</groupId>
-    <artifactId>basic-application-spring-cloud-2022.0.x</artifactId>
+    <artifactId>spring-cloud-application-2022.0.x</artifactId>
     <version>3.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>basic-gateway-spring-cloud-2022.0.x</artifactId>
+  <artifactId>spring-cloud-gateway-2022.0.x</artifactId>
   <packaging>jar</packaging>
 
   <dependencies>
