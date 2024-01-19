@@ -1,0 +1,52 @@
+openapi: 3.0.1
+info:
+  title: swagger definition for org.apache.servicecomb.samples.ProviderController
+  version: 1.0.0
+servers:
+- url: /spring-cloud
+paths:
+  /sayHello:
+    get:
+      operationId: sayHello
+      parameters:
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: response of 200
+          content:
+            application/json:
+              schema:
+                type: string
+            application/protobuf:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+  /sayHelloInternal:
+    get:
+      operationId: sayHelloInternal
+      parameters:
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: response of 200
+          content:
+            application/json:
+              schema:
+                type: string
+            application/protobuf:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+components: {}
