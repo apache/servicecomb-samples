@@ -1,0 +1,14 @@
+dubbo:
+  application:
+    logger: slf4j
+    name: ConsumerApplication
+    qosEnable: false
+    qosPort: 22222
+  registry:
+    address: zookeeper://${zookeeper.address:127.0.0.1}:2181
+  protocol:
+    name: rest
+    server: netty
+    port: 9090
+    accesslog: true
+    accesslog.fixed.path: true
