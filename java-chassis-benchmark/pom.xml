@@ -41,6 +41,7 @@
     <module>basic-2.8.x</module>
     <module>basic-3.0.x</module>
     <module>spring-cloud-2022.0.x</module>
+    <module>dubbo-3.2.x</module>
     <module>test-tool</module>
   </modules>
 
