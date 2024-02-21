@@ -42,6 +42,11 @@ java-chassis 各个模块功能的例子。每个子项目包含了10分钟可�
 ## java-chassis-integration-tests
 java-chassis 的集成测试用例。 
 
+### All Thanks To Our Contributors:
+<a href="https://github.com/liubao68/servicecomb-samples/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=liubao68/servicecomb-samples" />
+</a>
+
 ## 前提条件
 
 运行这些例子之前，需要先安装[注册中心](https://github.com/apache/servicecomb-service-center) 和[配置中心](https://github.com/apache/servicecomb-kie) 。华为云提供一个出色的[本地轻量化微服务引擎](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) ,可以直接下载安装使用。
