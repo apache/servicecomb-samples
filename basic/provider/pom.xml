@@ -37,6 +37,11 @@
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>java-chassis-spring-boot-starter-standalone</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb.samples</groupId>
+      <artifactId>basic-provider-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

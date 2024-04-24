@@ -17,8 +17,15 @@
 
 package org.apache.servicecomb.samples;
 
-public interface ProviderService {
-  String sayHello(String name);
+import org.apache.servicecomb.provider.pojo.Invoker;
+import org.apache.servicecomb.samples.api.ProviderService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-  String exampleConfig();
+@Configuration
+public class ProviderServiceConfiguration {
+  @Bean
+  public ProviderService providerService() {
+    return Invoker.createProxy("provider", "ProviderController", ProviderService.class);
+  }
 }

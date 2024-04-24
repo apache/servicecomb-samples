@@ -15,29 +15,17 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.samples;
+package org.apache.servicecomb.samples.api;
 
-import org.apache.servicecomb.provider.rest.common.RestSchema;
-import org.apache.servicecomb.samples.api.ConsumerService;
-import org.apache.servicecomb.samples.api.ProviderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestSchema(schemaId = "ConsumerController", schemaInterface = ConsumerService.class)
-public class ConsumerController implements ConsumerService {
-  private ProviderService providerService;
+@RequestMapping(path = "/provider")
+public interface ProviderService {
+  @GetMapping("/sayHello")
+  String sayHello(@RequestParam("name") String name);
 
-  @Autowired
-  public void setProviderService(ProviderService providerService) {
-    this.providerService = providerService;
-  }
-
-  @Override
-  public String sayHello(String name) {
-    return providerService.sayHello(name);
-  }
-
-  @Override
-  public String exampleConfig() {
-    return providerService.exampleConfig();
-  }
+  @GetMapping("/exampleConfig")
+  String exampleConfig();
 }

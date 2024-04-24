@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Licensed to the Apache Software Foundation (ASF) under one or more
   ~ contributor license agreements.  See the NOTICE file distributed with
@@ -25,32 +26,12 @@
     <version>3.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>basic-consumer</artifactId>
-  <packaging>jar</packaging>
+  <artifactId>basic-apis</artifactId>
+  <packaging>pom</packaging>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>java-chassis-spring-boot-starter-standalone</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb.samples</groupId>
-      <artifactId>basic-consumer-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb.samples</groupId>
-      <artifactId>basic-provider-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-  </dependencies>
+  <modules>
+    <module>provider-api</module>
+    <module>consumer-api</module>
+  </modules>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 </project>
