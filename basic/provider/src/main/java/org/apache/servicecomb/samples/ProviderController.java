@@ -19,14 +19,11 @@ package org.apache.servicecomb.samples;
 
 import org.apache.servicecomb.config.DynamicProperties;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.samples.api.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-@RestSchema(schemaId = "ProviderController")
-@RequestMapping(path = "/")
-public class ProviderController {
+@RestSchema(schemaId = "ProviderController", schemaInterface = ProviderService.class)
+public class ProviderController implements ProviderService {
   private DynamicProperties dynamicProperties;
 
   private String example;
@@ -38,13 +35,12 @@ public class ProviderController {
         value -> this.example = value, "not set");
   }
 
-  // a very simple service to echo the request parameter
-  @GetMapping("/sayHello")
-  public String sayHello(@RequestParam("name") String name) {
+  @Override
+  public String sayHello(String name) {
     return "Hello " + name;
   }
 
-  @GetMapping("/exampleConfig")
+  @Override
   public String exampleConfig() {
     return example;
   }
