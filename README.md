@@ -21,6 +21,20 @@ java-chassis integration tests。
 
 Before running the samples，install [service center](https://github.com/apache/servicecomb-service-center) and [kie](https://github.com/apache/servicecomb-kie). Or download [Lightweight Cloud Service Engine](https://support.huaweicloud.com/devg-cse/cse_devg_0036.html) which integrates both service center and kie for ease of use.
 
+## Running Java Samples
+
+1. Clone the repository:
+```
+git clone https://github.com/apache/servicecomb
+```
+3. Navigate to the sample directory (e.g., `servicecomb-samples/java/alpha-service`)
+4. Build the project: `mvn clean package`
+5. Run the application: `java -jar target/alpha-service.jar`
+6. Access the service:
+```
+ `http://localhost:8080/alpha-service
+```
+
 # 使用ServiceComb开发微服务的示例项目
 
 这个项目使用java-chassis 2.0.x版本。可以切换分支，查看其他版本的例子。
