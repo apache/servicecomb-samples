@@ -31,7 +31,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <servicecomb.version>3.0.1</servicecomb.version>
+    <servicecomb.version>3.2.4</servicecomb.version>
   </properties>
 
   <dependencyManagement>
@@ -67,7 +67,7 @@
     <dependency>
       <groupId>com.lmax</groupId>
       <artifactId>disruptor</artifactId>
-      <version>3.4.4</version>
+      <version>${disruptor.version}</version>
     </dependency>
   </dependencies>
 

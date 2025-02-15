@@ -29,6 +29,9 @@ servicecomb:
     sc:
       address: http://localhost:30100
 
+  kie:
+    serverUri: http://localhost:30110
+
   rest:
     address: 0.0.0.0:9093
 
@@ -37,4 +40,4 @@ spring:
     url: jdbc:mysql://localhost/porter_user_db
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver

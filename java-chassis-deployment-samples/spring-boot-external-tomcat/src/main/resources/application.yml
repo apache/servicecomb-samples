@@ -15,16 +15,15 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
-
-APPLICATION_ID: servicecomb-samples
-
-service_description:
-  version: 0.0.1
-  name: spring-boot-external-tomcat
+servicecomb-config-order: 100
 
 servicecomb:
   service:
-    registry:
+    application: servicecomb-samples
+    name: spring-boot-external-tomcat
+    version: 0.0.1
+  registry:
+    sc:
       address: http://localhost:30100
       instance:
         watch: false

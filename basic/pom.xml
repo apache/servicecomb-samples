@@ -27,7 +27,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <servicecomb.version>3.1.1</servicecomb.version>
+    <servicecomb.version>3.2.4</servicecomb.version>
     <spring-boot-maven-plugin.version>3.1.3</spring-boot-maven-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
   </properties>
@@ -48,6 +48,10 @@
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>solution-basic</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>java-chassis-spring-boot-starter-standalone</artifactId>
     </dependency>
     <!-- using log4j2 -->
     <dependency>

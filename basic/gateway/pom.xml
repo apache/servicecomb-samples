@@ -31,10 +31,6 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
-      <artifactId>java-chassis-spring-boot-starter-standalone</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
       <artifactId>edge-core</artifactId>
     </dependency>
   </dependencies>

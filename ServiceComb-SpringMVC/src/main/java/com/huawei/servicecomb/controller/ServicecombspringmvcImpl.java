@@ -18,14 +18,15 @@
 package com.huawei.servicecomb.controller;
 
 
-import javax.ws.rs.core.MediaType;
+import jakarta.annotation.Generated;
+import jakarta.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.CseSpringDemoCodegen", date = "2019-08-02T08:06:28.094Z")
+@Generated(value = "io.swagger.codegen.languages.CseSpringDemoCodegen", date = "2019-08-02T08:06:28.094Z")
 
 @RestSchema(schemaId = "servicecombspringmvc")
 @RequestMapping(path = "/rest", produces = MediaType.APPLICATION_JSON)

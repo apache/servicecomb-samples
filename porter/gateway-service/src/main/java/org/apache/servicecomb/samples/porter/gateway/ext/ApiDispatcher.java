@@ -22,7 +22,6 @@ import org.apache.servicecomb.core.Invocation;
 import org.apache.servicecomb.core.invocation.InvocationCreator;
 import org.apache.servicecomb.edge.core.AbstractEdgeDispatcher;
 import org.apache.servicecomb.edge.core.EdgeInvocationCreator;
-import org.apache.servicecomb.edge.core.Utils;
 import org.apache.servicecomb.foundation.vertx.http.HttpServletRequestEx;
 import org.apache.servicecomb.foundation.vertx.http.HttpServletResponseEx;
 import org.apache.servicecomb.foundation.vertx.http.VertxServerRequestToHttpServletRequest;
@@ -50,7 +49,7 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
 
   protected void onRequest(RoutingContext context) {
     String microserviceName = extractMicroserviceName(context);
-    String path = Utils.findActualPath(context.request().path(), 2);
+    String path = findActualPath(context.request().path(), 2);
 
     requestByFilter(context, microserviceName, path);
   }
@@ -83,5 +82,24 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
     };
     new RestProducerInvocationFlow(creator, requestEx, responseEx)
         .run();
+  }
+
+  public String findActualPath(String path, int pathIndex) {
+    if (pathIndex <= 0) {
+      return path;
+    }
+
+    int fromIndex = 0;
+    int counter = pathIndex;
+    char[] chars = path.toCharArray();
+    for (int i = 0; i < chars.length; i++) {
+      if (chars[i] == '/') {
+        if (--counter < 0) {
+          fromIndex = i;
+          break;
+        }
+      }
+    }
+    return fromIndex > 0 ? path.substring(fromIndex) : "";
   }
 }
