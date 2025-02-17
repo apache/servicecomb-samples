@@ -16,32 +16,45 @@
  */
 package org.apache.servicecomb.samples.auth.consumer;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.apache.servicecomb.samples.common.schema.models.Person;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.web.client.RestOperations;
 
-@Component
+@SpringBootApplication
 public class AuthConsumerMain {
 
-  private static RestTemplate restTemplate = RestTemplateBuilder.create();
+  private static RestOperations restTemplate = RestTemplateBuilder.create();
 
   public static void main(String[] args) {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(AuthConsumerMain.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    run();
+  }
+
+  private static void run() {
+    System.out.println("RestTemplate Consumer or POJO Consumer.  You can choose whatever you like.");
+    String sayHiResult = restTemplate
+            .postForObject(
+                    "cse://auth-provider/springmvchello/sayhi?name=Authenticate",
+                    null,
+                    String.class);
+
     Person person = new Person();
     person.setName("ServiceComb/Authenticate");
-    System.out
-        .println("RestTemplate Consumer or POJO Consumer.  You can choose whatever you like.");
-    String sayHiResult = restTemplate
-        .postForObject(
-            "cse://auth-provider/springmvchello/sayhi?name=Authenticate",
-            null,
-            String.class);
     String sayHelloResult = restTemplate.postForObject(
-        "cse://auth-provider/springmvchello/sayhello",
-        person,
-        String.class);
+            "cse://auth-provider/springmvchello/sayhello",
+            person,
+            String.class);
     System.out.println(sayHiResult);
     System.out.println(sayHelloResult);
   }

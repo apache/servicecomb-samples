@@ -21,24 +21,25 @@ servicecomb:
     name: store
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       address: http://127.0.0.1:30100
   rest:
     address: 0.0.0.0:8080
-  handler:
-    chain:
-      Consumer:
-        default: loadbalance,auth-consumer
-      Provider:
-        default: auth-provider
   publicKey:
     accessControl:
+      enabled: true
+      # excludePathPatterns: '/scb/management/*'
+      # includePathPatterns: '/CodeFirstComputeImpl/*'
       black:
         list01:
           category: property ## property, fixed value
           propertyName: serviceName ## property name, e.g. serviceName, appId, environment, alias, version and so on, also support key in properties.
-          rule: hacker ## property value match expression. 
-##if propertyName is serviceName, only supports prefix match and postfix match and exactly match. e.g. hacker*, *hacker, hacker
+          # property value match expression.
+          # if propertyName is serviceName
+          # only supports prefix match and postfix match and exactly match.
+          # e.g. hacker*, *hacker, hacker
+          rule: hacker
       white:
         list02:
           category: property

@@ -16,14 +16,15 @@
  */
 package org.apache.servicecomb.samples.pojo.consumer;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.samples.common.schema.Hello;
 import org.apache.servicecomb.samples.common.schema.models.Person;
 import org.apache.servicecomb.samples.pojo.Compute;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
-@Component
+@SpringBootApplication
 public class PojoConsumerMain {
 
   @RpcReference(microserviceName = "hello", schemaId = "hello")
@@ -33,7 +34,19 @@ public class PojoConsumerMain {
   public static Compute compute;
 
   public static void main(String[] args) {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(PojoConsumerMain.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    run();
+  }
+
+  private static void run() {
     System.out.println(hello.sayHi("Java Chassis"));
     Person person = new Person();
     person.setName("ServiceComb/Java Chassis");

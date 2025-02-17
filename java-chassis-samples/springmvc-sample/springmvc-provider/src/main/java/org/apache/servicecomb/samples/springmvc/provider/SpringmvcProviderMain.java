@@ -17,11 +17,21 @@
 
 package org.apache.servicecomb.samples.springmvc.provider;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
+@SpringBootApplication
 public class SpringmvcProviderMain {
 
   public static void main(String[] args) {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(SpringmvcProviderMain.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

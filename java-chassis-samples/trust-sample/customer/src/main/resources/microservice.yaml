@@ -21,17 +21,14 @@ servicecomb:
     name: customer
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       address: http://127.0.0.1:30100
-  isolation:
-    Consumer:
-      enabled: false
   references:
     hello:
       version-rule: 0.0.1
-  handler:
-    chain:
-      Consumer:
-        default: loadbalance,auth-consumer
-      Provider:
-        default: auth-provider
+  # servicecomb.filter.provider-public-key.trust-sample.customer.enabled
+  # servicecomb.filter.provider-public-key.trust-sample.customer.order
+  publicKey:
+    accessControl:
+      enabled: true

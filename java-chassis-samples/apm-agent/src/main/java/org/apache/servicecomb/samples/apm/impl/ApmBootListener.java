@@ -83,7 +83,7 @@ public class ApmBootListener implements BootListener {
 
   @Override
   public void onBootEvent(BootEvent event) {
-    if (EventType.BEFORE_HANDLER.equals(event.getEventType())) {
+    if (EventType.BEFORE_FILTER.equals(event.getEventType())) {
       event.getScbEngine().getEventBus().register(this);
     }
   }

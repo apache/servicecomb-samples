@@ -24,14 +24,31 @@ public class EdgeOutputGenerator extends ConsumerOutputGenerator {
   public void generate(StringBuilder sb, InvocationFinishEvent event) {
     InvocationStageTrace stageTrace = event.getInvocation().getInvocationStageTrace();
 
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.THREAD_POOL_QUEUE, stageTrace.calcThreadPoolQueueTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.SERVER_FILTERS_REQUEST,
-        stageTrace.calcServerFiltersRequestTime());
-
+    // 1. total: start create invocation -> all filters finished
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_TOTAL, stageTrace.calcTotal());
+    // 2. prepare: start create invocation -> finish create invocation
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PREPARE, stageTrace.calcPrepare());
+    // 4. connection: start get connection -> finish get connection
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_CONNECTION, stageTrace.calcConnection());
+    // 5. provider-decode: start decode request -> finish decode request
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_DECODE_REQUEST,
+            stageTrace.calcProviderDecodeRequest());
+    // 6. provider-encode: start encode response -> finish encode response
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_ENCODE_RESPONSE,
+            stageTrace.calcProviderEncodeResponse());
+    // 7. consumer-encode: start encode request -> finish encode request
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_ENCODE_REQUEST,
+            stageTrace.calcConsumerEncodeRequest());
+    // 8. consumer-decode: start decode response -> finish decode response
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_DECODE_RESPONSE,
+            stageTrace.calcConsumerDecodeResponse());
+    // 9. consumer-send: start send request -> finish send request
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_SEND, stageTrace.calcConsumerSendRequest());
+    // 10. provider-send: start send response -> finish send response
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_SEND, stageTrace.calcProviderSendResponse());
+    // 11. wait: finish send request -> start decode response
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_WAIT, stageTrace.calcWait());
+    // 调用父类的generate方法获取其他相关信息
     super.generate(sb, event);
-
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.SERVER_FILTERS_RESPONSE,
-        stageTrace.calcServerFiltersResponseTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.PRODUCER_SEND_RESPONSE, stageTrace.calcSendResponseTime());
   }
 }

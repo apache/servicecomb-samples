@@ -17,11 +17,26 @@
 package org.apache.servicecomb.samples.springmvc.consumer;
 
 import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
+@SpringBootApplication
 public class SpringmvcConsumerMain {
   public static void main(String[] args) throws Exception {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(SpringmvcConsumerMain.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
+    run();
+  }
+
+  private static void run() throws Exception {
     SpringmvcBasicClient springmvcBasicClient = BeanUtils.getBean("SpringmvcBasicClient");
     SpringmvcHelloClient springmvcHelloClient = BeanUtils.getBean("SpringmvcHelloClient");
 

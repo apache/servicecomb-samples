@@ -16,14 +16,10 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-APPLICATION_ID: apollotest
-service_description:
-  name: apollo-test
-  version: 1.0.1
-
 apollo:
   config:
-    serverUri: http://127.0.0.1:8070
+    # try the official apollo server(don't add port)
+    serverUri: http://81.68.181.139
     serviceName: apollo-test  #AppId in apollo
     env: DEV
     #default clusters name in apollo,if user create new clusters please replace this setting value
@@ -35,14 +31,14 @@ apollo:
     token: #get token from Apollo web pages
 servicecomb:
   service:
-    registry:
+    application: apollotest
+    name: apollo-test
+    version: 1.0.1
+  registry:
+    sc:
       address: http://127.0.0.1:30100
   rest:
     address: 0.0.0.0:8080
-  handler:
-    chain:
-      Provider:
-        default: bizkeeper-provider
   #executors:
     #default: test
     #Provider:

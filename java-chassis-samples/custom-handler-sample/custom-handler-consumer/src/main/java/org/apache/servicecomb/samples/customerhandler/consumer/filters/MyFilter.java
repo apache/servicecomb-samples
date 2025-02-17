@@ -14,27 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.servicecomb.samples.customerhandler.handlers;
+package org.apache.servicecomb.samples.customerhandler.consumer.filters;
 
-import org.apache.servicecomb.core.Handler;
+import org.apache.servicecomb.core.filter.*;
 import org.apache.servicecomb.core.Invocation;
-import org.apache.servicecomb.swagger.invocation.AsyncResponse;
+import org.apache.servicecomb.swagger.invocation.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-public class MyHandler implements Handler {
+import java.util.concurrent.CompletableFuture;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MyHandler.class);
+@Component
+public class MyFilter extends AbstractFilter implements ConsumerFilter {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(MyFilter.class);
 
   @Override
-  public void handle(Invocation invocation, AsyncResponse asyncResponse) throws Exception {
-    //code before
+  public String getName() {
+    return "my-filter";
+  }
 
-    LOGGER.info("It's my handler! \r\n");
+  @Override
+  public int getOrder() {
+    return Filter.CONSUMER_LOAD_BALANCE_ORDER + 1;
+  }
 
-    invocation.next(response -> {
-      // code after
-      asyncResponse.handle(response);
-    });
+  @Override
+  public CompletableFuture<Response> onFilter(Invocation invocation, FilterNode nextNode) {
+    LOGGER.info("It's my filter! \r\n");
+    return nextNode.onFilter(invocation);
   }
 }

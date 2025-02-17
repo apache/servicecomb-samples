@@ -17,12 +17,10 @@
 
 package org.apache.servicecomb.samples.metrics.extendhealthcheck;
 
-import org.apache.servicecomb.springboot2.starter.EnableServiceComb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableServiceComb
 public class ExtendHealthCheckApplication {
   public static void main(String[] args) {
     SpringApplication.run(ExtendHealthCheckApplication.class, args);

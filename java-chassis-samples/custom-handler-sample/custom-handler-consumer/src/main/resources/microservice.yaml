@@ -14,22 +14,23 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
-
+servicecomb-config-order: 100
 servicecomb:
   service:
     application: chstest
     name: chsClient
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       address: http://127.0.0.1:30100
-  handler:
-    chain:
-      Consumer:
-        default: bizkeeper-consumer,loadbalance, myhandler
-  isolation:
-    Consumer:
-      enabled: false
+# filter默认都是开启的，可以不用配置
+#  filter:
+#    # Filter名称
+#    my-filter:
+#      # 应用名 + 服务名
+#      chstest.chsClient.order: 10
+#      chstest.chsClient.enabled: true
   references:
     chs:
       version-rule: 0.0.1

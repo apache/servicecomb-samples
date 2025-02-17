@@ -19,28 +19,29 @@ package org.apache.servicecomb.samples.springmvc.consumer;
 
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
-import org.apache.servicecomb.provider.springmvc.reference.async.CseAsyncRestTemplate;
+//import org.apache.servicecomb.provider.springmvc.reference.async.CseAsyncRestTemplate;
 import org.apache.servicecomb.samples.common.schema.Assertion;
+//import org.apache.servicecomb.samples.common.schema.Hello;
 import org.apache.servicecomb.samples.common.schema.Hello;
 import org.apache.servicecomb.samples.common.schema.models.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.ListenableFutureCallback;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
+
+import java.util.concurrent.CompletableFuture;
 
 @Component("SpringmvcHelloClient")
 public class SpringmvcHelloClient {
   private static final Logger LOG = LoggerFactory.getLogger(SpringmvcHelloClient.class);
 
-  private static RestTemplate restTemplate = RestTemplateBuilder.create();
+  private static RestOperations restTemplate = RestTemplateBuilder.create();
 
   @RpcReference(microserviceName = "springmvc", schemaId = "springmvcHello")
   private static Hello hello;
+
+  @RpcReference(microserviceName = "springmvc", schemaId = "springmvcHello")
+  private static HelloAync helloAync;
 
   public void run() throws Exception {
     Person person = new Person();
@@ -75,28 +76,16 @@ public class SpringmvcHelloClient {
 
     //AsyncRestTemplate Consumer
     // NOTICE: since 2.0.0, spring deprecated AsyncRestTemplate, user's can use CompletableFuture of RPC instead
-    CseAsyncRestTemplate cseAsyncRestTemplate = new CseAsyncRestTemplate();
-    ListenableFuture<ResponseEntity<String>> responseEntityListenableFuture = cseAsyncRestTemplate
-        .postForEntity("cse://springmvc/springmvchello/sayhi?name={name}", null, String.class, "Java Chassis");
-    ResponseEntity<String> responseEntity = responseEntityListenableFuture.get();
-    Assertion.assertEquals("Hello Java Chassis", responseEntity.getBody());
-    System.out.println("AsyncRestTemplate Consumer sayHi services: " + responseEntity.getBody());
+    CompletableFuture<String> asyncSayHi = helloAync.sayHi("Java Chassis");
+    String sayHiResp = asyncSayHi.get();
+    Assertion.assertEquals("Hello Java Chassis", sayHiResp);
+    System.out.println("Async Consumer sayHi services: " + sayHiResp);
 
-    HttpEntity<Person> entity = new HttpEntity<>(person);
-    ListenableFuture<ResponseEntity<String>> listenableFuture = cseAsyncRestTemplate
-        .exchange("cse://springmvc/springmvchello/sayhello", HttpMethod.POST, entity, String.class);
-
-    listenableFuture.addCallback(
-        new ListenableFutureCallback<ResponseEntity<String>>() {
-          @Override
-          public void onFailure(Throwable ex) {
-            LOG.error("AsyncResTemplate Consumer catched exception when sayHello, ", ex);
-          }
-
-          @Override
-          public void onSuccess(ResponseEntity<String> result) {
-            System.out.println("AsyncRestTemplate Consumer sayHello services: " + result.getBody());
-          }
-        });
+    CompletableFuture<String> asyncSayHello = helloAync.sayHello(person);
+    asyncSayHello.thenAccept(result -> System.out.println("Async Consumer sayHello services: " + result))
+            .exceptionally(ex -> {
+              LOG.error("Async Consumer catched exception when sayHello, ", ex);
+              return null;
+            });
   }
 }

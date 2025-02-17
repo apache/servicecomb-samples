@@ -16,13 +16,13 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-APPLICATION_ID: samples
-service_description:
-  name: uselog4j2
-  version: 0.0.1
 servicecomb:
   service:
-    registry:
+    application: ssamples
+    name: uselog4j2
+    version: 0.0.1
+  registry:
+    sc:
       address: http://127.0.0.1:30100
   rest:
     address: 0.0.0.0:8080

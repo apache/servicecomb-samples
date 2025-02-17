@@ -18,7 +18,7 @@
 package org.apache.servicecomb.samples.springmvc.provider;
 
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.samples.common.schema.Hello;

@@ -20,16 +20,15 @@
 server:
   port: 7777
 
-# all interconnected microservices must belong to an application wth the same ID
-APPLICATION_ID: metrics
-
-service_description:
-# name of the declaring microservice
-  name: metricsHealthCheckDemo
-  version: 0.0.1
 servicecomb:
   service:
-    registry:
+    # all interconnected microservices must belong to an application wth the same ID
+    application: metrics
+    # name of the declaring microservice
+    name: metricsHealthCheckDemo
+    version: 0.0.1
+  registry:
+    sc:
       address: http://127.0.0.1:30100
   rest:
     address: 0.0.0.0:7777

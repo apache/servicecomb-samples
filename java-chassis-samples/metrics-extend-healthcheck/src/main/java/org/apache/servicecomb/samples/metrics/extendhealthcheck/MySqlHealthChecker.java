@@ -27,6 +27,16 @@ import org.apache.servicecomb.foundation.metrics.health.HealthChecker;
 
 //this is a demo health checker for mysql
 public class MySqlHealthChecker implements HealthChecker {
+  static {
+    try {
+      // 显式加载MySQL驱动
+      Class.forName("com.mysql.cj.jdbc.Driver");
+    } catch (ClassNotFoundException e) {
+      throw new RuntimeException("无法加载MySQL驱动", e);
+    }
+  }
+
+
   @Override
   public String getName() {
     return "mysql";
@@ -37,7 +47,7 @@ public class MySqlHealthChecker implements HealthChecker {
     //add your health check code here
     Connection connection = null;
     try {
-      connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test_db?useSSL=false", "root", "pwd");
+      connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test_db?useSSL=false&allowPublicKeyRetrieval=true", "root", "pwd");
       return new HealthCheckResult(true, "local mysql health check", "");
     } catch (SQLException e) {
       e.printStackTrace();

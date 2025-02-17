@@ -24,13 +24,12 @@ compileJava {
 }
 
 dependencies {
-    compile group: 'org.apache.servicecomb', name: 'provider-pojo'
-    compile group: 'org.apache.servicecomb', name: 'provider-springmvc'
-    compile group: 'org.apache.servicecomb', name: 'transport-rest-vertx'
-    compile group: 'org.apache.servicecomb.samples', name: 'common-schema', version: '2.0.0'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core'
+    implementation group: 'org.apache.servicecomb', name: 'solution-basic'
+    implementation group: 'org.apache.servicecomb', name: 'registry-service-center'
+    implementation group: 'org.apache.servicecomb.samples', name: 'common-schema', version: "3.0-SNAPSHOT"
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core'
 }
 
 apply plugin: 'application'
@@ -54,6 +53,6 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencyManagement {
     imports {
-        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:2.0.0'
+        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:3.2.4'
     }
 }

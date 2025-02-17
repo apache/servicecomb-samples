@@ -35,7 +35,7 @@ public class HeaderOutputGenerator extends AbstractOutputGenerator {
     appendLine(sb, PAD2_KEY11_FMT, "status code", event.getResponse().getStatusCode());
     appendLine(sb, PAD2_KEY11_FMT, "traceId", invocation.getTraceId());
 
-    appendTimeLine(sb, PAD2_TIME_FMT, "total", stageTrace.calcTotalTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.PREPARE, stageTrace.calcInvocationPrepareTime());
+    appendTimeLine(sb, PAD2_TIME_FMT, InvocationStageTrace.STAGE_TOTAL, stageTrace.calcTotal());
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PREPARE, stageTrace.calcPrepare());
   }
 }

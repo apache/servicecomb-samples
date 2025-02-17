@@ -15,55 +15,63 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-swagger: "2.0"
+openapi: 3.0.1
 info:
-  version: "1.0.0"
-  title: "swagger definition for org.apache.servicecomb.samples.localregistry.localregistryserver.LocalServerApi"
-  x-java-interface: "cse.gen.localservreg.localserv.localservregistry.LocalServerApiIntf"
-basePath: "/localservregistry"
-consumes:
-- "application/json"
-produces:
-- "application/json"
+  title: swagger definition for org.apache.servicecomb.samples.localregistry.localregistryserver.LocalServerApi
+  version: 1.0.0
+servers:
+  - url: /localservregistry
 paths:
   /add:
     post:
-      operationId: "add"
-      parameters:
-      - name: "a"
-        in: "formData"
-        required: false
-        type: "integer"
-        format: "int32"
-      - name: "b"
-        in: "formData"
-        required: false
-        type: "integer"
-        format: "int32"
+      operationId: add
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                a:
+                  type: integer
+                  format: int32
+                b:
+                  type: integer
+                  format: int32
       responses:
-        200:
-          description: "response of 200"
-          schema:
-            type: "integer"
-            format: "int32"
+        "200":
+          description: response of 200
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int32
   /sayhi:
     post:
-      operationId: "sayHi"
-      parameters:
-      - in: "body"
-        name: "student"
-        required: false
-        schema:
-          $ref: "#/definitions/Person"
+      operationId: sayHi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Person"
+          application/protobuf:
+            schema:
+              $ref: "#/components/schemas/Person"
+          text/plain:
+            schema:
+              $ref: "#/components/schemas/Person"
+        x-name: student
       responses:
-        200:
-          description: "response of 200"
-          schema:
-            $ref: "#/definitions/Person"
-definitions:
-  Person:
-    type: "object"
-    properties:
-      name:
-        type: "string"
-    x-java-class: "org.apache.servicecomb.samples.common.schema.models.Person"
+        "200":
+          description: response of 200
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Person"
+components:
+  schemas:
+    Person:
+      type: object
+      properties:
+        name:
+          type: string
+      x-java-class: org.apache.servicecomb.samples.common.schema.models.Person

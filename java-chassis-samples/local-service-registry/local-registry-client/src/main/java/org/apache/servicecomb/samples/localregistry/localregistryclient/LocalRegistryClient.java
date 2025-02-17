@@ -20,16 +20,26 @@ package org.apache.servicecomb.samples.localregistry.localregistryclient;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.apache.servicecomb.samples.common.schema.models.Person;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.web.client.RestOperations;
 
+@SpringBootApplication
 public class LocalRegistryClient {
-  private static RestTemplate templateNew = RestTemplateBuilder.create();
+  private static RestOperations templateNew = RestTemplateBuilder.create();
 
   public static void main(String[] args) {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(LocalRegistryClient.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     run();
   }
@@ -38,7 +48,7 @@ public class LocalRegistryClient {
     testLocalRegistry(templateNew);
   }
 
-  private static void testLocalRegistry(RestTemplate template) {
+  private static void testLocalRegistry(RestOperations template) {
     String microserviceName = "localserv";
     String cseUrlPrefix = "cse://" + microserviceName + "/localservregistry/";
 

@@ -21,7 +21,8 @@ servicecomb:
     name: hello
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       # Default using local service center
       address: http://localhost:30100
       # address: https://cse.cn-south-1.myhuaweicloud.com

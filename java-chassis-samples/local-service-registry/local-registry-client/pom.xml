@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.apache.servicecomb.samples</groupId>
     <artifactId>local-service-registry</artifactId>
-    <version>2.6.0</version>
+    <version>3.0-SNAPSHOT</version>
   </parent>
   <artifactId>local-registry-client</artifactId>
   <name>Java Chassis::Demo::LocalServiceRegistry::Client</name>
@@ -40,10 +40,6 @@
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>transport-rest-vertx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>handler-bizkeeper</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>

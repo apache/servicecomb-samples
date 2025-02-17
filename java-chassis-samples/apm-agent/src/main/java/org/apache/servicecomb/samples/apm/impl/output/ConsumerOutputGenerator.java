@@ -24,17 +24,21 @@ public class ConsumerOutputGenerator extends AbstractOutputGenerator {
   public void generate(StringBuilder sb, InvocationFinishEvent event) {
     InvocationStageTrace stageTrace = event.getInvocation().getInvocationStageTrace();
 
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.HANDLERS_REQUEST, stageTrace.calcHandlersRequestTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.CLIENT_FILTERS_REQUEST,
-        stageTrace.calcClientFiltersRequestTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.CONSUMER_SEND_REQUEST, stageTrace.calcSendRequestTime());
-    appendTimeLine(sb, PAD6_TIME_FMT, InvocationStageTrace.CONSUMER_GET_CONNECTION, stageTrace.calcGetConnectionTime());
-    appendTimeLine(sb, PAD6_TIME_FMT, InvocationStageTrace.CONSUMER_WRITE_TO_BUF, stageTrace.calcWriteToBufferTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.CONSUMER_WAIT_RESPONSE,
-        stageTrace.calcReceiveResponseTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.CONSUMER_WAKE_CONSUMER, stageTrace.calcWakeConsumer());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.CLIENT_FILTERS_RESPONSE,
-        stageTrace.calcClientFiltersResponseTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.HANDLERS_RESPONSE, stageTrace.calcHandlersResponseTime());
+    // 1. total: start create invocation -> all filters finished
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_TOTAL, stageTrace.calcTotal());
+    // 2. prepare: start create invocation -> finish create invocatio
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PREPARE, stageTrace.calcPrepare());
+    // 4. connection: start get connection -> finish get connection
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_CONNECTION, stageTrace.calcConnection());
+    // 5. consumer-encode: start encode request -> finish encode request
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_ENCODE_REQUEST,
+            stageTrace.calcConsumerEncodeRequest());
+    // 6. consumer-decode: start decode response -> finish decode response
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_SEND, stageTrace.calcConsumerSendRequest());
+    // 7. consumer-send: start send request -> finish send request
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_WAIT, stageTrace.calcWait());
+    // 8. wait: finish send request -> start decode response
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_DECODE_RESPONSE,
+            stageTrace.calcConsumerDecodeResponse());
   }
 }
