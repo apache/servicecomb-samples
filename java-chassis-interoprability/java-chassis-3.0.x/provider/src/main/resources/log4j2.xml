@@ -17,7 +17,7 @@
 -->
 <Configuration>
     <Properties>
-        <property name="FILE_PATH" value="./logs/provider-java-chassis"/>
+        <property name="FILE_PATH" value="./logs/java-chassis-interoprability/provider-java-chassis"/>
     </Properties>
 
     <Appenders>

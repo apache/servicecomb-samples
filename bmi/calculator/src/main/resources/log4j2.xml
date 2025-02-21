@@ -17,7 +17,7 @@
 -->
 <Configuration>
     <Properties>
-        <property name="FILE_PATH" value="./logs/calculator"/>
+        <property name="FILE_PATH" value="./logs/bmi/calculator"/>
     </Properties>
 
     <Appenders>

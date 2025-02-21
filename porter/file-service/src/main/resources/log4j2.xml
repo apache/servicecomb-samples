@@ -17,7 +17,7 @@
 -->
 <Configuration>
     <Properties>
-        <property name="FILE_PATH" value="./logs/file-service"/>
+        <property name="FILE_PATH" value="./logs/porter/file-service"/>
     </Properties>
 
     <Appenders>

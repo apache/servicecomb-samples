@@ -17,7 +17,7 @@
 -->
 <Configuration>
     <Properties>
-        <property name="FILE_PATH" value="./logs/webapp"/>
+        <property name="FILE_PATH" value="./logs/bmi/webapp"/>
     </Properties>
 
     <Appenders>
