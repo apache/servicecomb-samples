@@ -23,7 +23,8 @@ servicecomb:
     application: springmvc
     name: servicecombspringmvc
     version: 0.0.1
-    registry:
+  registry:
+    sc:
       address: http://127.0.0.1:30100
       instance:
         watch: false
