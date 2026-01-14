@@ -60,10 +60,11 @@ see [Precondition](../README.md)
 
 ## Try it
 
-1. Using browser: http://localhost:9090/ui/login.html with user admin or guest, password is test.
+1. Using browser: http://localhost:9090/ui/login.html with user `admin` or `guest`, password is `test`.
 2. Choose a file to upload. Uploaded file is stored in `file-service` working directory.
-   And name is random number generated.
-3. Delete file. Input the random number generated in step 2.
+   And file Id is random number generated.
+3. Delete file. Input the file Id generated in step 2.
+   > Only admin account can delete files.
 
 ## 说明
 
@@ -122,6 +123,7 @@ see [Precondition](../README.md)
 
 ## 使用
 
-1. 输入: http://localhost:9090/ui/login.html 使用 admin 或者 guest 登陆，密码为 test。
+1. 输入: http://localhost:9090/ui/login.html 使用 `admin` 或者 `guest` 登陆，密码为 `test`。
 2. 选择一个文件上传，上传成功，上传成功后的文件会保存在`file-service`的当前目录， 文件名称是一个随机的数字，这个数字就是文件 ID。
-3. 删除文件：输入上一步的文件 ID，点击删除。 如果是 admin 用户，上传成功；如果是 guest 用户，上传失败。
+3. 删除文件：输入上一步的文件 ID，点击删除。 
+   > 只有 admin 账户可以删除文件。
