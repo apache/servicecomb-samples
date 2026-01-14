@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     if (userInfo != null) {
       if (validatePassword(password, userInfo.getPassword())) {
         SessionInfo sessionInfo = new SessionInfo();
-        sessionInfo.setSessiondId(UUID.randomUUID().toString());
+        sessionInfo.setSessionId(UUID.randomUUID().toString());
         sessionInfo.setUserName(userInfo.getUserName());
         sessionInfo.setRoleName(userInfo.getRoleName());
         sessionMapper.createSession(sessionInfo);

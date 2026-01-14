@@ -18,18 +18,18 @@
 package org.apache.servicecomb.samples.porter.user.api;
 
 public class SessionInfo {
-  private String sessiondId;
+  private String sessionId;
 
   private String userName;
 
   private String roleName;
 
-  public String getSessiondId() {
-    return sessiondId;
+  public String getSessionId() {
+    return sessionId;
   }
 
-  public void setSessiondId(String sessiondId) {
-    this.sessiondId = sessiondId;
+  public void setSessionId(String sessionId) {
+    this.sessionId = sessionId;
   }
 
   public String getUserName() {

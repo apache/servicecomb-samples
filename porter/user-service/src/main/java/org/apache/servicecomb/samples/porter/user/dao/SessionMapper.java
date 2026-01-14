@@ -29,7 +29,7 @@ import org.apache.servicecomb.samples.porter.user.api.SessionInfo;
 public interface SessionMapper {
   @Insert("""
       insert into T_SESSION (SESSION_ID, USER_NAME, ROLE_NAME)
-        values(#{sessiondId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+        values(#{sessionId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
                #{roleName,jdbcType=VARCHAR})""")
   void createSession(SessionInfo sessionInfo);
 

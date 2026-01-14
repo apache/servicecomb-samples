@@ -82,7 +82,7 @@ public class SessionInfoModel {
 
   public static SessionInfo toSessionInfo(SessionInfoModel entity) {
     SessionInfo info = new SessionInfo();
-    info.setSessiondId(entity.getSessionId());
+    info.setSessionId(entity.getSessionId());
     info.setUserName(entity.getUserName());
     info.setRoleName(entity.getRoleName());
     return info;
