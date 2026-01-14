@@ -30,6 +30,7 @@ Clone your code repository and start developing your application on IDE of your 
 
 2. Download `local-service-center` from http://servicecomb.incubator.apache.org/release/.
    Read `README.md` to start`local-service-center`.
+   > Or download `Local-CSE` from [Local Lightweight Microservice Engine](https://support.huaweicloud.com/devg-cse/cse_04_0046.html).
 
 3. Update the service registry address in `microservice.yaml` according to the `README.md` in `local-service-center`.
 
@@ -75,6 +76,7 @@ customize it as per your needs
 
 2. 从 http://servicecomb.incubator.apache.org/release/ 下载 `local-service-center`。
    阅读 `README.md` 来启动 `local-service-center`。
+   > 或从[本地轻量化微服务引擎](https://support.huaweicloud.com/devg-cse/cse_04_0046.html)下载 `Local-CSE`。
 
 3. 根据 `local-service-center` 中的 `README.md` 更新 `microservice.yaml` 中的服务注册地址。
 
