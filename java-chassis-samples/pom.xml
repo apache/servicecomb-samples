@@ -109,10 +109,7 @@
         <configuration>
           <compilerArgument>-parameters</compilerArgument>
           <encoding>UTF-8</encoding>
-          <release>17</release>
-          <!-- -Werror 删除或注释掉以下两行 -->
-          <!-- <source>17</source> -->
-          <!-- <target>17</target> -->
+          <release>${java.version}</release>
           <compilerArgs>
             <arg>-Werror</arg>
             <arg>-Xlint:all</arg>
