@@ -36,7 +36,6 @@ public class MySqlHealthChecker implements HealthChecker {
     }
   }
 
-
   @Override
   public String getName() {
     return "mysql";
@@ -45,21 +44,15 @@ public class MySqlHealthChecker implements HealthChecker {
   @Override
   public HealthCheckResult check() {
     //add your health check code here
-    Connection connection = null;
-    try {
-      connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test_db?useSSL=false&allowPublicKeyRetrieval=true", "root", "pwd");
-      return new HealthCheckResult(true, "local mysql health check", "");
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return new HealthCheckResult(false, "local mysql health check", e.toString());
-    } finally {
-      if (connection != null) {
-        try {
-          connection.close();
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
+      try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test_db?useSSL=false&allowPublicKeyRetrieval=true", "root", "pwd")) {
+          // 验证连接是否有效
+          if (connection != null && !connection.isClosed()) {
+              return new HealthCheckResult(true, "local mysql health check", "");
+          }
+
+          return new HealthCheckResult(true, "local mysql health check", "");
+      } catch (SQLException e) {
+          return new HealthCheckResult(false, "local mysql health check", e.getMessage());
       }
-    }
   }
 }
