@@ -18,8 +18,7 @@
 
 apollo:
   config:
-    # try the official apollo server(don't add port)
-    serverUri: http://81.68.181.139
+    serverUri: http://127.0.0.1:8070 #Apollo portal server address
     serviceName: apollo-test  #AppId in apollo
     env: DEV
     #default clusters name in apollo,if user create new clusters please replace this setting value
