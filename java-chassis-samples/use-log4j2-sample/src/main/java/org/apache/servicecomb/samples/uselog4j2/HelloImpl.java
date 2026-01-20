@@ -18,10 +18,14 @@
 package org.apache.servicecomb.samples.uselog4j2;
 
 import org.apache.servicecomb.provider.pojo.RpcSchema;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RpcSchema(schemaId = "hello")
+@RequestMapping(path = "/")
 public class HelloImpl implements Hello {
 
+  @GetMapping("/hello")
   public String hello() {
     return "Hello World!";
   }
