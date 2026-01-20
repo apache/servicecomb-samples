@@ -55,7 +55,7 @@ public class LocalRegistryClient {
     Map<String, String> params = new HashMap<>();
     params.put("a", "5");
     params.put("b", "20");
-    int result = template.postForObject(cseUrlPrefix + "add", params, Integer.class);
+    Integer result = template.postForObject(cseUrlPrefix + "add", params, Integer.class);
     System.out.println(result);
 
     Person person = new Person();

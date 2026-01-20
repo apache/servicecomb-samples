@@ -29,16 +29,8 @@
   <name>Java Chassis::Demo::LocalRegistry::Server</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.servicecomb.samples</groupId>
-      <artifactId>common-schema</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-jaxrs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>transport-rest-vertx</artifactId>
+      <artifactId>solution-basic</artifactId>
     </dependency>
     <!--log4j2-->
     <dependency>
@@ -52,6 +44,10 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb.samples</groupId>
+      <artifactId>common-schema</artifactId>
     </dependency>
   </dependencies>
 

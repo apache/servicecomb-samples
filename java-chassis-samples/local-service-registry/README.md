@@ -1,4 +1,4 @@
-## Local registry
+# Local registry
 
 User can use local registry mechanisam and can connect server endpoints without using service center.
 For local registry mechanism user should provide the local registry file at consumer side.
@@ -8,46 +8,37 @@ Consumer will use local registry function and it will connect the server end poi
 Please find the details as follows.
 
 ## Precondition
+
 see [Precondition](../../README.md)
 
 ## Provider Side
 
-* run the provider with/without service center and get the schema file.
+1. run the provider with/without service center and get the schema file.
 
 ## Consumer Side changes
 
-* Add local registry file registry.yaml :
+1. Add local registry file `registry.yaml` :
 
-  ```yaml
-  localserv:
-    - id: "100"
-      version: "0.0.1"
-      appid: localservreg
-      schemaIds:
-        - localservregistry
-      instances:
-        - endpoints:
-          - rest://localhost:8080
+    ```yaml
+    localserv:
+      - id: "100"
+        version: "0.0.1"
+        appid: localservreg
+        schemaIds:
+          - localservregistry
+        instances:
+          - endpoints:
+            - rest://localhost:8080
+    ```
+
+2. Add provider's schema file at below location of consumer side
+
+    `src/main/resources/microservices/{microserviceName}/{schemaId.yaml}`
+    > here microserviceName is servers's microservice name. Like this multiple schemaId files we can put in same location.
+
+3. Run the consumer and verify the API's output.
+
+  ```text
+  25
+  hello local registry test
   ```
-
-* Add the following code at the beginning and end of the service consumer Main function
-
-```java
-    public class MyClient {
-      public static void main(String[] args) {
-      //"yourregistry.yaml" should be put in resource directory
-　　    System.setProperty("local.registry.file", "yourregistry.yaml");
-
-      //your code
-      }
-    }
-```
-   if file present in this path "local.registry.file" then registry mode is Local registry mode. It will not connect to service center.
-
-* Add provider's schema file at below location of consumer side
-
-  src/main/resources/microservices/{microserviceName}/{schemaId.yaml}
-  -here microserviceName is servers's microservice name. Like this multiple schemaId files we can put in same location.
-
-* Run the consumer and verify the API's output.
-

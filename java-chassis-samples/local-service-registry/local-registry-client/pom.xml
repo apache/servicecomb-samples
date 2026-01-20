@@ -30,17 +30,10 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.servicecomb.samples</groupId>
-      <artifactId>common-schema</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-springmvc</artifactId>
+      <artifactId>solution-basic</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>transport-rest-vertx</artifactId>
-    </dependency>
+    <!--log4j2-->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
@@ -54,8 +47,8 @@
       <artifactId>log4j-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>handler-loadbalance</artifactId>
+      <groupId>org.apache.servicecomb.samples</groupId>
+      <artifactId>common-schema</artifactId>
     </dependency>
   </dependencies>
 
