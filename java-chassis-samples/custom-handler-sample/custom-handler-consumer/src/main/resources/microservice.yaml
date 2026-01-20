@@ -24,11 +24,11 @@ servicecomb:
   registry:
     sc:
       address: http://127.0.0.1:30100
-# filter默认都是开启的，可以不用配置
+#  # filters are enabled by default, configuration is optional
 #  filter:
-#    # Filter名称
+#    # Filter name
 #    my-filter:
-#      # 应用名 + 服务名
+#      # Application name + Service name
 #      chstest.chsClient.order: 10
 #      chstest.chsClient.enabled: true
   references:
