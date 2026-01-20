@@ -50,9 +50,5 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb.samples</groupId>
-      <artifactId>common-schema</artifactId>
-    </dependency>
   </dependencies>
 </project>
