@@ -89,8 +89,8 @@
           <version>${maven-compiler-plugin.version}</version>
           <configuration>
             <compilerArgument>-parameters</compilerArgument>
-            <source>17</source>
-            <target>17</target>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
           </configuration>
         </plugin>
         <plugin>
