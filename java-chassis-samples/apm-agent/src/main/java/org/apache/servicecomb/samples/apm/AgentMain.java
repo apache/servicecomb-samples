@@ -20,6 +20,26 @@ import java.lang.instrument.Instrumentation;
 
 public class AgentMain {
   public static void premain(String args, Instrumentation inst) {
+    // Register Spring ApplicationContextInitializer to make ApmBootListener a Spring Bean
+    // This must be set BEFORE Spring initializes
+    String existingInitializers = System.getProperty("context.initializer.classes", "");
+    String apmInitializer = "org.apache.servicecomb.samples.apm.ApmBeanRegistrar";
+
+    if (existingInitializers.isEmpty()) {
+      System.setProperty("context.initializer.classes", apmInitializer);
+    } else {
+      System.setProperty("context.initializer.classes", existingInitializers + "," + apmInitializer);
+    }
+
+    // Inject jar to System ClassLoader immediately for JDK 9+ compatibility
+    try {
+      java.util.jar.JarFile jarFile = new java.util.jar.JarFile(
+          new java.io.File(AgentMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
+      inst.appendToSystemClassLoaderSearch(jarFile);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     // to support web container, we can not just only inject spiJar to system classloader
     // in this sample, javaAgent jar equals ServiceComb plugin jar
     inst.addTransformer(

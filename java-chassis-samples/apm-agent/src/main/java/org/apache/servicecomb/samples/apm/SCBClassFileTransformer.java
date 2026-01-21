@@ -49,7 +49,14 @@ public class SCBClassFileTransformer implements ClassFileTransformer {
       return;
     }
 
+    // System ClassLoader injection is handled in premain for JDK 9+
+    if (ClassLoader.getSystemClassLoader() == loader) {
+      return;
+    }
+
     try {
+      // Fallback for other classloaders (e.g. web containers) - keep legacy
+      // reflection just in case
       Method addURLMethod = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
       addURLMethod.setAccessible(true);
       addURLMethod.invoke(loader, scbSpiJar);
