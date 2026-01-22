@@ -30,18 +30,18 @@ public class ProducerOutputGenerator extends AbstractOutputGenerator {
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_TOTAL, stageTrace.calcTotal());
     // 2. prepare: start create invocation -> finish create invocation
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PREPARE, stageTrace.calcPrepare());
-    // 4. queue: add in queue -> execute in thread
+    // 3. queue: add in queue -> execute in thread
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_QUEUE, stageTrace.calcQueue());
-    // 5. provider-decode: start decode request -> finish decode request
+    // 4. provider-decode: start decode request -> finish decode request
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_DECODE_REQUEST,
             stageTrace.calcProviderDecodeRequest());
+    // 5. execute: start business execute -> finish business execute
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_BUSINESS, stageTrace.calcBusinessExecute());
     // 6. provider-encode: start encode response -> finish encode response
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_ENCODE_RESPONSE,
             stageTrace.calcProviderEncodeResponse());
     // 7. provider-send: start send response -> finish send response
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_ENCODE_RESPONSE,
-            stageTrace.calcProviderEncodeResponse());
-    // 8. execute: start business execute -> finish business execute
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_BUSINESS, stageTrace.calcBusinessExecute());
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_SEND,
+            stageTrace.calcProviderSendResponse());
   }
 }

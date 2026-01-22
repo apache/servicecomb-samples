@@ -20,22 +20,17 @@ import org.apache.servicecomb.common.rest.RestConst;
 import org.apache.servicecomb.common.rest.definition.RestOperationMeta;
 import org.apache.servicecomb.core.Invocation;
 import org.apache.servicecomb.core.event.InvocationFinishEvent;
-import org.apache.servicecomb.core.invocation.InvocationStageTrace;
 
 public class HeaderOutputGenerator extends AbstractOutputGenerator {
   @Override
   public void generate(StringBuilder sb, InvocationFinishEvent event) {
     Invocation invocation = event.getInvocation();
     RestOperationMeta restOperationMeta = invocation.getOperationMeta().getExtData(RestConst.SWAGGER_REST_OPERATION);
-    InvocationStageTrace stageTrace = event.getInvocation().getInvocationStageTrace();
 
     sb.append(invocation.getInvocationQualifiedName()).append(":\n");
     appendLine(sb, PAD2_KEY11_FMT, "http method", restOperationMeta.getHttpMethod());
     appendLine(sb, PAD2_KEY11_FMT, "url", restOperationMeta.getAbsolutePath());
     appendLine(sb, PAD2_KEY11_FMT, "status code", event.getResponse().getStatusCode());
     appendLine(sb, PAD2_KEY11_FMT, "traceId", invocation.getTraceId());
-
-    appendTimeLine(sb, PAD2_TIME_FMT, InvocationStageTrace.STAGE_TOTAL, stageTrace.calcTotal());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PREPARE, stageTrace.calcPrepare());
   }
 }

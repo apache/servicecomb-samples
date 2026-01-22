@@ -48,7 +48,5 @@ public class EdgeOutputGenerator extends ConsumerOutputGenerator {
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_SEND, stageTrace.calcProviderSendResponse());
     // 11. wait: finish send request -> start decode response
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_WAIT, stageTrace.calcWait());
-    // 调用父类的generate方法获取其他相关信息
-    super.generate(sb, event);
   }
 }

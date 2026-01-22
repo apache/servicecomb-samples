@@ -26,18 +26,18 @@ public class ConsumerOutputGenerator extends AbstractOutputGenerator {
 
     // 1. total: start create invocation -> all filters finished
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_TOTAL, stageTrace.calcTotal());
-    // 2. prepare: start create invocation -> finish create invocatio
+    // 2. prepare: start create invocation -> finish create invocation
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PREPARE, stageTrace.calcPrepare());
-    // 4. connection: start get connection -> finish get connection
+    // 3. connection: start get connection -> finish get connection
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_CONNECTION, stageTrace.calcConnection());
-    // 5. consumer-encode: start encode request -> finish encode request
+    // 4. consumer-encode: start encode request -> finish encode request
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_ENCODE_REQUEST,
             stageTrace.calcConsumerEncodeRequest());
-    // 6. consumer-decode: start decode response -> finish decode response
+    // 5. consumer-send: start send request -> finish send request
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_SEND, stageTrace.calcConsumerSendRequest());
-    // 7. consumer-send: start send request -> finish send request
+    // 6. wait: finish send request -> start decode response
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_WAIT, stageTrace.calcWait());
-    // 8. wait: finish send request -> start decode response
+    // 7. consumer-decode: start decode response -> finish decode response
     appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_CONSUMER_DECODE_RESPONSE,
             stageTrace.calcConsumerDecodeResponse());
   }
