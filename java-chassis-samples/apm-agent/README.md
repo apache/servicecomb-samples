@@ -32,18 +32,36 @@ public interface BootListener {
 Supported event types include:
 
 - `BEFORE_FILTER`: Before filter initialization
+- `AFTER_FILTER`: After filter initialization
+- `BEFORE_PRODUCER_PROVIDER`: Before Producer Provider initialization
+- `AFTER_PRODUCER_PROVIDER`: After Producer Provider initialization
+- `BEFORE_CONSUMER_PROVIDER`: Before Consumer Provider initialization
+- `AFTER_CONSUMER_PROVIDER`: After Consumer Provider initialization
+- `BEFORE_TRANSPORT`: Before transport layer initialization
 - `AFTER_TRANSPORT`: After transport layer initialization
 - `BEFORE_REGISTRY`: Before service registration
 - `AFTER_REGISTRY`: After service registration
+- `BEFORE_CLOSE`: Before service shutdown
+- `AFTER_CLOSE`: After service shutdown
 
 ### 2. EventBus Event Mechanism
 
 ServiceComb uses Guava EventBus to publish various events during microservice invocation. APM components can collect performance data by subscribing to these events:
 
 - `InvocationStartEvent`: Invocation start event
+- `InvocationStartSendRequestEvent`: Start sending request event
 - `InvocationBusinessMethodStartEvent`: Business method execution start event
 - `InvocationBusinessMethodFinishEvent`: Business method execution finish event
+- `InvocationBusinessFinishEvent`: Business logic execution complete event
+- `InvocationEncodeResponseStartEvent`: Start encoding response event
 - `InvocationFinishEvent`: Invocation finish event (contains complete performance data)
+- `InvocationTimeoutCheckEvent`: Invocation timeout check event
+- `ServerAccessLogEvent`: Server access log event
+
+**Base Event Types:**
+
+- `InvocationBaseEvent`: Base class for all invocation events
+- `InvocationWithResponseEvent`: Base class for invocation events that contain response information
 
 ### 3. Invocation Context
 
