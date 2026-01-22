@@ -20,37 +20,33 @@
           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
   version="3.0">
 
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
-      classpath*:META-INF/spring/*.bean.xml
-    </param-value>
-  </context-param>
+  <!-- ServiceComb 3.x uses Spring Boot auto-configuration -->
+  <!-- The ServiceComb REST servlet is handled by java-chassis-spring-boot-starter-servlet -->
 
-  <!-- usage 1 equals usage 2 -->
+  <!-- Legacy Filter Example - coexists with ServiceComb -->
+  <filter>
+    <filter-name>LegacyFilter</filter-name>
+    <filter-class>org.apache.servicecomb.samples.dependencyManagement.LegacyFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LegacyFilter</filter-name>
+    <url-pattern>/legacy/*</url-pattern>
+  </filter-mapping>
 
-  <!-- usage 1:
-     RestServletContextListener
-     servicecomb.rest.servlet.urlPattern in microservice.yaml -->
-  <listener>
-    <listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class>
-  </listener>
+  <!-- Legacy Servlet Example - coexists with ServiceComb -->
+  <servlet>
+    <servlet-name>LegacyServlet</servlet-name>
+    <servlet-class>org.apache.servicecomb.samples.dependencyManagement.LegacyServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LegacyServlet</servlet-name>
+    <url-pattern>/legacy</url-pattern>
+  </servlet-mapping>
 
-  <!-- usage 2:
-     RestServletContextListener
-     servlet in web.xml -->
+  <!-- Welcome file for legacy JSP -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 
-  <!-- 	<listener> -->
-  <!-- 		<listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> -->
-  <!-- 	</listener> -->
-  <!-- 	<servlet> -->
-  <!-- 		<servlet-name>RestServlet</servlet-name> -->
-  <!-- 		<servlet-class>org.apache.servicecomb.transport.rest.servlet.RestServlet</servlet-class> -->
-  <!-- 		<load-on-startup>1</load-on-startup> -->
-  <!-- 		<async-supported>true</async-supported> -->
-  <!-- 	</servlet> -->
-  <!-- 	<servlet-mapping> -->
-  <!-- 		<servlet-name>RestServlet</servlet-name> -->
-  <!-- 		<url-pattern>/rest/*</url-pattern> -->
-  <!-- 	</servlet-mapping> -->
 </web-app>
