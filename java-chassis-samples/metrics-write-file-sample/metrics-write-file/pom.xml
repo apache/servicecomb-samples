@@ -21,7 +21,7 @@
   <parent>
     <artifactId>metrics-write-file-sample</artifactId>
     <groupId>org.apache.servicecomb.samples</groupId>
-    <version>2.6.0</version>
+    <version>3.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -31,22 +31,15 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
-      <artifactId>metrics-core</artifactId>
+      <artifactId>foundation-metrics</artifactId>
     </dependency>
-
-    <!--     <dependency> -->
-    <!--       <groupId>org.apache.logging.log4j</groupId> -->
-    <!--       <artifactId>log4j-core</artifactId> -->
-    <!--     </dependency> -->
-    <!--     <dependency> -->
-    <!--       <groupId>org.apache.logging.log4j</groupId> -->
-    <!--       <artifactId>log4j-slf4j-impl</artifactId> -->
-    <!--     </dependency> -->
-
-    <!--     <dependency> -->
-    <!--       <groupId>ch.qos.logback</groupId> -->
-    <!--       <artifactId>logback-classic</artifactId> -->
-    <!--     </dependency> -->
-
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>registry-lightweight</artifactId>
+    </dependency>
   </dependencies>
 </project>

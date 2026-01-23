@@ -23,9 +23,8 @@ import org.apache.servicecomb.foundation.common.utils.JsonUtils;
 import org.apache.servicecomb.foundation.metrics.MetricsBootstrapConfig;
 import org.apache.servicecomb.foundation.metrics.MetricsInitializer;
 import org.apache.servicecomb.foundation.metrics.PolledEvent;
-import org.apache.servicecomb.foundation.metrics.registry.GlobalRegistry;
 import org.apache.servicecomb.registry.RegistrationManager;
-import org.apache.servicecomb.registry.api.registry.Microservice;
+import org.apache.servicecomb.registry.api.RegistrationInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -33,10 +32,9 @@ import org.slf4j.MDC;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.netflix.config.DynamicPropertyFactory;
-import com.netflix.spectator.api.Measurement;
-import com.netflix.spectator.api.Meter;
-import com.netflix.spectator.api.Tag;
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
 
 /**
  * a sample for cloud eye
@@ -51,48 +49,61 @@ public class CloudEyeFilePublisher implements MetricsInitializer {
 
   private static final Logger CLOUD_EYE_LOGGER = LoggerFactory.getLogger("cloudEyeLogger");
 
+  private final RegistrationManager registrationManager;
+
   private String filePrefix;
 
   private String hostName;
 
+  public CloudEyeFilePublisher(RegistrationManager registrationManager) {
+    this.registrationManager = registrationManager;
+  }
+
   @Override
-  public void init(GlobalRegistry globalRegistry, EventBus eventBus, MetricsBootstrapConfig config) {
+  public void init(MeterRegistry meterRegistry, EventBus eventBus, MetricsBootstrapConfig config) {
+    LOGGER.info("CloudEyeFilePublisher init() called");
     eventBus.register(this);
 
-    Microservice microservice = RegistrationManager.INSTANCE.getMicroservice();
-    filePrefix = microservice.getAppId() + "." + microservice.getServiceName();
+    RegistrationInstance microserviceInstance = registrationManager.getPrimaryRegistration().getMicroserviceInstance();
+    filePrefix = microserviceInstance.getApplication() + "." + microserviceInstance.getServiceName();
+    LOGGER.info("CloudEyeFilePublisher filePrefix set to: {}", filePrefix);
+//    // Use system properties or config to get appId and serviceName
+//    String appId = System.getProperty("APPLICATION_ID", "defaultApp");
+//    String serviceName = System.getProperty("service.name", "defaultService");
+//    filePrefix = appId + "." + serviceName;
 
     hostName = NetUtils.getHostName();
     if (StringUtils.isEmpty(hostName)) {
       hostName = NetUtils.getHostAddress();
     }
 
-    System.setProperty("cloudEye.logDir",
-        DynamicPropertyFactory
-            .getInstance()
-            .getStringProperty("cloudEye.logDir", "logs")
-            .get());
+    // Set default log directory if not already configured
+    System.setProperty("cloudEye.logDir", 
+        System.getProperty("cloudEye.logDir", "logs/metrics-write-file"));
   }
 
   @Subscribe
   public void onPolledEvent(PolledEvent event) {
+    LOGGER.info("CloudEyeFilePublisher onPolledEvent() called, meters count: {}", event.getMeters().size());
     long now = System.currentTimeMillis();
     for (Meter meter : event.getMeters()) {
-      for (Measurement measurement : meter.measure()) {
-        logMeasurement(measurement, now);
-      }
+      meter.measure().forEach(measurement -> {
+        logMeasurement(meter, measurement.getValue(), now);
+      });
     }
   }
 
-  protected void logMeasurement(Measurement measurement, long now) {
-    String metricKey = generateMetricKey(measurement);
-
-    MDC.put("fileName", filePrefix + "." + metricKey + ".dat");
+  protected void logMeasurement(Meter meter, double value, long now) {
+    String metricKey = generateMetricKey(meter);
+    String fileName = filePrefix + "." + metricKey + ".dat";
+    
+    LOGGER.debug("Writing metric to file: {}, value: {}", fileName, value);
+    MDC.put("fileName", fileName);
 
     CloudEyeMetricModel metricModel = new CloudEyeMetricModel();
     metricModel.setNode(hostName);
     metricModel.setTimestamp(now);
-    metricModel.getDynamicValue().put(metricKey, String.valueOf(measurement.value()));
+    metricModel.getDynamicValue().put(metricKey, String.valueOf(value));
 
     CloudEyeModel model = new CloudEyeModel();
     model.setPlugin_id(filePrefix);
@@ -102,14 +113,16 @@ public class CloudEyeFilePublisher implements MetricsInitializer {
       CLOUD_EYE_LOGGER.info(JsonUtils.writeValueAsString(model));
     } catch (JsonProcessingException e) {
       LOGGER.error("Failed to write cloud eye log.", e);
+    } finally {
+      MDC.remove("fileName");
     }
   }
 
-  protected String generateMetricKey(Measurement measurement) {
+  protected String generateMetricKey(Meter meter) {
     StringBuilder sb = new StringBuilder();
-    sb.append(measurement.id().name());
-    for (Tag tag : measurement.id().tags()) {
-      sb.append('.').append(tag.value());
+    sb.append(meter.getId().getName());
+    for (Tag tag : meter.getId().getTags()) {
+      sb.append('.').append(tag.getValue());
     }
     return sb.toString();
   }
