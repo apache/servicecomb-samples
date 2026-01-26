@@ -26,7 +26,7 @@
     <version>3.0-SNAPSHOT</version>
   </parent>
   <artifactId>local-registry-server</artifactId>
-  <name>Java Chassis::Demo::LocalRegistry::Server</name>
+  <name>Java Chassis::Demo::LocalServiceRegistry::Server</name>
   <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>

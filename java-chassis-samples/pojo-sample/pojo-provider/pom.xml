@@ -24,6 +24,8 @@
     <version>3.0-SNAPSHOT</version>
   </parent>
   <artifactId>pojo-provider</artifactId>
+  <name>Java Chassis::Samples::pojo-sample::pojo-provider</name>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>

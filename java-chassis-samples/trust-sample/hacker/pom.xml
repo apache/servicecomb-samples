@@ -24,6 +24,8 @@
     <version>3.0-SNAPSHOT</version>
   </parent>
   <artifactId>hacker</artifactId>
+  <name>Java Chassis::Samples::trust-sample::hacker</name>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>

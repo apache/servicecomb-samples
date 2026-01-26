@@ -24,6 +24,8 @@
     <version>3.0-SNAPSHOT</version>
   </parent>
   <artifactId>springmvc-consumer</artifactId>
+  <name>Java Chassis::Samples::springmvc-sample::springmvc-consumer</name>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb</groupId>

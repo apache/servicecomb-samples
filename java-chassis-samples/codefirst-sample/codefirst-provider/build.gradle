@@ -53,6 +53,6 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencyManagement {
     imports {
-        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:3.2.4'
+        mavenBom 'org.apache.servicecomb:java-chassis-dependencies:3.3.0'
     }
 }

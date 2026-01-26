@@ -28,7 +28,7 @@
   <name>servicecomb</name>
   <url>http://maven.apache.org</url>
   <properties>
-    <servicecomb.version>3.2.4</servicecomb.version>
+    <servicecomb.version>3.3.0</servicecomb.version>
     <junit.version>4.13.1</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>

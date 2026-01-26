@@ -24,7 +24,7 @@
     <java.version>17</java.version>
     <argLine>-Dfile.encoding=UTF-8</argLine>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <servicecomb.version>3.2.4</servicecomb.version>
+    <servicecomb.version>3.3.0</servicecomb.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <!-- 强制使用 SLF4J 2.x (覆盖 ServiceComb BOM) -->
     <slf4j.version>2.0.16</slf4j.version>
