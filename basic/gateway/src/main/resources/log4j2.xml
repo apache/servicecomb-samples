@@ -17,7 +17,7 @@
 -->
 <Configuration>
     <Properties>
-        <property name="FILE_PATH" value="./logs/gateway"/>
+        <property name="FILE_PATH" value="./logs/basic/gateway"/>
     </Properties>
 
     <Appenders>

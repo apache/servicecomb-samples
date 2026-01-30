@@ -17,10 +17,20 @@
 
 package org.apache.servicecomb.samples.uselog4j2;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
+@SpringBootApplication
 public class Application {
   public static void main(String[] args) {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(Application.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

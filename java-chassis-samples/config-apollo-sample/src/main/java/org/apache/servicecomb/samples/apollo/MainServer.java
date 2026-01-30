@@ -16,16 +16,49 @@
  */
 package org.apache.servicecomb.samples.apollo;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.config.DynamicProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 
-import com.netflix.config.DynamicPropertyFactory;
-
+@SpringBootApplication
 public class MainServer {
+  @Autowired
+  private DynamicProperties dynamicProperties;
+
+  @Autowired
+  private Environment environment;
+
+  public String getTimeoutFromDynamic() {
+    return dynamicProperties.getStringProperty("timeout", "default");
+  }
+
+  public String getTimeoutFromEnv() {
+    return environment.getProperty("timeout","default");
+  }
+
   public static void main(String[] args) throws Exception {
-    BeanUtils.init();
-    while (true) {
-      System.out.println(DynamicPropertyFactory.getInstance().getStringProperty("timeout", "default"));
-      Thread.sleep(3000);
+    ConfigurableApplicationContext context = null;
+    try {
+      context = new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(MainServer.class)
+              .run(args);
+
+      MainServer mainServer = context.getBean(MainServer.class);
+      while (true) {
+        System.out.println("Dynamic Properties: " + mainServer.getTimeoutFromDynamic());
+        System.out.println("Environment: " + mainServer.getTimeoutFromEnv());
+        Thread.sleep(3000);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      if (context != null) {
+        context.close();
+      }
     }
   }
 }

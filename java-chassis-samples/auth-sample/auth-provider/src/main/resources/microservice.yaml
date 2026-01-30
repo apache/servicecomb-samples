@@ -21,11 +21,17 @@ servicecomb:
     name: auth-provider
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       address: http://127.0.0.1:30100
-  handler:
-    chain:
-      Provider:
-        default: auth-provider
   rest:
     address: 0.0.0.0:8080
+
+  publicKey:
+    accessControl:
+      enabled: true
+      white:
+        list01:
+          category: property
+          propertyName: serviceName
+          rule: auth-consumer

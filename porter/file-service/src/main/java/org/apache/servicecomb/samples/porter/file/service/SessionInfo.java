@@ -20,7 +20,7 @@ package org.apache.servicecomb.samples.porter.file.service;
 public class SessionInfo {
     private int id;
 
-    private String sessiondId;
+    private String sessionId;
 
     private String userName;
 
@@ -38,12 +38,12 @@ public class SessionInfo {
         this.id = id;
     }
 
-    public String getSessiondId() {
-        return sessiondId;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setSessiondId(String sessiondId) {
-        this.sessiondId = sessiondId;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public String getUserName() {

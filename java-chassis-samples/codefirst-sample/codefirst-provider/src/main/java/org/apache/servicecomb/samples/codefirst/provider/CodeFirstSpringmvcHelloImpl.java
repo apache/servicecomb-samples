@@ -18,7 +18,7 @@
 package org.apache.servicecomb.samples.codefirst.provider;
 
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.pojo.RpcSchema;
 import org.apache.servicecomb.samples.common.schema.Hello;

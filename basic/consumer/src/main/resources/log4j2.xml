@@ -17,7 +17,7 @@
 -->
 <Configuration>
   <Properties>
-    <property name="FILE_PATH" value="./logs/consumer"/>
+    <property name="FILE_PATH" value="./logs/basic/consumer"/>
   </Properties>
 
   <Appenders>

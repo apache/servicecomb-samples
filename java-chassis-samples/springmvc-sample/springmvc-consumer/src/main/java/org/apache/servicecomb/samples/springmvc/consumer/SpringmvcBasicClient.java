@@ -26,11 +26,11 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
 
 @Component("SpringmvcBasicClient")
 public class SpringmvcBasicClient {
-  private RestTemplate restTemplateInvoker = RestTemplateBuilder.create();
+  private RestOperations restTemplateInvoker = RestTemplateBuilder.create();
 
   @RpcReference(microserviceName = "springmvc", schemaId = "SpringmvcBasicEndpoint")
   private SpringmvcBasicService rpcInoker;

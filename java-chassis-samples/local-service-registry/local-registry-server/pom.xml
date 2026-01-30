@@ -23,26 +23,14 @@
   <parent>
     <groupId>org.apache.servicecomb.samples</groupId>
     <artifactId>local-service-registry</artifactId>
-    <version>2.6.0</version>
+    <version>3.0-SNAPSHOT</version>
   </parent>
   <artifactId>local-registry-server</artifactId>
-  <name>Java Chassis::Demo::LocalRegistry::Server</name>
+  <name>Java Chassis::Demo::LocalServiceRegistry::Server</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.servicecomb.samples</groupId>
-      <artifactId>common-schema</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-jaxrs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>transport-rest-vertx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>handler-bizkeeper</artifactId>
+      <artifactId>solution-basic</artifactId>
     </dependency>
     <!--log4j2-->
     <dependency>
@@ -56,6 +44,10 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicecomb.samples</groupId>
+      <artifactId>common-schema</artifactId>
     </dependency>
   </dependencies>
 

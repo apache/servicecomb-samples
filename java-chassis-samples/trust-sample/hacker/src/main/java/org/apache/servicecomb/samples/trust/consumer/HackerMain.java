@@ -16,18 +16,27 @@
  */
 package org.apache.servicecomb.samples.trust.consumer;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.samples.trust.Compute;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
-@Component
+@SpringBootApplication
 public class HackerMain {
   @RpcReference(microserviceName = "store", schemaId = "codeFirstCompute")
   public static Compute compute;
 
   public static void main(String[] args) {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(HackerMain.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     System.out.println("a=1, b=2, result=" + compute.add(1, 2));
   }
 }

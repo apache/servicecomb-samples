@@ -21,11 +21,9 @@ servicecomb:
     name: codefirstClient
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       address: http://127.0.0.1:30100
-  isolation:
-    Consumer:
-      enabled: false
   references:
     codefirst:
       version-rule: 0.0.1

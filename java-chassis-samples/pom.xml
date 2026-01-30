@@ -24,12 +24,17 @@
   <artifactId>samples</artifactId>
   <name>Java Chassis::Samples</name>
   <packaging>pom</packaging>
-  <version>2.6.0</version>
+  <version>3.0-SNAPSHOT</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
+    <java.version>17</java.version>
     <argLine>-Dfile.encoding=UTF-8</argLine>
+    <servicecomb.version>3.3.0</servicecomb.version>
+    <spring-boot-maven-plugin.version>3.1.3</spring-boot-maven-plugin.version>
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+    <apache-rat-plugin.version>0.13</apache-rat-plugin.version>
   </properties>
 
   <modules>
@@ -54,7 +59,7 @@
       <dependency>
         <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>
-        <version>${project.version}</version>
+        <version>${servicecomb.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -67,22 +72,21 @@
   </dependencyManagement>
 
   <build>
-
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
+          <version>${maven-compiler-plugin.version}</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
           </configuration>
         </plugin>
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>2.1.2.RELEASE</version>
+          <version>${spring-boot-maven-plugin.version}</version>
           <executions>
             <execution>
               <goals>
@@ -98,16 +102,14 @@
     </pluginManagement>
 
     <plugins>
-      <!-- 配置项目使用jdk1.8编译 -->
+      <!-- 配置项目使用jdk17编译 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
         <configuration>
           <compilerArgument>-parameters</compilerArgument>
           <encoding>UTF-8</encoding>
-          <source>1.8</source>
-          <target>1.8</target>
+          <release>${java.version}</release>
           <compilerArgs>
             <arg>-Werror</arg>
             <arg>-Xlint:all</arg>
@@ -121,7 +123,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.8.2</version>
+        <version>${maven-deploy-plugin.version}</version>
         <configuration>
           <skip>true</skip>
         </configuration>
@@ -129,7 +131,7 @@
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
-        <version>0.13</version>
+        <version>${apache-rat-plugin.version}</version>
         <configuration>
           <excludes>
             <exclude>.travis.yml</exclude>

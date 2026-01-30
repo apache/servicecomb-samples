@@ -16,13 +16,14 @@
  */
 package org.apache.servicecomb.samples.codefirst.consumer;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.samples.common.schema.Hello;
 import org.apache.servicecomb.samples.common.schema.models.Person;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
-@Component
+@SpringBootApplication
 public class CodeFirstConsumerMain {
 
   @RpcReference(microserviceName = "codefirst", schemaId = "codeFirstJaxrsHello")
@@ -35,7 +36,19 @@ public class CodeFirstConsumerMain {
   private static Hello hello;
 
   public static void main(String[] args) {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(CodeFirstConsumerMain.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    run();
+  }
+
+  private static void run() {
     System.out.println(hello.sayHi("Java Chassis"));
     System.out.println(jaxrsHello.sayHi("Java Chassis"));
     System.out.println(springmvcHello.sayHi("Java Chassis"));

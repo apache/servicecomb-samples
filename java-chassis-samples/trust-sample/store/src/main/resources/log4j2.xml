@@ -18,7 +18,7 @@
 <!--this is sample configuration, please modify as your wish-->
 <configuration>
   <Properties>
-    <Property name="log_path">./target/log/</Property>
+    <Property name="log_path">./logs/trust-sample/store</Property>
   </Properties>
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">

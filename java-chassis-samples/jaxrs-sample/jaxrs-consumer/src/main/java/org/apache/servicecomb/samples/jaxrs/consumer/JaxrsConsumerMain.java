@@ -16,28 +16,41 @@
  */
 package org.apache.servicecomb.samples.jaxrs.consumer;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.apache.servicecomb.samples.common.schema.Hello;
 import org.apache.servicecomb.samples.common.schema.models.Person;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.web.client.RestOperations;
 
-@Component
+@SpringBootApplication
 public class JaxrsConsumerMain {
 
   @RpcReference(microserviceName = "jaxrs", schemaId = "jaxrsHello")
   private static Hello hello;
 
   public static void main(String[] args) {
-    BeanUtils.init();
+    try {
+      new SpringApplicationBuilder()
+              .web(WebApplicationType.NONE)
+              .sources(JaxrsConsumerMain.class)
+              .run(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    run();
+  }
+
+  private static void run() {
     System.out.println(hello.sayHi("Java Chassis"));
     Person person = new Person();
     person.setName("ServiceComb/Java Chassis");
     System.out.println(hello.sayHello(person));
 
-    RestTemplate restTemplate = RestTemplateBuilder.create();
+    RestOperations restTemplate = RestTemplateBuilder.create();
     String result = restTemplate.getForObject("cse://jaxrs/jaxrshello/saybye", String.class);
     System.out.println(result);
   }

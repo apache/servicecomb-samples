@@ -26,15 +26,22 @@ public class ProducerOutputGenerator extends AbstractOutputGenerator {
     Invocation invocation = event.getInvocation();
     InvocationStageTrace stageTrace = invocation.getInvocationStageTrace();
 
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.THREAD_POOL_QUEUE, stageTrace.calcThreadPoolQueueTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.SERVER_FILTERS_REQUEST,
-        stageTrace.calcServerFiltersRequestTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.HANDLERS_REQUEST, stageTrace.calcHandlersRequestTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, invocation.getOperationMeta().getSchemaQualifiedName(),
-        stageTrace.calcBusinessTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.HANDLERS_RESPONSE, stageTrace.calcHandlersResponseTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.SERVER_FILTERS_RESPONSE,
-        stageTrace.calcServerFiltersResponseTime());
-    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.PRODUCER_SEND_RESPONSE, stageTrace.calcSendResponseTime());
+    // 1. total: start create invocation -> all filters finished
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_TOTAL, stageTrace.calcTotal());
+    // 2. prepare: start create invocation -> finish create invocation
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PREPARE, stageTrace.calcPrepare());
+    // 3. queue: add in queue -> execute in thread
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_QUEUE, stageTrace.calcQueue());
+    // 4. provider-decode: start decode request -> finish decode request
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_DECODE_REQUEST,
+            stageTrace.calcProviderDecodeRequest());
+    // 5. execute: start business execute -> finish business execute
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_BUSINESS, stageTrace.calcBusinessExecute());
+    // 6. provider-encode: start encode response -> finish encode response
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_ENCODE_RESPONSE,
+            stageTrace.calcProviderEncodeResponse());
+    // 7. provider-send: start send response -> finish send response
+    appendTimeLine(sb, PAD4_TIME_FMT, InvocationStageTrace.STAGE_PROVIDER_SEND,
+            stageTrace.calcProviderSendResponse());
   }
 }

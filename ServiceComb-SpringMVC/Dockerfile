@@ -1,4 +1,4 @@
-FROM openjdk:8u181-jdk-alpine
+FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /home/apps/
 

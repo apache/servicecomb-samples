@@ -18,15 +18,15 @@
 servicecomb:
   service:
     application: auth-sample
-    name: authConsumer
+    name: auth-consumer
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       address: http://127.0.0.1:30100
-  handler:
-    chain:
-      Consumer:
-        default: auth-consumer, loadbalance
   references:
     auth-provider:
       version-rule: 0.0.1
+  publicKey:
+    accessControl:
+      enabled: true

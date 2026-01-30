@@ -21,7 +21,8 @@ servicecomb:
     name: springmvc
     version: 0.0.1
 
-    registry:
+  registry:
+    sc:
       # Default using local service center
       address: http://localhost:30100
       # address: https://cse.cn-south-1.myhuaweicloud.com
@@ -32,10 +33,6 @@ servicecomb:
 
   rest:
     address: 0.0.0.0:8080
-  handler:
-    chain:
-      Provider:
-        default: bizkeeper-provider
 
 # Using Huawei Cloud Service Engine Professional Edition, AK/SK is required
 #  credentials:

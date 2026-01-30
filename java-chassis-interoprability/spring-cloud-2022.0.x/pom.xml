@@ -33,7 +33,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring-cloud.version>2022.0.2</spring-cloud.version>
     <spring-boot.version>3.0.7</spring-boot.version>
-    <spring-cloud-huawei.version>1.11.0-2022.0.x</spring-cloud-huawei.version>
+    <spring-cloud-huawei.version>1.11.10-2024.0.x</spring-cloud-huawei.version>
   </properties>
 
   <dependencyManagement>
@@ -71,7 +71,7 @@
     <dependency>
       <groupId>com.lmax</groupId>
       <artifactId>disruptor</artifactId>
-      <version>3.4.4</version>
+      <version>${disruptor.version}</version>
     </dependency>
   </dependencies>
 

@@ -20,8 +20,3 @@ servicecomb:
     application: localservreg
     name: localclient
     version: 0.0.1
-
-  handler:
-    chain:
-      Consumer:
-        default: bizkeeper-consumer,loadbalance

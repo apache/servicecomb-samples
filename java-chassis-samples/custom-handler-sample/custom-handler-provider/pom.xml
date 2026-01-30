@@ -21,31 +21,16 @@
   <parent>
     <groupId>org.apache.servicecomb.samples</groupId>
     <artifactId>custom-handler-sample</artifactId>
-    <version>2.6.0</version>
+    <version>3.0-SNAPSHOT</version>
   </parent>
   <artifactId>custom-handler-provider</artifactId>
   <name>Java Chassis::Samples::Custom Handler::Provider</name>
   <dependencies>
-
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-pojo</artifactId>
+      <artifactId>solution-basic</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>transport-rest-vertx</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>handler-loadbalance</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>handler-flowcontrol-qps</artifactId>
-    </dependency>
-
+    <!-- log4j-->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
