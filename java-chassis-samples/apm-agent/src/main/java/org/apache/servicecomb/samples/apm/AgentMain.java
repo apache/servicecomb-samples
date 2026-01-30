@@ -20,28 +20,33 @@ import java.lang.instrument.Instrumentation;
 
 public class AgentMain {
   public static void premain(String args, Instrumentation inst) {
-    // Register Spring ApplicationContextInitializer to make ApmBootListener a Spring Bean
-    // This must be set BEFORE Spring initializes
-    String existingInitializers = System.getProperty("context.initializer.classes", "");
+    // Backward compatibility: Set system properties for older Spring Boot versions
+    // - ServiceComb 3.2.4 (Spring Boot 3.3.5): System property loading still works (deprecated but functional)
+    // - ServiceComb 3.3.0+ (Spring Boot 3.4.5): System property REMOVED, requires META-INF/spring.factories
+    // Spring Boot 3.2 deprecated context.initializer.classes, Spring Boot 3.4 removed it completely
+    // Keeping both approaches ensures maximum compatibility across versions
     String apmInitializer = "org.apache.servicecomb.samples.apm.ApmBeanRegistrar";
-
+    String existingInitializers = System.getProperty("context.initializer.classes", "");
+    
     if (existingInitializers.isEmpty()) {
       System.setProperty("context.initializer.classes", apmInitializer);
     } else {
       System.setProperty("context.initializer.classes", existingInitializers + "," + apmInitializer);
     }
 
-    // Inject jar to System ClassLoader immediately for JDK 9+ compatibility
+    // JDK 9+ compatibility: Append agent jar to system classloader search path
+    // This ensures agent classes are visible to the application classloader
     try {
       java.util.jar.JarFile jarFile = new java.util.jar.JarFile(
           new java.io.File(AgentMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
       inst.appendToSystemClassLoaderSearch(jarFile);
     } catch (Exception e) {
+      System.err.println("[APM-Agent] Warning: Failed to append agent jar to system classloader");
       e.printStackTrace();
     }
 
-    // to support web container, we can not just only inject spiJar to system classloader
-    // in this sample, javaAgent jar equals ServiceComb plugin jar
+    // Web container compatibility: Add class transformer to inject agent jar into web container classloaders
+    // This handles cases where the application uses a custom classloader (e.g., Tomcat, Jetty)
     inst.addTransformer(
         new SCBClassFileTransformer(AgentMain.class.getProtectionDomain().getCodeSource().getLocation()));
   }

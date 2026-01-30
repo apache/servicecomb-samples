@@ -273,11 +273,36 @@ public void onInvocationFinish(InvocationFinishEvent event) {
 }
 ```
 
+## Version Compatibility
+
+### ServiceComb 3.3.0 Upgrade Notes
+
+If you are upgrading from **ServiceComb 3.2.4 to 3.3.0**, please note the following for APM Agent:
+
+**Root Cause**:
+
+- ServiceComb 3.3.0 uses Spring Boot 3.4.5 (upgraded from Spring Boot 3.3.5 in 3.2.4)
+- Spring Boot 3.4 completely removed support for loading `ApplicationContextInitializer` via system property `context.initializer.classes`
+- Must use `META-INF/spring.factories` standard SPI mechanism
+
+**Current Solution**:
+This project has adopted a **dual-guarantee strategy** that supports both loading methods:
+
+- System property approach (compatible with ServiceComb 3.2.4 and earlier versions)
+- spring.factories approach (required for ServiceComb 3.3.0+)
+
+**No additional configuration needed** - the Agent automatically supports both ServiceComb 3.2.4 and 3.3.0.
+
+**Detailed Documentation**:
+
+- [Root Cause Analysis](docs/版本升级根本原因分析.md) - Detailed technical analysis with official documentation evidence (Chinese)
+- [Migration Guide](docs/升级到3.3.0问题解决.md) - Quick solution and steps (Chinese)
+
 ## Notes
 
 1. **Performance Impact**: The APM Agent will have some impact on application performance. It is recommended to control the sampling rate in production environments
 2. **Log Output**: The current implementation outputs directly to the console. For production environments, it is recommended to use asynchronous output to files or message queues
-3. **Version Compatibility**: This sample is developed based on ServiceComb 3.0. Other versions may require adjustments
+3. **Version Compatibility**: This sample is compatible with ServiceComb 3.2.4 and 3.3.0. Other versions may require adjustments
 4. **JDK Version**: Supports JDK 8 and above
 
 ## References
