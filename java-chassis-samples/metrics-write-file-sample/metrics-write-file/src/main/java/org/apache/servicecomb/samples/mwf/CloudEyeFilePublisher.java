@@ -120,10 +120,17 @@ public class CloudEyeFilePublisher implements MetricsInitializer {
 
   protected String generateMetricKey(Meter meter) {
     StringBuilder sb = new StringBuilder();
-    sb.append(meter.getId().getName());
+    sb.append(sanitizeFileName(meter.getId().getName()));
     for (Tag tag : meter.getId().getTags()) {
-      sb.append('.').append(tag.getValue());
+      sb.append('.').append(sanitizeFileName(tag.getValue()));
     }
     return sb.toString();
+  }
+
+  private String sanitizeFileName(String input) {
+    if (input == null) {
+      return "";
+    }
+    return input.replaceAll("[<>:\"/\\\\|?*]", "_");
   }
 }
